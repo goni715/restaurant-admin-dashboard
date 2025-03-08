@@ -1,23 +1,27 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React from "react";
+import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
-import SidebarMenu from '../components/shared/SidebarMenu';
-import HeaderPart from '../components/shared/HeaderPart';
+import SidebarMenu from "../components/shared/SidebarMenu";
+import HeaderPart from "../components/shared/HeaderPart";
 
 const RootLayOut = () => {
-    const { Header, Sider} = Layout;
+  const { Sider, Content } = Layout;
 
   return (
-    <Layout style={{ minHeight: "calc(100vh-64px)" }}>
-      <HeaderPart/>
-  <Layout>
-  <Sider style={{background:"#F6F6F6"}} width={200} theme="light" >
-    <SidebarMenu/>
-  </Sider>
-     <Outlet/>
-  </Layout>
-</Layout>
-  )
-}
+    <Layout className="min-h-screen flex justify-center bg-gray-100">
+      <div className="w-full mx-auto">
+        <HeaderPart />
+        <Layout className="flex">
+          <Sider width={256} className="!bg-[#F6F6F6] h-[calc(100vh-100px)]">
+            <SidebarMenu />
+          </Sider>
+          <Content className="!bg-white p-5 flex-1">
+            <Outlet />
+          </Content>
+        </Layout>
+      </div>
+    </Layout>
+  );
+};
 
-export default RootLayOut
+export default RootLayOut;

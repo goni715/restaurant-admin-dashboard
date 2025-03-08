@@ -1,18 +1,23 @@
 import { RadarChartOutlined } from '@ant-design/icons'
 import Avatar from 'antd/es/avatar/Avatar'
 import { Header } from 'antd/es/layout/layout'
+import { Link } from 'react-router-dom'
 
 const HeaderPart = () => {
   return (
-    <div>
+    <div className='h-[100px]'>
         <Header className='!bg-[#f6f6f6]  flex justify-between items-center'>
-         <div className='flex items-center space-x-2'>
-         <RadarChartOutlined className='text-3xl'/>
-         <p className='font-semibold'>Our Coueses</p>
+         <div className='py-2.5'>
+           <Link to={'/'}>
+             <img src="/elhagz.png" className='w-20 h-20' alt="elhagz" />
+           </Link>
          </div>
          <div className='flex items-center  gap-x-2'>
-            <Avatar size={36} src={'/ant.png'} />
+            <img src="/admin.png" alt="admin"  className='w-14 h-14'  />
+            <div>
             <p className='text-xl'> Mehedi Hasan </p>
+            <p className='text-xl'> Admin </p>
+            </div>
          </div>
       </Header>
     </div>
