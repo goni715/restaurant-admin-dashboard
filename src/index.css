@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
-.ant-menu-light .ant-menu-item-selected {
+/* .ant-menu-light .ant-menu-item-selected {
   background-color: red !important;
   color: white !important;
 }
+
+.ant-menu-submenu .ant-menu-submenu-inline {
+  background-color: red !important;
+  color: white !important;
+}
+ */

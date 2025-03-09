@@ -8,11 +8,11 @@ const RootLayOut = () => {
   const { Sider, Content } = Layout;
 
   return (
-    <Layout className="min-h-screen flex justify-center bg-gray-100">
+    <Layout className="min-h-screen  flex justify-center bg-gray-100">
       <div className="w-full mx-auto">
         <HeaderPart />
         <Layout className="flex">
-          <Sider width={256} className="!bg-[#F6F6F6] h-[calc(100vh-100px)]">
+          <Sider width={256} className="!bg-[#F6F6F6] ">
             <SidebarMenu />
           </Sider>
           <Content className="!bg-white p-5 flex-1">

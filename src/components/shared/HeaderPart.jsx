@@ -1,27 +1,28 @@
-import { RadarChartOutlined } from '@ant-design/icons'
-import Avatar from 'antd/es/avatar/Avatar'
-import { Header } from 'antd/es/layout/layout'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import {Typography } from 'antd';
+import 'antd/dist/reset.css'; // Import Ant Design styles
+import { Link } from 'react-router-dom';
+
+const { Text } = Typography;
 
 const HeaderPart = () => {
   return (
-    <div className='h-[100px]'>
-        <Header className='!bg-[#f6f6f6]  flex justify-between items-center'>
-         <div className='py-2.5'>
-           <Link to={'/'}>
-             <img src="/elhagz.png" className='w-20 h-20' alt="elhagz" />
-           </Link>
-         </div>
-         <div className='flex items-center  gap-x-2'>
-            <img src="/admin.png" alt="admin"  className='w-14 h-14'  />
-            <div>
-            <p className='text-xl'> Mehedi Hasan </p>
-            <p className='text-xl'> Admin </p>
-            </div>
-         </div>
-      </Header>
+    <div className="bg-[#F6F6F6] p-4 flex items-center justify-between ">
+      {/* Logo Section */}
+      <Link to={'/'}>
+        <img src="elhagz.png" alt="Logo" className="h-20 w-20 mr-4" /> 
+      </Link>
+      {/* User Section */}
+      <div className="flex items-center">
+        <img src="admin.png" alt="User" className="mr-2 w-16 h-16" /> 
+        <div>
+          <Text  className='text-black' >Eyasin</Text>
+          <br/>
+          <Text className="font-semibold" >Admin</Text>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default HeaderPart
+export default HeaderPart;
