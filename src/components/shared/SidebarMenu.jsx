@@ -99,11 +99,11 @@ const SidebarMenu = () => {
                     title={
                       <Link to='/settings' className='flex items-center justify-between w-full'>
                           <span className='text-[18px]'>Settings</span>
-                          <RiArrowDownSFill
+                          {/* <RiArrowDownSFill
                               className={`transition-transform duration-300 ${
                                   settingsOpen ? 'transform rotate-180' : ''
                               }`}
-                          />
+                          /> */}
                       </Link>
                   }
                     onTitleClick={toggleSettings}
