@@ -11,6 +11,9 @@ import TermsConditions from "./pages/terms";
 import FaqPage from "./pages/faqs";
 import PrivacyPolicy from "./pages/privacyPolicy";
 import SettingPage from "./pages/settings";
+import ForgotPassword from "./pages/auth/forgotPassword";
+import VerificationPage from "./components/verificationComponents/VerificationPage";
+import ResetPassword from "./pages/auth/resetPassword";
 
 function App() {
 
@@ -29,6 +32,9 @@ function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy/>}></Route>
           </Route>
           <Route path="/login" element={<LoginPage/>}></Route>
+          <Route path="/forgot-password" element={<ForgotPassword/>}></Route>
+          <Route path="/verification" element={<VerificationPage/>}></Route>
+          <Route path="/reset-password" element={<ResetPassword/>}></Route>
       </Route>
     )
   );

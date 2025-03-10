@@ -151,12 +151,12 @@ const Restaurant = () => {
                 <td className="py-4 px-4">{restaurant.owner}</td>
                 <td className="py-4 px-4">{restaurant.address}</td>
                 <td className="py-4 px-4">
-                  <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                  <button className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded">
                     <FaEye />
                   </button>
                 </td>
                 <td className="py-4 px-4">
-                  <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                  <button className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded">
                     Action
                   </button>
                 </td>

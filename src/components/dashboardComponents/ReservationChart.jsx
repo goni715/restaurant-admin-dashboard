@@ -19,7 +19,7 @@ const data = [
 
 const ReservationChart = () => {
   return (
-    <Card className="rounded-xl shadow-md p-5 !bg-[#F6F6F6]">
+    <Card className="rounded-xl  p-3 !bg-[#F6F6F6]">
       <h3 className="text-lg font-semibold mb-3">Reservation Growth</h3>
       <ResponsiveContainer height={250}>
         <LineChart data={data}>

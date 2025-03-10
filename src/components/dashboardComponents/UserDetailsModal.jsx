@@ -1,4 +1,5 @@
 import React from 'react';
+import userDetails from  '../../../public/userDetails.png'
 
 const UserDetailsModal = ({ user, onClose }) => {
   if (!user) {
@@ -6,7 +7,7 @@ const UserDetailsModal = ({ user, onClose }) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center">
+    <div className="fixed inset-0 bg-white/80 overflow-y-auto h-full w-full flex justify-center items-center">
       <div className="bg-white rounded-lg p-6 w-96 relative">
         <h2 className="text-lg font-semibold mb-4">Details</h2>
         <button
@@ -29,7 +30,7 @@ const UserDetailsModal = ({ user, onClose }) => {
         </button>
         <div className="flex justify-center mb-4">
           <img
-            src={user.details.image}
+            src={userDetails}
             alt="User Details"
             className="w-24 h-24 rounded-lg"
           />

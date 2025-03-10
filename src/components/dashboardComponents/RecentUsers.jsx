@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import UserDetailsModal from './UserDetailsModal';
 import { FaEye } from 'react-icons/fa';
+import Actions from '../Actions';
 
 const users = [
   {
@@ -32,7 +33,7 @@ const users = [
     },
   },
   {
-    id: '#1235', // Changed ID for demonstration
+    id: '#1235', 
     fullName: 'Foysal Rahman',
     email: 'qamaho@mail.com',
     phoneNumber: '(316) 555-0116',
@@ -61,7 +62,7 @@ const RecentUsers = () => {
   const selectedUser = users.find((user) => user.id === selectedUserId);
 
   return (
-    <div className="bg-[#f6f6f6] rounded-lg shadow p-6">
+    <div className="bg-[#f6f6f6] rounded-lg shadow p-3">
       <h2 className="text-lg font-semibold mb-4">Recent Users</h2>
       <table className="w-full text-sm text-left">
         <thead className="text-xs text-gray-700 uppercase ">
@@ -92,7 +93,7 @@ const RecentUsers = () => {
               <td className="py-4 px-4">{user.address}</td>
               <td className="py-4 px-4">
                 <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded"
                   onClick={() => handleViewClick(user.id)}
                 >
                   <FaEye/>
@@ -100,7 +101,9 @@ const RecentUsers = () => {
                 </button>
               </td>
               <td className="py-4 px-4">
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                <button className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded" 
+                 onClick={() => handleViewClick(user.id)}
+                >
                   Action
                 </button>
               </td>
@@ -108,6 +111,10 @@ const RecentUsers = () => {
           ))}
         </tbody>
       </table>
+
+      {selectedUser && (
+        <Actions user={selectedUser} onClose={handleCloseModal} />
+      )}
 
       {selectedUser && (
         <UserDetailsModal user={selectedUser} onClose={handleCloseModal} />

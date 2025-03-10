@@ -8,7 +8,7 @@ const RootLayOut = () => {
   const { Sider, Content } = Layout;
 
   return (
-    <Layout className="flex justify-center bg-gray-100">
+    <Layout className="flex justify-center  bg-gray-100">
       <div className="w-full mx-auto">
         <HeaderPart />
         <Layout className="flex">

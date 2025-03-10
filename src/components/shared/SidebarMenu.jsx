@@ -7,7 +7,6 @@ import {
     RiAdminFill,
     RiSettingsFill,
     RiLogoutBoxRLine,
-    RiArrowDownSFill,
 } from 'react-icons/ri';
 import { FaRegCircleUser } from 'react-icons/fa6';
 
@@ -48,7 +47,7 @@ const SidebarMenu = () => {
     }, [location]);
 
     return (
-        <div className='py-6'>
+        <div className='py-0'>
             <Menu
                 style={{ background: '#F6F6F6' }}
                 mode='inline'

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Pagination } from 'antd';
 import { FaEye } from 'react-icons/fa';
+import UserDetailsModal from '../../components/dashboardComponents/UserDetailsModal';
 
 const { Search } = Input;
 
@@ -173,6 +174,24 @@ const UserManagement = () => {
     setPageSize(pageSize);
   };
 
+
+   const [selectedUserId, setSelectedUserId] = useState(null);
+  
+    // const handleViewClick = (userId) => {
+    //   setSelectedUserId(userId);
+    // };
+  
+    const handleCloseModal = () => {
+      setSelectedUserId(null);
+    };
+  
+    const selectedUser = users.find((user) => user.id === selectedUserId);
+
+
+
+
+
+
   return (
     <div className="p-4 bg-[#f6f6f6]">
       <div className="flex justify-between items-center mb-4">
@@ -214,12 +233,13 @@ const UserManagement = () => {
                   <td className="py-2 px-4">{user.email}</td>
                   <td className="py-2 px-4">{user.phoneNumber}</td>
                   <td className="py-2 px-4">
-                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                  {/* onClick={() => handleViewClick(user.id)}  */}
+                    <button  className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded">
                       <FaEye />
                     </button>
                   </td>
                   <td className="py-4 px-4">
-                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                    <button className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded">
                       Action
                     </button>
                   </td>
@@ -239,12 +259,16 @@ const UserManagement = () => {
             pageSize={pageSize}
             total={filteredUsers.length}
             onChange={handlePageChange}
-            showSizeChanger={false} // Disable changing the page size
+            showSizeChanger={false} 
             showQuickJumper
-            showTotal={(total) => `Total ${total} items`}
+            // showTotal={(total) => `Showing out of  ${total} `}
           />
         </div>
       </div>
+
+      {selectedUser && (
+        <UserDetailsModal user={selectedUser} onClose={handleCloseModal} />
+      )}
     </div>
   );
 };

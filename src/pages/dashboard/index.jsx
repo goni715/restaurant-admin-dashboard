@@ -30,7 +30,7 @@ const Dashboard = () => {
       />
 
      </div>
-     <div className='flex mt-5 gap-x-5'>
+     <div className='flex my-5 gap-x-5'>
      <div className='w-1/2'><ReservationChart/></div>
      <div className='w-1/2'><UsersGrowth/></div>
       

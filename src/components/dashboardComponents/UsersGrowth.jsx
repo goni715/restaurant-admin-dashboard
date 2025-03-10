@@ -14,8 +14,8 @@ const data = [
 
 const UsersGrowth = () => {
   return (
-    <Card className="rounded-xl shadow-md p-5 !bg-[#F6F6F6]">
-      <h3 className="text-lg font-semibold mb-3">Users Growth</h3>
+    <Card className="rounded-xl p-3 !bg-[#F6F6F6]">
+      <h3 className="text-lg font-semibold mb-2">Users Growth</h3>
       <ResponsiveContainer height={250}>
         <BarChart data={data} barSize={30}>
           <XAxis dataKey="day" stroke="#999" />

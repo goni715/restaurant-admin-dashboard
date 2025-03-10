@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Button, Modal } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 const FaqPage = () => {
   const [faqs, setFaqs] = useState([
@@ -50,59 +51,78 @@ const FaqPage = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 bg-[#f6f6f6]">
       <h2 className="text-2xl font-semibold mb-4">FAQs</h2>
+  
+
+     <div>
       {faqs.map((faq) => (
-        <div className='flex'>
+        <div className='flex justify-between gap-x-2'>
 
          <div
           key={faq.id}
           className="w-1/2" 
         >
           <div>
-            <div className="font-semibold">Question no: {faq.id}</div>
-            <div className="mt-2">{faq.question}</div>
-          </div>
-          <div>
-            <div className="font-semibold">Answer</div>
-            <div className="mt-2">{faq.answer}</div>
-            <div className="flex justify-end mt-2">
+            <div className="font-semibold py-3">Question no: {faq.id}</div>
+            <div className="!bg-white p-3">{faq.question} <div className="flex justify-end ">
               <Button
                 type="text"
-                icon={<DeleteOutlined />}
+                icon={<RiDeleteBin6Line className='!text-red-500'/>}
                 onClick={() => handleDelete(faq.id)}
               />
             </div>
+            </div>
+            <div className="font-semibold py-3">Answer</div>
+            <div className="mt-2  p-3 !bg-white">{faq.answer}</div>
           </div>
         </div>
+
         <div
           key={faq.id}
           className="w-1/2" 
         >
           <div>
-            <div className="font-semibold">Question no: {faq.id}</div>
-            <div className="mt-2">{faq.question}</div>
-          </div>
-          <div>
-            <div className="font-semibold">Answer</div>
-            <div className="mt-2">{faq.answer}</div>
-            <div className="flex justify-end mt-2">
+            <div className="font-semibold py-3">Question no: {faq.id}</div>
+            <div className="!bg-white p-3">{faq.question} <div className="flex justify-end ">
               <Button
                 type="text"
-                icon={<DeleteOutlined />}
+                icon={<RiDeleteBin6Line className='!text-red-500'/>}
                 onClick={() => handleDelete(faq.id)}
               />
             </div>
+            </div>
+            <div className="font-semibold py-3">Answer</div>
+            <div className="mt-2  p-3 !bg-white">{faq.answer}</div>
           </div>
         </div>
+
+    
+        
+        
         </div>
       ))}
-      <Button
+      </div>
+
+   
+
+
+
+
+
+
+
+
+ <div className='flex justify-center my-5'>
+ <Button
         className="w-96 mt-4 !bg-red-600 !text-white hover:bg-red-700 border-red-600" 
         onClick={showModal}
       >
         + Add FAQ
       </Button>
+ </div>
+
+
       <Modal
         title="Add New FAQ"
         visible={isModalVisible}
