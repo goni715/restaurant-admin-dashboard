@@ -1,50 +1,44 @@
 import React from 'react';
-import userDetails from  '../../../public/userDetails.png'
+import { Modal, Avatar, Typography } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 
-const UserDetailsModal = ({ user, onClose }) => {
-  if (!user) {
-    return null; 
-  }
+const { Text } = Typography;
 
+const UserDetailsModal = ({ visible, onClose, user }) => {
+  if (!user) return null; 
   return (
-    <div className="fixed inset-0 bg-white/80 overflow-y-auto h-full w-full flex justify-center items-center">
-      <div className="bg-white rounded-lg p-6 w-96 relative">
-        <h2 className="text-lg font-semibold mb-4">Details</h2>
+    <Modal
+      visible={visible}
+      onCancel={onClose}
+      footer={null}
+      closable={false}
+      width={400}
+      bodyStyle={{ padding: '24px' }}
+    >
+      <div className="relative">
         <button
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+          className="absolute top-0 right-0 p-2 text-gray-500 hover:text-gray-700"
           onClick={onClose}
         >
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <CloseOutlined />
         </button>
         <div className="flex justify-center mb-4">
-          <img
-            src={userDetails}
-            alt="User Details"
-            className="w-24 h-24 rounded-lg"
-          />
+          <Avatar src={user.avatar} size={100} />
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          <div className="font-semibold">ID No:</div>
-          <div>{user.details.idNo}</div>
-          <div className="font-semibold">Email:</div>
-          <div>{user.details.email}</div>
-          <div className="font-semibold">Username:</div>
-          <div>{user.details.username}</div>
+        <div className="mb-2 flex justify-between">
+          <Text strong>ID No:</Text>
+          <Text className="ml-2">{user.id}</Text>
+        </div>
+        <div className="mb-2 flex justify-between">
+          <Text strong>Email:</Text>
+          <Text className="ml-2">{user.email}</Text>
+        </div>
+        <div className="mb-2 flex justify-between">
+          <Text strong>Username:</Text>
+          <Text className="ml-2">{user.fullName}</Text>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 
