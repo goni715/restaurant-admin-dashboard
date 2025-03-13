@@ -69,7 +69,7 @@ const SidebarMenu = () => {
                     className={activeKey === '2' ? '!bg-red-500 !text-white' : ''} // Tailwind active style
                 >
                     <Link to='/user-management' className='text-[18px]'>
-                        User Management
+                        Users Management
                     </Link>
                 </Menu.Item>
                 <Menu.Item

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Pagination, Modal, Form, Button, Select } from 'antd';
+import { Input, Pagination, Modal, Form, Button, Select, Avatar, Checkbox } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { Search } = Input;
@@ -126,8 +126,8 @@ const Administrator = () => {
   const [modalType, setModalType] = useState('add'); 
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [form] = Form.useForm();
+  
 
-  // const permissionsList = ['dashboard', 'user_management', 'setting'];
 
   const filteredRestaurants = restaurants.filter((restaurant) =>
     restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -272,56 +272,53 @@ const Administrator = () => {
 
       {/* Modal   */}
 
+
       <Modal
-        title={modalType === 'add' ? 'New' : 'Edit '}
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Form form={form} layout="vertical">
+      title={modalType === 'add' ? 'New' : 'Edit '}
+      visible={isModalVisible}
+      onCancel={handleCancel}
+      footer={null}
+    >
+      <div style={{ textAlign: 'center', marginBottom: 20 }}>
+        <Avatar size={64} src="https://via.placeholder.com/64" />
+      </div>
 
-        <Form.Item
-            name="image"
-            label="Image URL"
-            rules={[{ required: true }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="name"
-            label=" Name"
-            rules={[{ required: true }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item name="Email" label="Email" rules={[{ required: true }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="contact"
-            label="Contact Number"
-            rules={[{ required: true }]}
-          >
-            <Input />
-          </Form.Item>
+      <Form form={form} layout="vertical">
+        <Form.Item name="name" label={<strong>Name</strong>} rules={[{ required: true }]}> 
+          <Input placeholder="Type here" />
+        </Form.Item>
+        
+        <Form.Item name="email" label={<strong>Email</strong>} rules={[{ required: true }]}> 
+          <Input placeholder="Type here" />
+        </Form.Item>
+        
+        <Form.Item name="contact" label={<strong>Contact Number</strong>} rules={[{ required: true }]}> 
+          <Input placeholder="Type here" />
+        </Form.Item>
 
-           {/* Dropdown for Role Selection */}
-           <Form.Item name="role" label="Role" rules={[{ required: true, message: 'Please select a role!' }]}> 
-            <Select placeholder="Select Role">
-              <Option value="admin">Admin</Option>
-              <Option value="restaurant_owner">Restaurant Owner</Option>
-            </Select>
-          </Form.Item>
-        </Form>
+        <Form.Item name="role"label={<strong>Role</strong>} rules={[{ required: true }]}> 
+          <Select>
+            <Option value="admin">Admin</Option>
+            <Option value="restaurant_owner">Restaurant Owner</Option>
+          </Select>
+        </Form.Item>
 
-        <div>
-          add check box here to all, dashboard, user management, setting 
-        </div>
+        <Form.Item label="Give Access To">
+          <Checkbox.Group style={{ display: 'flex', flexDirection: 'column' }}>
+            <Checkbox value="all">All</Checkbox>
+            <Checkbox value="dashboard">Dashboard</Checkbox>
+            <Checkbox value="user_management">User Management</Checkbox>
+            <Checkbox value="restaurant_management">Restaurant Management</Checkbox>
+            <Checkbox value="settings">Settings</Checkbox>
+          </Checkbox.Group>
+        </Form.Item>
 
-
-
-
-      </Modal>
+        <Button type="primary" block onClick={handleOk} style={{ backgroundColor: 'red', borderColor: 'red' }}>
+          Update
+        </Button>
+      </Form>
+    </Modal>
+     
     </div>
   );
 };

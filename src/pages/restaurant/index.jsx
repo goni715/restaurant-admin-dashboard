@@ -1,92 +1,96 @@
 import React, { useState } from 'react';
-import { Input, Pagination } from 'antd';
+import { Checkbox, Input, Modal, Pagination, Rate } from 'antd';
 import { FaEye } from 'react-icons/fa';
+import { MdOutlineBlock } from 'react-icons/md';
+
+
+
 const { Search } = Input;
 
 const restaurants = [
   {
-    id: '#1233',
+    id: '#1234',
     owner: 'Mike',
     name: 'Pizza Hut',
     address: 'Broken Shaker',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7ed48e7e34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image: '../../../public/respic.png',
   },
   {
-    id: '#1233',
+    id: '#1235',
     owner: 'Mike',
     name: 'The Dead Rabbit',
     address: 'Hamilton St',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7ed48e7e34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image:'../../../public/respic.png',
   },
   {
-    id: '#1233',
+    id: '#1236',
     owner: 'Mike',
     name: 'The Dead Rabbit',
     address: 'Hamilton St',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7ed48e7e34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image: '../../../public/respic.png',
   },
   {
-    id: '#1233',
+    id: '#1237',
     owner: 'Mike',
     name: 'The Dead Rabbit',
     address: 'Hamilton St',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7ed48e7e34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image: '../../../public/respic.png',
   },
   {
-    id: '#1233',
+    id: '#1238',
     owner: 'Mike',
     name: 'The Dead Rabbit',
     address: 'Hamilton St',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7ed48e7e34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image: '../../../public/respic.png',
   },
   {
-    id: '#1233',
+    id: '#1239',
     owner: 'Mike',
     name: 'The Dead Rabbit',
     address: 'Hamilton St',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7ed48e7e34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image: '../../../public/respic.png',
   },
   {
-    id: '#1233',
+    id: '#1240',
     owner: 'Mike',
     name: 'The Dead Rabbit',
     address: 'Hamilton St',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7ed48e7e34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image:'../../../public/respic.png',
   },
   {
-    id: '#1233',
+    id: '#2233',
     owner: 'Mike',
     name: 'The Dead Rabbit',
     address: 'Hamilton St',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7ed48e7e34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image:'../../../public/respic.png',
   },
   {
-    id: '#1233',
+    id: '#1033',
     owner: 'Mike',
     name: 'The Dead Rabbit',
     address: 'Hamilton St',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7ed48e7e34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image: '../../../public/respic.png',
   },
   {
-    id: '#1233',
+    id: '#1133',
     owner: 'Mike',
     name: 'The  Rabbit',
     address: 'Hamilton St',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7ed48e7e34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image: '../../../public/respic.png',
   },
   {
-    id: '#1233',
+    id: '#1333',
     owner: 'Jhon',
     name: 'The Dead Rabbit',
     address: 'Hamilton St',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7ed48e7e34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image: '../../../public/respic.png',
   },
   {
-    id: '#1233',
+    id: '#1433',
     owner: 'David',
     name: 'The  Rabbit',
     address: 'Hamilton St',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7ed48e7e34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image:'../../../public/respic.png',
   },
 ];
 
@@ -94,6 +98,11 @@ const Restaurant = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+
+
 
   const filteredRestaurants = restaurants.filter((restaurant) =>
     restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -107,6 +116,16 @@ const Restaurant = () => {
   const handlePageChange = (page, pageSize) => {
     setCurrentPage(page);
     setPageSize(pageSize);
+  };
+
+  const handleView = (restaurant) => {
+    setSelectedRestaurant(restaurant);
+    setIsModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+    setSelectedRestaurant(null);
   };
 
   return (
@@ -126,10 +145,10 @@ const Restaurant = () => {
           <thead className="text-xs text-gray-700 uppercase">
             <tr>
               <th className="py-3 px-4">ID no.</th>
-              <th className="py-3 px-4">Restaurant Name</th>
-              <th className="py-3 px-4">Owner</th>
+              <th className="py-3 px-4"> Name</th>
+              <th className="py-3 px-4">RestaurantOwner</th>
               <th className="py-3 px-4">Address</th>
-              <th className="py-3 px-4">View</th>
+      
               <th className="py-3 px-4">Action</th>
             </tr>
           </thead>
@@ -150,14 +169,14 @@ const Restaurant = () => {
                 </td>
                 <td className="py-4 px-4">{restaurant.owner}</td>
                 <td className="py-4 px-4">{restaurant.address}</td>
-                <td className="py-4 px-4">
-                  <button className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded">
-                    <FaEye />
+               
+                <td className="py-4 px-4 flex gap-x-2">
+
+                <button   onClick={() => handleView(restaurant)} className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded">
+                    <FaEye /> 
                   </button>
-                </td>
-                <td className="py-4 px-4">
                   <button className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded">
-                    Action
+                  <MdOutlineBlock/>
                   </button>
                 </td>
               </tr>
@@ -180,7 +199,104 @@ const Restaurant = () => {
             showQuickJumper
           />
         </div>
-      </div>
+      </div> 
+    {/* Restaurant Details Modal */}
+
+      <Modal
+        title="Restaurant Details"
+        visible={isModalVisible}
+        onCancel={handleModalClose}
+        footer={null}
+        width={800} // Adjust width as needed
+        bodyStyle={{ padding: '10px 0' }} 
+      >
+        {selectedRestaurant && (
+          <div className="p-4">
+            <img
+              src={selectedRestaurant.image}
+              alt={selectedRestaurant.name}
+              className="w-full h-[250px] rounded-md mb-4"
+            />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <div className="mb-4">
+                  <p className="font-semibold">Restaurant Name</p>
+                  <Input value={selectedRestaurant.name} disabled />
+                </div>
+                <div className="mb-4">
+                  <p className="font-semibold">Website Link</p>
+                  <Input value={selectedRestaurant.website} disabled />
+                </div>
+                <div className="mb-4">
+                  <p className="font-semibold">Hourly Service</p>
+                  <Input value={selectedRestaurant.hourlyService ? 'Yes' : 'No'} disabled />
+                </div>
+                <div className="mb-4">
+                  <p className="font-semibold">Cancellation Charged</p>
+                  <Input value={selectedRestaurant.cancellation ? 'Yes' : 'No'} disabled />
+                </div>
+                <div className="mb-4">
+                  <p className="font-semibold">OutDoor Tables</p>
+                  <Input value={selectedRestaurant.outdoorTables} disabled />
+                </div>
+                <div className="mb-4">
+                  <p className="font-semibold">Menu</p>
+                  <Input value={selectedRestaurant.menu} disabled />
+                </div>
+              </div>
+              <div>
+                <div className="mb-4">
+                  <p className="font-semibold">Ratings</p>
+                  <div className="flex items-center">
+                    <Rate disabled defaultValue={selectedRestaurant.ratings} style={{ color: "#FFC107" }}  />
+                    <a href="#" className="ml-2">See all </a>
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <p className="font-semibold">Cuisine Type</p>
+                  <Input value={selectedRestaurant.cuisine} disabled />
+                </div>
+                <div className="mb-4">
+                  <p className="font-semibold">Party Size</p>
+                  <Input value={selectedRestaurant.partySize} disabled />
+                </div>
+                <div className="mb-4">
+                  <p className="font-semibold">Indoor Tables</p>
+                  <Input value={selectedRestaurant.indoorTables} disabled />
+                </div>
+                <div className="mb-4">
+                  <p className="font-semibold">Restaurant Name</p>
+                  <Input value={selectedRestaurant.name} disabled />
+                </div>
+                <div className="mb-4">
+                  <p className="font-semibold">Restaurant Name</p>
+                  <Input value={selectedRestaurant.name} disabled />
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center">
+              <Checkbox checked={selectedRestaurant.businessDay} disabled>Day</Checkbox>
+              <div className="ml-4 flex items-center">
+                <p className="mr-2 font-semibold">Open Time</p>
+                <Input value={selectedRestaurant.openTime} disabled style={{ width: '100px', marginRight: '10px' }} />
+                <p className="mr-2">To</p>
+                <Input value={selectedRestaurant.closeTime} disabled style={{ width: '100px' }} />
+              </div>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+
+
+
+
+
+
+
+
+
+
     </div>
   );
 };

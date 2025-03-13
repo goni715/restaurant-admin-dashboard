@@ -10,7 +10,6 @@ import ChangePassword from "../../components/settingsComponents/ChangePassword";
 
 const SettingPage = () => {
     const [currentTab, setCurrentTab] = useState('profile');
-
   return (
     <div className="p-6">
       <Tabs activeKey={currentTab} onChange={setCurrentTab}>

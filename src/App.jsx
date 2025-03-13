@@ -14,6 +14,7 @@ import SettingPage from "./pages/settings";
 import ForgotPassword from "./pages/auth/forgotPassword";
 import VerificationPage from "./components/verificationComponents/VerificationPage";
 import ResetPassword from "./pages/auth/resetPassword";
+import RestaurantView from "./pages/restaurantView";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/" element={<Dashboard/>}></Route>
             <Route path="/user-management" element={<UserManagement/>}></Route>
             <Route path="/restaurant" element={<Restaurant/>}></Route>
+            {/* <Route path="/restaurant/:id" element={<RestaurantView/>}></Route> */}
             <Route path="/administrator" element={<Administrator/>}></Route>
             <Route path="/settings" element={<SettingPage/>}></Route>
             <Route path="/about" element={<AboutUs/>}></Route>
