@@ -56,7 +56,7 @@ const SidebarMenu = () => {
             >
                 <Menu.Item
                     key='1'
-                    icon={<RiPieChart2Fill />}
+                    icon={<RiPieChart2Fill size={25} />}
                     className={activeKey === '1' ? '!bg-red-500 !text-white' : ''}
                 >
                     <Link to='/' className='text-[18px]'>
@@ -65,7 +65,7 @@ const SidebarMenu = () => {
                 </Menu.Item>
                 <Menu.Item
                     key='2'
-                    icon={<FaRegCircleUser />}
+                    icon={<FaRegCircleUser size={25} />}
                     className={activeKey === '2' ? '!bg-red-500 !text-white' : ''} // Tailwind active style
                 >
                     <Link to='/user-management' className='text-[18px]'>
@@ -74,7 +74,7 @@ const SidebarMenu = () => {
                 </Menu.Item>
                 <Menu.Item
                     key='3'
-                    icon={<RiRestaurant2Fill />}
+                    icon={<RiRestaurant2Fill size={25} />}
                     className={activeKey === '3' ? '!bg-red-500 !text-white' : ''} // Tailwind active style
                 >
                     <Link to='/restaurant' className='text-[18px]'>
@@ -83,7 +83,7 @@ const SidebarMenu = () => {
                 </Menu.Item>
                 <Menu.Item
                     key='4'
-                    icon={<RiAdminFill />}
+                    icon={<RiAdminFill size={25} />}
                     className={activeKey === '4' ? '!bg-red-500 !text-white' : ''} // Tailwind active style
                 >
                     <Link to='/administrator' className='text-[18px]'>
@@ -94,7 +94,7 @@ const SidebarMenu = () => {
                 <Menu.SubMenu 
                     className={activeKey === 'settings' ? '!bg-red-500 !text-white' : ''} 
                     key='settings'
-                    icon={<RiSettingsFill/>}
+                    icon={<RiSettingsFill size={25} />}
                     title={
                       <Link to='/settings' className='flex items-center justify-between w-full'>
                           <span className='text-[18px]'>Settings</span>
