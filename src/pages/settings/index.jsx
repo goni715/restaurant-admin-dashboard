@@ -14,7 +14,7 @@ const SettingPage = () => {
     <div className="p-6">
       <Tabs activeKey={currentTab} onChange={setCurrentTab}>
         <Tabs.TabPane tab="Profile" key="profile">
-          <ProfilePage onEdit={setCurrentTab} />
+          <ProfilePage onEdit={setCurrentTab}  />
         </Tabs.TabPane>
         <Tabs.TabPane tab="Edit Profile" key="editProfile">
           <EditProfile onBack={() => setCurrentTab('profile')} />
