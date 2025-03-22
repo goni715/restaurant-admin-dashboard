@@ -9,21 +9,21 @@ const { Search } = Input;
 const restaurants = [
   {
     id: '#1234',
-    owner: 'Mike',
+    owner: 'Raju Khan',
     name: 'Pizza Hut',
     address: 'Broken Shaker',
     image: '/respic.png',
   },
   {
     id: '#1235',
-    owner: 'Mike',
+    owner: 'Nurulla',
     name: 'The Dead Rabbit',
     address: 'Hamilton St',
     image:'/respic.png',
   },
   {
     id: '#1236',
-    owner: 'Mike',
+    owner: 'Tanvir',
     name: 'The Dead Rabbit',
     address: 'Hamilton St',
     image: '/respic.png',
@@ -94,6 +94,7 @@ const restaurants = [
 ];
 
 const Restaurant = () => {
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
@@ -117,10 +118,6 @@ const Restaurant = () => {
     console.log(`Blocked: ${selectedRestaurant.name}`);
     setIsConfirmModalVisible(false);
   };
-
-
-
-
 
 
   const filteredRestaurants = restaurants.filter((restaurant) =>
@@ -155,6 +152,7 @@ const Restaurant = () => {
           <Search
             placeholder="Search here..."
             onSearch={handleSearch}
+            onChange={(e)=>handleSearch(e.target.value)}
             className="p-2 rounded"
           />
         </div>

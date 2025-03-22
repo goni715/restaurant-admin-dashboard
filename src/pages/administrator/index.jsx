@@ -27,7 +27,7 @@ const initialRestaurants = [
     id: '#1235',
     owner: 'mike789@gmail.com',
     contact: '321-654-9870',
-    name: 'The Dead Rabbit',
+    name: 'The Bead ',
     address: 'Hamilton St',
     image:
       'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -36,7 +36,7 @@ const initialRestaurants = [
     id: '#1236',
     owner: 'mike321@gmail.com',
     contact: '789-123-4567',
-    name: 'The Dead Rabbit',
+    name: 'The Rabbit',
     address: 'Hamilton St',
     image:
       'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -45,7 +45,7 @@ const initialRestaurants = [
     id: '#1237',
     owner: 'mike654@gmail.com',
     contact: '654-321-7890',
-    name: 'The Dead Rabbit',
+    name: 'Food Truck',
     address: 'Hamilton St',
     image:
       'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -54,7 +54,7 @@ const initialRestaurants = [
     id: '#1238',
     owner: 'mike987@gmail.com',
     contact: '210-987-6543',
-    name: 'The Dead Rabbit',
+    name: 'The Food Van',
     address: 'Hamilton St',
     image:
       'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -63,7 +63,7 @@ const initialRestaurants = [
     id: '#1239',
     owner: 'mike159@gmail.com',
     contact: '369-258-1470',
-    name: 'The Dead Rabbit',
+    name: 'The  Rabbit',
     address: 'Hamilton St',
     image:
       'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -72,7 +72,7 @@ const initialRestaurants = [
     id: '#1240',
     owner: 'mike753@gmail.com',
     contact: '852-963-7410',
-    name: 'The Dead Rabbit',
+    name: 'The  Alfados',
     address: 'Hamilton St',
     image:
       'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -81,7 +81,7 @@ const initialRestaurants = [
     id: '#1241',
     owner: 'mike951@gmail.com',
     contact: '147-258-3690',
-    name: 'The Dead Rabbit',
+    name: 'Break Room',
     address: 'Hamilton St',
     image:
       'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -90,7 +90,7 @@ const initialRestaurants = [
     id: '#1242',
     owner: 'mike852@gmail.com',
     contact: '789-456-1230',
-    name: 'The Rabbit',
+    name: 'Kacha Lonka',
     address: 'Hamilton St',
     image:
       'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -99,7 +99,7 @@ const initialRestaurants = [
     id: '#1243',
     owner: 'jhon@example.com',
     contact: '951-753-8520',
-    name: 'The Dead Rabbit',
+    name: 'Star Kabab',
     address: 'Hamilton St',
     image:
       'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -108,7 +108,7 @@ const initialRestaurants = [
     id: '#1244',
     owner: 'david@example.com',
     contact: '456-321-7890',
-    name: 'The Rabbit',
+    name: 'Good Food',
     address: 'Hamilton St',
     image:
       'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -194,6 +194,7 @@ const Administrator = () => {
           <Search
             placeholder="Search here..."
             onSearch={handleSearch}
+            onChange={(e)=>handleSearch(e.target.value)}
             className="p-2 rounded"
           />
         </div>

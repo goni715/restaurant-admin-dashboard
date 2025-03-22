@@ -214,6 +214,7 @@ const UserManagement = () => {
           <Search
             placeholder="Search here..."
             onSearch={handleSearch}
+            onChange={(e)=>handleSearch(e.target.value)}
             className="p-2 rounded"
           />
         </div>

@@ -144,7 +144,7 @@ const SidebarMenu = () => {
 
                 <Menu.Item
                     key='signout'
-                    icon={<RiLogoutBoxRLine />}
+                    icon={<RiLogoutBoxRLine size={25} />}
                     className={activeKey === 'signout' ? 'bg-red-500 text-white' : ''} // Tailwind active style
                 >
                     <Link to='/login' className='text-[18px]'>
