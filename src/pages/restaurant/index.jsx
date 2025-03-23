@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Button, Checkbox, Input, Modal, Pagination, Rate } from 'antd';
 import { FaEye } from 'react-icons/fa';
 import { MdOutlineBlock } from 'react-icons/md';
+import RestaurantDetails from '../restaurantDetails/RestaurantDetails';
+import { useNavigate } from 'react-router-dom';
 
 const { Search } = Input;
 
@@ -71,7 +73,7 @@ const restaurants = [
     image: '/respic.png',
   },
   {
-    id: '#1133',
+    id: '#133',
     owner: 'Mike',
     name: 'The  Rabbit',
     address: 'Hamilton St',
@@ -103,6 +105,8 @@ const Restaurant = () => {
   const [isActionModalVisible,setIsActionModalVisible] = useState(false)
   const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
   const [selectedActionRestaurant, setSelectedActionRestaurant] = useState(null);
+  const navigate = useNavigate();
+
 
   const handleActionView = (restaurant)=>{
     setSelectedActionRestaurant(restaurant)
@@ -135,6 +139,7 @@ const Restaurant = () => {
   };
 
   const handleView = (restaurant) => {
+    navigate(`/restaurant-details/${restaurant.id}`);
     setSelectedRestaurant(restaurant);
     setIsModalVisible(true);
   };
@@ -191,7 +196,7 @@ const Restaurant = () => {
                 <td className="py-4 px-4 flex gap-x-2">
 
                 <button   onClick={() => handleView(restaurant)} className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded">
-                    <FaEye /> 
+                    <FaEye />  
                   </button>
                   <button onClick={() => handleActionClick(restaurant)} className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded">
                   <MdOutlineBlock/>
@@ -218,92 +223,8 @@ const Restaurant = () => {
           />
         </div>
       </div> 
-    {/* Restaurant Details Modal */}
 
-      <Modal
-        title="Restaurant Details"
-        visible={isModalVisible}
-        onCancel={handleModalClose}
-        footer={null}
-        width={800} // Adjust width as needed
-        bodyStyle={{ padding: '10px 0' }} 
-      >
-        {selectedRestaurant && (
-          <div className="p-4">
-            <img
-              src={selectedRestaurant.image}
-              alt={selectedRestaurant.name}
-              className="w-full h-[250px] rounded-md mb-4"
-            />
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <div className="mb-4">
-                  <p className="font-semibold">Restaurant Name</p>
-                  <Input value={selectedRestaurant.name} disabled />
-                </div>
-                <div className="mb-4">
-                  <p className="font-semibold">Website Link</p>
-                  <Input value={selectedRestaurant.website} disabled />
-                </div>
-                <div className="mb-4">
-                  <p className="font-semibold">Hourly Service</p>
-                  <Input value={selectedRestaurant.hourlyService ? 'Yes' : 'No'} disabled />
-                </div>
-                <div className="mb-4">
-                  <p className="font-semibold">Cancellation Charged</p>
-                  <Input value={selectedRestaurant.cancellation ? 'Yes' : 'No'} disabled />
-                </div>
-                <div className="mb-4">
-                  <p className="font-semibold">OutDoor Tables</p>
-                  <Input value={selectedRestaurant.outdoorTables} disabled />
-                </div>
-                <div className="mb-4">
-                  <p className="font-semibold">Menu</p>
-                  <Input value={selectedRestaurant.menu} disabled />
-                </div>
-              </div>
-              <div>
-                <div className="mb-4">
-                  <p className="font-semibold">Ratings</p>
-                  <div className="flex items-center">
-                    <Rate disabled defaultValue={selectedRestaurant.ratings} style={{ color: "#FFC107" }}  />
-                    <a href="#" className="ml-2">See all </a>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <p className="font-semibold">Cuisine Type</p>
-                  <Input value={selectedRestaurant.cuisine} disabled />
-                </div>
-                <div className="mb-4">
-                  <p className="font-semibold">Party Size</p>
-                  <Input value={selectedRestaurant.partySize} disabled />
-                </div>
-                <div className="mb-4">
-                  <p className="font-semibold">Indoor Tables</p>
-                  <Input value={selectedRestaurant.indoorTables} disabled />
-                </div>
-                <div className="mb-4">
-                  <p className="font-semibold">Restaurant Name</p>
-                  <Input value={selectedRestaurant.name} disabled />
-                </div>
-                <div className="mb-4">
-                  <p className="font-semibold">Restaurant Name</p>
-                  <Input value={selectedRestaurant.name} disabled />
-                </div>
-              </div>
-            </div>
-            <div className="mt-4 flex items-center">
-              <Checkbox checked={selectedRestaurant.businessDay} disabled>Day</Checkbox>
-              <div className="ml-4 flex items-center">
-                <p className="mr-2 font-semibold">Open Time</p>
-                <Input value={selectedRestaurant.openTime} disabled style={{ width: '100px', marginRight: '10px' }} />
-                <p className="mr-2">To</p>
-                <Input value={selectedRestaurant.closeTime} disabled style={{ width: '100px' }} />
-              </div>
-            </div>
-          </div>
-        )}
-      </Modal>
+     
 
 
 

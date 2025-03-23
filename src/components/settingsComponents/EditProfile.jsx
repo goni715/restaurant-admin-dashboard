@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Button, Input, Modal, Slider } from 'antd';
 import Cropper from 'react-easy-crop';
-import profile from '../../../public/profile.png';
+import profile from '/profile.png';
+import { IoCameraOutline } from 'react-icons/io5';
 
 const EditProfile = ({ onBack }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -81,11 +82,19 @@ const EditProfile = ({ onBack }) => {
           id="upload-button"
         />
         <label htmlFor="upload-button" className="cursor-pointer">
+          <div className='relative'>
           <img
             src={croppedImage}
             className="rounded-full mx-auto w-24 h-24 border"
             alt="Profile"
           />
+        <div className='absolute right-36 bottom-0'>
+        <div className='bg-red-500 border-2 border-white flex items-center justify-center  w-8 h-8 rounded-full '>
+         <IoCameraOutline size={20} color='#fff' />
+         </div>
+        </div>
+          </div>
+
         </label>
         <h2 className="text-xl font-bold mt-2">Edit Profile</h2>
         <div className="text-left mt-4">
