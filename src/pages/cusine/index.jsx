@@ -1,13 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import Cropper from "react-easy-crop";
-import {
-  Input,
-  Modal,
-  Form,
-  Button,
-  Avatar,
-} from "antd";
+import { Input, Modal, Form, Button, Avatar } from "antd";
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
@@ -19,30 +13,7 @@ const initialRestaurants = [
     image:
       "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
-  {
-    id: "#1234",
-    name: "The Dead Rabbit",
-    image:
-      "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-  {
-    id: "#1235",
-    name: "The Dead Rabbit",
-    image:
-      "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-  {
-    id: "#1236",
-    name: "The Dead Rabbit",
-    image:
-      "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-  {
-    id: "#1237",
-    name: "The Dead Rabbit",
-    image:
-      "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
+  // Other restaurants
 ];
 
 const Cusine = () => {
@@ -56,6 +27,7 @@ const Cusine = () => {
   const [isCropping, setIsCropping] = useState(false);
 
   const [form] = Form.useForm();
+  const fileInputRef = useRef(null); // Ref for file input
 
   const handleSearch = (value) => {
     setSearchTerm(value);
@@ -87,7 +59,7 @@ const Cusine = () => {
         id: modalType === "add" ? `#${Math.floor(Math.random() * 10000)}` : selectedRestaurant.id,
         image: image,
       };
-      
+
       if (modalType === "add") {
         setRestaurants([newItem, ...restaurants]);
       } else {
@@ -113,6 +85,10 @@ const Cusine = () => {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleAvatarClick = () => {
+    fileInputRef.current.click(); // Trigger file input click when avatar is clicked
   };
 
   return (
@@ -147,17 +123,27 @@ const Cusine = () => {
           </thead>
           <tbody>
             {restaurants.map((restaurant) => (
-              <tr  key={restaurant.id}  >
+              <tr key={restaurant.id}>
                 <td>{restaurant.id}</td>
                 <td>{restaurant.name}</td>
                 <td>
-                  <img src={restaurant.image} alt="Restaurant" className="w-20 h-20 mt-5 rounded-md" />
+                  <img
+                    src={restaurant.image}
+                    alt="Restaurant"
+                    className="w-20 h-20 mt-5 rounded-md"
+                  />
                 </td>
                 <td className="flex items-center gap-x-2 mt-5">
-                  <button className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded" onClick={() => handleEdit(restaurant)}>
+                  <button
+                    className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded"
+                    onClick={() => handleEdit(restaurant)}
+                  >
                     <EditOutlined />
                   </button>
-                  <button className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded" onClick={() => handleDelete(restaurant.id)}>
+                  <button
+                    className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded"
+                    onClick={() => handleDelete(restaurant.id)}
+                  >
                     <DeleteOutlined />
                   </button>
                 </td>
@@ -172,10 +158,16 @@ const Cusine = () => {
         onCancel={() => setIsModalVisible(false)}
         footer={null}
       >
-        <div style={{ textAlign: "center", marginBottom: 20 }}>
+        <div style={{ textAlign: "center", marginBottom: 20 }} onClick={handleAvatarClick}>
           <Avatar size={64} src={image || "https://via.placeholder.com/64"} />
-          <input type="file" accept="image/*" onChange={handleImageUpload} />
         </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          style={{ display: "none" }} // Hide the file input
+        />
         {isCropping && (
           <div style={{ width: "100%", height: 200, position: "relative" }}>
             <Cropper
@@ -189,10 +181,17 @@ const Cusine = () => {
           </div>
         )}
         <Form form={form} layout="vertical">
-          <Form.Item name="name" label={<strong>Name</strong>} rules={[{ required: true }]}> 
+          <Form.Item name="name" label={<strong>Name</strong>} rules={[{ required: true }]}>
             <Input placeholder="Type here" />
           </Form.Item>
-          <Button type="primary" block onClick={handleOk} style={{ backgroundColor: "red", borderColor: "red" }}>Update</Button>
+          <Button
+            type="primary"
+            block
+            onClick={handleOk}
+            style={{ backgroundColor: "red", borderColor: "red" }}
+          >
+            Update
+          </Button>
         </Form>
       </Modal>
     </div>
