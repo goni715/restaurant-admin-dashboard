@@ -4,6 +4,7 @@ import Cropper from 'react-easy-crop';
 import profile from '/profile.png';
 import { IoCameraOutline } from 'react-icons/io5';
 
+// eslint-disable-next-line no-unused-vars
 const EditProfile = ({ onBack }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageSrc, setImageSrc] = useState(null);
@@ -71,6 +72,22 @@ const EditProfile = ({ onBack }) => {
     }
   }, [imageSrc, croppedAreaPixels]);
 
+
+  const [formData, setFormData] = useState({
+    username: 'Amith',
+    email: 'amith@gmail.com',
+    phone: '+909820070',
+    address: 'G st, 23 Miami City',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    console.log('Form Data:', formData);
+  };
+
   return (
     <div className="p-6 bg-gray-100 rounded-lg text-center">
       <div className="max-w-[400px] mx-auto">
@@ -98,22 +115,22 @@ const EditProfile = ({ onBack }) => {
         </label>
         <h2 className="text-xl font-bold mt-2">Edit Profile</h2>
         <div className="text-left mt-4">
-          <label className="font-semibold">Username</label>
-          <Input className="mt-1" placeholder="Username" defaultValue="Amith" />
+          {/* <label className="font-semibold">Username</label> */}
+          {/* <Input className="mt-1" placeholder="Username" defaultValue="Amith" /> */}
         </div>
         <div className="text-left mt-4">
           <label className="font-semibold">Email</label>
-          <Input className="mt-1" placeholder="Email" defaultValue="amith@gmail.com" />
+          <Input className="mt-1" placeholder="Email" name="email" value={formData.email} defaultValue="amith@gmail.com" disabled />
         </div>
         <div className="text-left mt-4">
           <label className="font-semibold">Phone Number</label>
-          <Input className="mt-1" placeholder="Phone Number" defaultValue="+909820070" />
+          <Input className="mt-1" placeholder="Phone Number" defaultValue="+909820070" name='phone' value={formData.phone} onChange={handleChange} />
         </div>
         <div className="text-left mt-4">
           <label className="font-semibold">Address</label>
-          <Input className="mt-1" placeholder="Address" defaultValue="G st, 23 Miami City" />
+          <Input className="mt-1" placeholder="Address" defaultValue="G st, 23 Miami City" name='address' value={formData.address} onChange={handleChange} />
         </div>
-        <Button type="primary" className="!mt-6 !bg-red-500" onClick={onBack}>
+        <Button type="primary" className="!mt-6 !bg-red-500"  onClick={handleSubmit}>
           Save Changes
         </Button>
 

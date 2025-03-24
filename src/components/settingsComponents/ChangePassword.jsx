@@ -1,11 +1,11 @@
 import { Button, Input } from "antd";
-import profile from '../../../public/profile.png'; // Add this import to use the profile image
+// import profile from '../../../public/profile.png'; 
 
 const ChangePassword = ({ onBack }) => (
   <div className="p-6 bg-gray-100 rounded-lg text-center">
     <div className="max-w-[400px] mx-auto">
       {/* Placeholder Image */}
-      <img src={profile} className="rounded-full mx-auto w-24 h-24" alt="Profile" />
+      {/* <img src={profile} className="rounded-full mx-auto w-24 h-24" alt="Profile" /> */}
       
       <h2 className="text-xl font-bold mt-2">Change Password</h2>
       

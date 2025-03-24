@@ -16,6 +16,7 @@ import VerificationPage from "./components/verificationComponents/VerificationPa
 import ResetPassword from "./pages/auth/resetPassword";
 import RestaurantView from "./pages/restaurantView";
 import RestaurantDetails from "./pages/restaurantDetails/RestaurantDetails";
+import Cusine from "./pages/cusine";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/restaurant-details" element={<RestaurantDetails/>}></Route>
             {/* <Route path="/restaurant/:id" element={<RestaurantView/>}></Route> */}
             <Route path="/administrator" element={<Administrator/>}></Route>
+            <Route path="/cusine" element={<Cusine/>}></Route>
             <Route path="/settings" element={<SettingPage/>}></Route>
             <Route path="/about" element={<AboutUs/>}></Route>
             <Route path="/terms-conditions" element={<TermsConditions/>}></Route>

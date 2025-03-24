@@ -63,7 +63,7 @@ const initialRestaurants = [
     id: '#1239',
     owner: 'mike159@gmail.com',
     contact: '369-258-1470',
-    name: 'The  Rabbit',
+    name: 'The Rabbit',
     address: 'Hamilton St',
     image:
       'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -125,6 +125,7 @@ const Administrator = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalType, setModalType] = useState('add'); 
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+
   const [form] = Form.useForm();
   
 
@@ -182,6 +183,7 @@ const Administrator = () => {
       setIsModalVisible(false);
     });
   };
+  
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -282,6 +284,7 @@ const Administrator = () => {
     >
       <div style={{ textAlign: 'center', marginBottom: 20 }}>
         <Avatar size={64} src="https://via.placeholder.com/64" />
+        
       </div>
 
       <Form form={form} layout="vertical">
