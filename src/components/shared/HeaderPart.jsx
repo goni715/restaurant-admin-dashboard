@@ -18,7 +18,7 @@ const HeaderPart = () => {
         <div>
           <Text  className='text-black' >Eyasin</Text>
           <br/>
-          <Text className="font-semibold" >Admin</Text>
+          <Text className="font-semibold" > Super Admin</Text>
         </div>
       </div>
     </div>
