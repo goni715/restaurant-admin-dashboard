@@ -26,7 +26,7 @@ function App() {
         
           <Route element={<RootLayOut/>}>
             <Route path="/" element={<Dashboard/>}></Route>
-            <Route path="/user-management" element={<UserManagement/>}></Route>
+            <Route path="/users" element={<UserManagement/>}></Route>
             <Route path="/restaurant" element={<Restaurant/>}></Route>
             <Route path="/restaurant-details" element={<RestaurantDetails/>}></Route>
             {/* <Route path="/restaurant/:id" element={<RestaurantView/>}></Route> */}

@@ -24,7 +24,7 @@ const SidebarMenu = () => {
     const path = location.pathname;
     if (path === "/") {
       setActiveKey("1");
-    } else if (path === "/user-management") {
+    } else if (path === "/users") {
       setActiveKey("2");
     } else if (path === "/restaurant") {
       setActiveKey("3");
@@ -69,7 +69,7 @@ const SidebarMenu = () => {
           icon={<FaRegCircleUser size={25} />}
           className={activeKey === "2" ? "!bg-red-500 !text-white" : ""} // Tailwind active style
         >
-          <Link to="/user-management" className="text-[18px]">
+          <Link to="/users" className="text-[18px]">
             Users Management
           </Link>
         </Menu.Item>
