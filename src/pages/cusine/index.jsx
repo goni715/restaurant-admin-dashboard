@@ -4,6 +4,8 @@ import Cropper from "react-easy-crop";
 import { Input, Modal, Form, Button, Avatar } from "antd";
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { useGetCusinesQuery } from "../../redux/features/cuisine/cuisineApi";
+import AddCuisineModal from "../../components/modal/cuisine/AddCuisineModal";
+import EditCuisineModal from "../../components/modal/cuisine/EditCuisineModal";
 
 const { Search } = Input;
 
@@ -26,8 +28,11 @@ const Cusine = () => {
   const [image, setImage] = useState(null);
   const [croppedArea, setCroppedArea] = useState(null);
   const [isCropping, setIsCropping] = useState(false);
-  const { data, isLoading } = useGetCusinesQuery(undefined)
-  console.log(data);
+  const { data, isLoading } = useGetCusinesQuery(undefined);
+  const [ isAddCuisineModalOpen, setIsAddCuisineModalOpen ] = useState(false);
+  const [ isEditCuisineModalOpen, setIsEditCuisineModalOpen ] = useState(false);
+
+
 
   const [form] = Form.useForm();
   const fileInputRef = useRef(null); // Ref for file input
@@ -95,6 +100,7 @@ const Cusine = () => {
   };
 
   return (
+    <>
     <div className="p-4 bg-[#f6f6f6]">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-semibold">Cusine</h2>
@@ -110,7 +116,7 @@ const Cusine = () => {
       <Button
         className="mb-4 !bg-red-500 !text-white  hover:bg-red-700"
         icon={<PlusOutlined />}
-        onClick={handleAdd}
+        onClick={()=>setIsAddCuisineModalOpen(true)}
       >
         Add Cusine
       </Button>
@@ -139,7 +145,7 @@ const Cusine = () => {
                 <td className="flex items-center gap-x-2 mt-5">
                   <button
                     className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded"
-                    onClick={() => handleEdit(restaurant)}
+                    onClick={() => setIsEditCuisineModalOpen(true)}
                   >
                     <EditOutlined />
                   </button>
@@ -198,6 +204,9 @@ const Cusine = () => {
         </Form>
       </Modal>
     </div>
+       <AddCuisineModal isAddCuisineModalOpen={isAddCuisineModalOpen} setIsAddCuisineModalOpen={setIsAddCuisineModalOpen}/>
+       <EditCuisineModal isEditCuisineModalOpen={isEditCuisineModalOpen} setIsEditCuisineModalOpen={setIsEditCuisineModalOpen}/>
+    </>
   );
 };
 
