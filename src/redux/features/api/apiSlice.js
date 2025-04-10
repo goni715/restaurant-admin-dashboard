@@ -5,7 +5,7 @@ const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:9090/api/v1",
     prepareHeaders: async (headers, {getState, endpoint}) =>{
         if(getToken()){
-            headers.set("token", getToken());
+            headers.set("Authorization", getToken());
         }
         return headers;
     }
@@ -18,11 +18,11 @@ export const apiSlice = createApi({
         if (result?.error?.status === 401) {
             localStorage.clear();
             ErrorToast("Authorization Expired");
-            window.location.href="/";
+            window.location.href="/login";
         }
         return result;
     },
-    tagTypes: ["Users", "Doctors", "Appointments", "RecentAppointments", "Patients","RecentInvoices", "Patient", "Reports","Report", "CategoryList"], //TagS WhiteLists
+    tagTypes: ["Cuisines"], //TagS WhiteLists
     endpoints: (builder) => ({}),
 })
 

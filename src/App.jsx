@@ -33,7 +33,7 @@ function App() {
             <Route path="/restaurant-details" element={<RestaurantDetails/>}></Route>
             {/* <Route path="/restaurant/:id" element={<RestaurantView/>}></Route> */}
             <Route path="/administrator" element={<Administrator/>}></Route>
-            <Route path="/cusine" element={<Cusine/>}></Route>
+            <Route path="/cuisine" element={<Cusine/>}></Route>
             <Route path="/settings" element={<SettingPage/>}></Route>
             <Route path="/about" element={<AboutUs/>}></Route>
             <Route path="/terms-conditions" element={<TermsConditions/>}></Route>
@@ -43,9 +43,9 @@ function App() {
 
 
           <Route path="/login" element={<PublicRoute><LoginPage/></PublicRoute>}></Route>
-          <Route path="/forgot-password" element={<ForgotPassword/>}></Route>
-          <Route path="/verify-otp" element={<VerificationPage/>}></Route>
-          <Route path="/reset-password" element={<ResetPassword/>}></Route>
+          <Route path="/forgot-password" element={<PublicRoute><ForgotPassword/></PublicRoute>}></Route>
+          <Route path="/verify-otp" element={<PublicRoute><VerificationPage/></PublicRoute>}></Route>
+          <Route path="/reset-password" element={<PublicRoute><ResetPassword/></PublicRoute>}></Route>
       </Route>
     )
   );

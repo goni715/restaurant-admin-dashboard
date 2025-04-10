@@ -3,6 +3,7 @@ import React, { useState, useCallback, useRef } from "react";
 import Cropper from "react-easy-crop";
 import { Input, Modal, Form, Button, Avatar } from "antd";
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import { useGetCusinesQuery } from "../../redux/features/cuisine/cuisineApi";
 
 const { Search } = Input;
 
@@ -25,6 +26,8 @@ const Cusine = () => {
   const [image, setImage] = useState(null);
   const [croppedArea, setCroppedArea] = useState(null);
   const [isCropping, setIsCropping] = useState(false);
+  const { data, isLoading } = useGetCusinesQuery(undefined)
+  console.log(data);
 
   const [form] = Form.useForm();
   const fileInputRef = useRef(null); // Ref for file input

@@ -88,7 +88,7 @@ const SidebarMenu = () => {
           icon={<GrRestaurant size={25} />}
           className={activeKey === "4" ? "!bg-red-500 !text-white" : ""} // Tailwind active style
         >
-          <Link to="/cusine" className="text-[18px]">
+          <Link to="/cuisine" className="text-[18px]">
             Cusine
           </Link>
         </Menu.Item>
