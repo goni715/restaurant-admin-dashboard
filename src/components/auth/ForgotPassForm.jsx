@@ -18,7 +18,7 @@ const ForgotPassForm = () => {
     forgotPassSendOtp(values)
   };
 
-  
+
   return (
     <>
       <Form
@@ -51,10 +51,11 @@ const ForgotPassForm = () => {
           <div>
             <Form.Item>
               <Button
+               disabled={isLoading}
                 htmlType="submit"
-                className="w-full !bg-red-500 hover:bg-red-600 border-0 rounded-md p-2 !text-white"
+                className="w-full !bg-red-500 hover:bg-red-600 border-0 rounded-md p-2 !text-white disabled:cursor-not-allowed"
               >
-                Proceed
+                {isLoading ? "Sending..." : "Proceed"}
               </Button>
             </Form.Item>
           </div>
