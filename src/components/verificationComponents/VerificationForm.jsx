@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button} from "antd";
 import logo from "../../../public/elhagz.png";
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { ErrorToast } from "../../helper/ValidationHelper";
+import { useForgotPassVerifyOtpMutation } from "../../redux/features/auth/authApi";
+import { getEmail } from "../../helper/SessionHelper";
 
 const VerificationForm = () => {
   const [code, setCode] = useState(new Array(4).fill(""));
-
+  const [forgotPassVerifyOtp, { isLoading, isSuccess}] = useForgotPassVerifyOtpMutation();
   const navigate = useNavigate();
+
+  useEffect(()=> {
+    if(isSuccess){
+      navigate("/reset-password")
+    }
+  }, [navigate, isSuccess])
 
   const handleChange = (value, index) => {
     if (!isNaN(value)) {
@@ -39,11 +47,20 @@ const VerificationForm = () => {
     }
   };
 
+
+
   const handleVerifyCode = async () => {
     const cleaned = code.filter(item => item !== "").map(Number);
+    const otp = String(cleaned.join(''));
     if(cleaned.length < 4){
       ErrorToast("Please enter 4 digit code")
     }
+
+    //verify-otp
+    forgotPassVerifyOtp({
+      email: getEmail(),
+      otp
+    })
   };
 
   return (
@@ -63,7 +80,7 @@ const VerificationForm = () => {
 
       {/* Instructions */}
       <p className="text-gray-600 mb-6">
-        Please enter the 4 digit verification code we sent to Andric@gmail.com
+        Please enter the 4 digit verification code we have just sent to <span className="text-black font-bold">{getEmail()}</span>
       </p>
 
       {/* Input Fields */}
@@ -98,12 +115,13 @@ const VerificationForm = () => {
       {/* Verify Button */}
       <Button
         onClick={handleVerifyCode}
-        className="w-full !bg-red-500 hover:bg-red-600 border-0 rounded-md p-2 !text-white"
+        disabled={isLoading}
+        className="w-full !bg-red-500 hover:bg-red-600 border-0 rounded-md p-2 !text-white disabled:cursor-not-allowed"
         danger
         size="large"
         block
       >
-        Verify
+        {isLoading ? "Verifying..." : "Verify"}
       </Button>
     </div>
   );

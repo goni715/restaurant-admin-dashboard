@@ -1,6 +1,6 @@
 import {apiSlice} from "../api/apiSlice.js";
 import {ErrorToast, SuccessToast} from "../../../helper/ValidationHelper.js";
-import {setEmail, setToken} from "../../../helper/SessionHelper.js";
+import {logout, setEmail, setOtp, setToken} from "../../../helper/SessionHelper.js";
 
 
 export const authApi = apiSlice.injectEndpoints({
@@ -41,7 +41,7 @@ export const authApi = apiSlice.injectEndpoints({
             }),
             async onQueryStarted(arg, {queryFulfilled, dispatch}){
                 try{
-                    const res = await queryFulfilled;
+                    await queryFulfilled;
                     SuccessToast("Please cheack your email inbox");
                     setEmail(arg.email);
                 }catch(err) {
@@ -63,8 +63,33 @@ export const authApi = apiSlice.injectEndpoints({
             }),
             async onQueryStarted(arg, {queryFulfilled, dispatch}){
                 try{
-                    const res = await queryFulfilled;
-                    SuccessToast("Please cheack your email inbox");
+                    await queryFulfilled;
+                    SuccessToast("Otp is verified successfully");
+                    setOtp(arg.otp)
+                }catch(err) {
+                    const status = err?.error?.status;
+                    if(status === 404){
+                        ErrorToast("Could not Find this Email!")
+                    }
+                    else if(status === 400){
+                        ErrorToast(err?.error?.data?.message);
+                    }else{
+                        ErrorToast("Something Went Wrong!");
+                    }
+                }
+            }
+        }),
+        forgotPassCreateNewPass: builder.mutation({
+            query: (data) => ({
+                url: "/auth/forgot-pass-create-new-pass",
+                method: "POST",
+                body: data
+            }),
+            async onQueryStarted(arg, {queryFulfilled, dispatch}){
+                try{
+                    await queryFulfilled;
+                    SuccessToast("Password is reset successfully");
+                    logout();
                 }catch(err) {
                     const status = err?.error?.status;
                     if(status === 404){
@@ -82,4 +107,4 @@ export const authApi = apiSlice.injectEndpoints({
 })
 
 
-export const { useLoginMutation, useForgotPassSendOtpMutation } = authApi;
+export const { useLoginMutation, useForgotPassSendOtpMutation, useForgotPassVerifyOtpMutation, useForgotPassCreateNewPassMutation } = authApi;
