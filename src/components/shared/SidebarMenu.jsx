@@ -10,6 +10,7 @@ import {
 } from "react-icons/ri";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { GrRestaurant } from "react-icons/gr";
+import { logout } from "../../helper/SessionHelper";
 
 const SidebarMenu = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -78,8 +79,8 @@ const SidebarMenu = () => {
           icon={<RiRestaurant2Fill size={25} />}
           className={activeKey === "3" ? "!bg-red-500 !text-white" : ""} // Tailwind active style
         >
-          <Link to="/restaurant" className="text-[18px]">
-            Restaurant
+          <Link to="/restaurants" className="text-[18px]">
+            Restaurants
           </Link>
         </Menu.Item>
         <Menu.Item
@@ -160,9 +161,9 @@ const SidebarMenu = () => {
           icon={<RiLogoutBoxRLine size={25} />}
           className={activeKey === "signout" ? "bg-red-500 text-white" : ""} // Tailwind active style
         >
-          <Link to="/login" className="text-[18px]">
+          <button onClick={()=> logout()} className="text-[18px]">
             Sign Out
-          </Link>
+          </button>
         </Menu.Item>
       </Menu>
     </div>

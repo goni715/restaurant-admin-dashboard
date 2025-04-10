@@ -5,7 +5,12 @@ class SessionHelper {
     }
 
     getToken(){
-        localStorage.getItem('token');
+        return localStorage.getItem('token');
+    }
+
+    logout(){
+        localStorage.clear();
+        window.location.href="/login";
     }
 }
 
@@ -13,4 +18,4 @@ class SessionHelper {
 
 
 
-export const { setToken, getToken } = new SessionHelper();
+export const { setToken, getToken, logout } = new SessionHelper();

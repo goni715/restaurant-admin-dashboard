@@ -17,7 +17,7 @@ export const apiSlice = createApi({
         let result = await baseQuery(args, api, extraOptions);
         if (result?.error?.status === 401) {
             localStorage.clear();
-            // ErrorToast("Token Expired");
+            ErrorToast("Authorization Expired");
             window.location.href="/";
         }
         return result;

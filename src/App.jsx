@@ -16,6 +16,9 @@ import VerificationPage from "./components/verificationComponents/VerificationPa
 import ResetPassword from "./pages/auth/resetPassword";
 import RestaurantDetails from "./pages/restaurantDetails/RestaurantDetails";
 import Cusine from "./pages/cusine";
+import PrivateRoute from "./routes/PrivateRoute";
+import PublicRoute from "./routes/PublicRoute";
+
 
 function App() {
 
@@ -23,10 +26,10 @@ function App() {
     createRoutesFromElements(
       <Route>
         
-          <Route element={<RootLayOut/>}>
+          <Route element={<PrivateRoute><RootLayOut/></PrivateRoute>}>
             <Route path="/" element={<Dashboard/>}></Route>
-            <Route path="/user-management" element={<UserManagement/>}></Route>
-            <Route path="/restaurant" element={<Restaurant/>}></Route>
+            <Route path="/users" element={<UserManagement/>}></Route>
+            <Route path="/restaurants" element={<Restaurant/>}></Route>
             <Route path="/restaurant-details" element={<RestaurantDetails/>}></Route>
             {/* <Route path="/restaurant/:id" element={<RestaurantView/>}></Route> */}
             <Route path="/administrator" element={<Administrator/>}></Route>
@@ -39,9 +42,9 @@ function App() {
           </Route>
 
 
-          <Route path="/login" element={<LoginPage/>}></Route>
+          <Route path="/login" element={<PublicRoute><LoginPage/></PublicRoute>}></Route>
           <Route path="/forgot-password" element={<ForgotPassword/>}></Route>
-          <Route path="/verification" element={<VerificationPage/>}></Route>
+          <Route path="/verify-otp" element={<VerificationPage/>}></Route>
           <Route path="/reset-password" element={<ResetPassword/>}></Route>
       </Route>
     )
