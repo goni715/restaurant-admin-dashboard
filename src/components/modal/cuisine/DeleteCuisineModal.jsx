@@ -1,17 +1,26 @@
-import Cropper from "react-easy-crop";
-import { Input, Modal, Form, Button, Avatar } from "antd";
-import { useRef, useState } from "react";
+import { Modal } from "antd";
+import { useEffect, useState } from "react";
 import { DeleteOutlined } from "@ant-design/icons";
-import { ImSpinner2, ImSpinner9 } from "react-icons/im";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { useDeleteCuisineMutation } from "../../../redux/features/cuisine/cuisineApi";
 
 
 
 
 
-const DeleteCuisineModal = () => {
+const DeleteCuisineModal = ({ cuisineId }) => {
     const [ modalOpen, setModalOpen ] = useState(false);
+    const [ deleteCuisine, { isLoading, isSuccess, isError }] = useDeleteCuisineMutation();
 
+    useEffect(()=> {
+        if(isSuccess || isError){
+          setModalOpen(false)
+        }
+    },[isSuccess, isError])
+   
+    const handleDelete = () => {
+      deleteCuisine(cuisineId);
+    }
 
   return (
     <>
@@ -28,9 +37,15 @@ const DeleteCuisineModal = () => {
        
       
         <div className="flex justify-end px-4 gap-x-3">
-           <button className="bg-black text-white px-4 py-1 rounded-md">No</button>
-           <button className="bg-red-500 hover:bg-red-600 duration-500 text-white px-4 py-1 rounded-md">
-            <CgSpinnerTwo className="animate-spin" fontSize={16}/>
+           <button onClick={()=>setModalOpen(false)} className="bg-black text-white px-4 py-1 rounded-md">No</button>
+           <button onClick={handleDelete} disabled={isLoading} className="bg-red-500 hover:bg-red-600 duration-500 text-white px-4 py-1 rounded-md disabled:cursor-not-allowed">
+           {isLoading ? (
+              <>
+                <CgSpinnerTwo className="animate-spin" fontSize={16} />
+              </>
+            ) : (
+              "Yes"
+            )}
            </button>
         </div>
       </Modal>

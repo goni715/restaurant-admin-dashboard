@@ -9,7 +9,9 @@ export const cuisineApi = apiSlice.injectEndpoints({
 
         if (args !== undefined && args.length > 0) {
           args.forEach((item) => {
-            params.append(item.name, item.value);
+            if(item.value){
+              params.append(item.name, item.value);
+            }
           });
         }
         return {
@@ -30,21 +32,25 @@ export const cuisineApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    createDoctor: builder.mutation({
-      query: (data) => ({
-        url: "/doctor/create-doctor",
-        method: "POST",
-        body: data,
+    deleteCuisine: builder.mutation({
+      query: (id) => ({
+        url: `/cuisine/delete-cuisine/${id}`,
+        method: "DELETE",
       }),
-      invalidatesTags: ["Doctors"],
+      invalidatesTags: ["Cuisines"],
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
-          const res = await queryFulfilled;
-          if (res?.data?.message === "success") {
-            SuccessToast("Doctor Added Success");
-          }
+          await queryFulfilled;
+          SuccessToast("Cuisine is deleted successfully");
         } catch (err) {
-          //console.log(err)
+          const status = err?.error?.status;
+          if (status === 404) {
+            ErrorToast(err?.error?.data?.message);
+          } else if (status === 409) {
+            ErrorToast(err?.error?.data?.message);
+          } else {
+            ErrorToast("Something Went Wrong!");
+          }
         }
       },
     }),
@@ -66,29 +72,8 @@ export const cuisineApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    deleteDoctor: builder.mutation({
-      query: (id) => ({
-        url: `/doctor/delete-doctor/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Doctors"],
-      async onQueryStarted(arg, { queryFulfilled }) {
-        try {
-          const res = await queryFulfilled;
-          if (res?.data?.message === "success") {
-            SuccessToast(" Success");
-          }
-        } catch (err) {
-          console.log(err);
-          let status = err?.error?.status;
-          if (status === 403) {
-            ErrorToast("Failld ! This Doctor is associated with Appointment");
-          }
-        }
-      },
-    }),
   }),
 });
 
 
-export const { useGetCusinesQuery } = cuisineApi;
+export const { useGetCusinesQuery, useDeleteCuisineMutation } = cuisineApi;

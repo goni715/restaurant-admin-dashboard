@@ -6,7 +6,7 @@ import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { CgSpinnerTwo } from "react-icons/cg";
 
 const LoginForm = () => {
-  const [login, { isLoading }] = useLoginMutation()
+  const [login, { isLoading }] = useLoginMutation();
 
     const onFinish = (values) => {
         login(values);        

@@ -1,17 +1,14 @@
-import Cropper from "react-easy-crop";
 import { Input, Modal, Form, Button, Avatar } from "antd";
 import { useRef, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
+import { MdEmail } from "react-icons/md";
 
 
 
 
 const AddCuisineModal = () => {
     const [ isAddCuisineModalOpen, setIsAddCuisineModalOpen ] = useState(false);
-    const [isCropping, setIsCropping] = useState(false);
 
-   
-  const [form] = Form.useForm();
   const fileInputRef = useRef(null); // Ref for file input
 
 
@@ -19,53 +16,45 @@ const AddCuisineModal = () => {
     fileInputRef.current.click(); // Trigger file input click when avatar is clicked
   };
 
+  const onFinish = (values) => {
+    console.log(values);  
+};
 
   return (
     <>
-    <Button
+      <Button
         className="mb-4 !bg-red-500 !text-white  hover:bg-red-700"
         icon={<PlusOutlined />}
-        onClick={()=>setIsAddCuisineModalOpen(true)}
+        onClick={() => setIsAddCuisineModalOpen(true)}
       >
         Add Cusine
       </Button>
-    <Modal
-        title="Add Cuisne"
+      <Modal
+        title={<span className="font-bold">Add New Cuisine</span>}
         open={isAddCuisineModalOpen}
         onCancel={() => setIsAddCuisineModalOpen(false)}
         maskClosable={false}
         footer={false}
       >
-        {/* <div style={{ textAlign: "center", marginBottom: 20 }} onClick={handleAvatarClick}> */}
-          {/* <Avatar size={64} src={image || "https://via.placeholder.com/64"} />
-        </div> */}
-        <input
-        //   ref={fileInputRef}
-          type="file"
-          accept="image/*"
-        //   onChange={handleImageUpload}
-          style={{ display: "none" }} // Hide the file input
-        />
-        {isCropping && (
-          <div style={{ width: "100%", height: 200, position: "relative" }}>
-            <Cropper
-              image={image}
-              crop={{ x: 0, y: 0 }}
-              zoom={1}
-              aspect={1}
-              onCropChange={() => {}}
-            //   onCropComplete={onCropComplete}
+        <Form name="add" layout="vertical" onFinish={onFinish}>
+          <Form.Item
+            label={
+              <span className="text-black font-semibold text-lg">Email</span>
+            }
+            name="email"
+            rules={[
+              { required: true, message: "Please enter your email!" },
+            ]}
+          >
+            <Input
+              placeholder="Enter Email"
+              prefix={<MdEmail className="text-[#5C5C5C]" />}
+              className="!border-black border-2 rounded-md p-2"
             />
-          </div>
-        )}
-        <Form form={form} layout="vertical">
-          <Form.Item name="name" label={<strong>Name</strong>} rules={[{ required: true }]}>
-            <Input placeholder="Type here" />
           </Form.Item>
           <Button
-            type="primary"
+            type="submit"
             block
-            // onClick={handleOk}
             style={{ backgroundColor: "red", borderColor: "red" }}
           >
             Add
@@ -73,7 +62,7 @@ const AddCuisineModal = () => {
         </Form>
       </Modal>
     </>
-  )
+  );
 }
 
 export default AddCuisineModal

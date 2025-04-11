@@ -42,7 +42,7 @@ const CuisineTable = ({cuisines, meta, currentPage, setCurrentPage, pageSize, se
           render: (_, record) => (
             <div className="flex items-center gap-x-2">
               <EditCuisineModal/>
-              <DeleteCuisineModal/>
+              <DeleteCuisineModal cuisineId={record._id}/>
             </div>
           ),
         },

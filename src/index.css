@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 
+
 input::placeholder {
     color: #5C5C5C !important;
   }

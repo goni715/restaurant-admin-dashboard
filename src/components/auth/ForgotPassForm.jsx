@@ -3,6 +3,7 @@ import { MdEmail } from "react-icons/md";
 import { useForgotPassSendOtpMutation } from "../../redux/features/auth/authApi";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 const ForgotPassForm = () => {
   const [forgotPassSendOtp, {isLoading, isSuccess}] = useForgotPassSendOtpMutation();
@@ -37,7 +38,10 @@ const ForgotPassForm = () => {
               name="email"
               rules={[
                 { required: true, message: "Please enter your email!" },
-                { type: "email", message: "Please enter a valid email address!" },
+                {
+                  type: "email",
+                  message: "Please enter a valid email address!",
+                },
               ]}
             >
               <Input
@@ -50,13 +54,20 @@ const ForgotPassForm = () => {
 
           <div>
             <Form.Item>
-              <Button
-               disabled={isLoading}
-                htmlType="submit"
-                className="w-full !bg-red-500 hover:bg-red-600 border-0 rounded-md p-2 !text-white disabled:cursor-not-allowed"
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-red-500 hover:bg-red-600 duration-200 p-2 border-0 rounded-md text-white flex justify-center items-center gap-x-2 disabled:cursor-not-allowed"
               >
-                {isLoading ? "Sending..." : "Proceed"}
-              </Button>
+                {isLoading ? (
+                  <>
+                    <CgSpinnerTwo className="animate-spin" fontSize={16} />
+                    Sending...
+                  </>
+                ) : (
+                  "Proceed"
+                )}
+              </button>
             </Form.Item>
           </div>
         </div>
