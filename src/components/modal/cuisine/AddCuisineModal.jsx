@@ -1,13 +1,34 @@
 import Cropper from "react-easy-crop";
 import { Input, Modal, Form, Button, Avatar } from "antd";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
 
-const AddCuisineModal = ({ isAddCuisineModalOpen, setIsAddCuisineModalOpen }) => {
-  const [isCropping, setIsCropping] = useState(false);
-   const [form] = Form.useForm();
+
+
+
+const AddCuisineModal = () => {
+    const [ isAddCuisineModalOpen, setIsAddCuisineModalOpen ] = useState(false);
+    const [isCropping, setIsCropping] = useState(false);
+
+   
+  const [form] = Form.useForm();
+  const fileInputRef = useRef(null); // Ref for file input
+
+
+  const handleAvatarClick = () => {
+    fileInputRef.current.click(); // Trigger file input click when avatar is clicked
+  };
+
 
   return (
     <>
+    <Button
+        className="mb-4 !bg-red-500 !text-white  hover:bg-red-700"
+        icon={<PlusOutlined />}
+        onClick={()=>setIsAddCuisineModalOpen(true)}
+      >
+        Add Cusine
+      </Button>
     <Modal
         title="Add Cuisne"
         open={isAddCuisineModalOpen}
