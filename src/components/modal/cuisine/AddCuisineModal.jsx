@@ -2,22 +2,26 @@ import { Input, Modal, Form, Button, Avatar } from "antd";
 import { useRef, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { MdEmail } from "react-icons/md";
+import { useCreateCuisineMutation } from "../../../redux/features/cuisine/cuisineApi";
 
 
 
 
 const AddCuisineModal = () => {
     const [ isAddCuisineModalOpen, setIsAddCuisineModalOpen ] = useState(false);
-
-  const fileInputRef = useRef(null); // Ref for file input
-
-
-  const handleAvatarClick = () => {
-    fileInputRef.current.click(); // Trigger file input click when avatar is clicked
-  };
+    const [file, setFile] = useState();
+    const [createCuisine, { isLoading, isSuccess }] = useCreateCuisineMutation();
 
   const onFinish = (values) => {
-    console.log(values);  
+    let formData = new FormData();
+    formData.append("name", values.name);
+    if(file !==undefined){
+      formData.append('file', file)
+    }
+
+    // const formObject = Object.fromEntries(formData.entries());
+    // console.log(formObject);
+    createCuisine(formData);
 };
 
   return (
@@ -38,27 +42,32 @@ const AddCuisineModal = () => {
       >
         <Form name="add" layout="vertical" onFinish={onFinish}>
           <Form.Item
-            label={
-              <span className="text-black font-semibold text-lg">Email</span>
-            }
-            name="email"
-            rules={[
-              { required: true, message: "Please enter your email!" },
-            ]}
+            name="name"
+            label={<span className="font-semibold">Name</span>}
+            rules={[{ required: true, message: "Name is required" }]}
           >
-            <Input
-              placeholder="Enter Email"
-              prefix={<MdEmail className="text-[#5C5C5C]" />}
-              className="!border-black border-2 rounded-md p-2"
-            />
+            <Input placeholder="Type here" />
           </Form.Item>
-          <Button
+          <div class="mb-4">
+            <label
+              htmlFor="image"
+              className="block text-sm font-semibold text-gray-700 mb-1"
+            >
+              <span>Image (Optional) </span>
+            </label>
+            <input
+              type="file"
+              id="image"
+              onChange={(e)=>setFile(e.target.files[0])}
+              className="w-full px-4 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <button
             type="submit"
-            block
-            style={{ backgroundColor: "red", borderColor: "red" }}
+            className="w-full bg-red-500 hover:bg-red-600 duration-200 p-2 border-0 rounded-md text-white flex justify-center items-center gap-x-2 disabled:cursor-not-allowed"
           >
             Add
-          </Button>
+          </button>
         </Form>
       </Modal>
     </>

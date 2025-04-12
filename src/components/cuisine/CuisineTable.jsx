@@ -1,7 +1,7 @@
 import EditCuisineModal from '../modal/cuisine/EditCuisineModal';
 import DeleteCuisineModal from "../modal/cuisine/DeleteCuisineModal";
 import { Pagination , Table } from 'antd';
-
+import placeholder_img from "../../assets/images/placeholder.jpeg";
 const CuisineTable = ({cuisines, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
 
     const dataSource = cuisines?.map((cuisine, index)=> ({
@@ -31,7 +31,7 @@ const CuisineTable = ({cuisines, meta, currentPage, setCurrentPage, pageSize, se
           dataIndex: 'image',
           key: 'image',
           render: (val)=> <img
-          src={val || "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
+          src={val || placeholder_img}
           alt="cuisine_img"
           className="h-8 rounded-md mr-2"
         />

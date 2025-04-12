@@ -32,6 +32,22 @@ export const cuisineApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    createCuisine: builder.mutation({
+      query: (data) => ({
+        url: `/cuisine/create-cuisine`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Cuisines"],
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          const res = await queryFulfilled;
+            SuccessToast("Cuisine Create Success");
+        } catch (err) {
+          console.log(err)
+        }
+      },
+    }),
     deleteCuisine: builder.mutation({
       query: (id) => ({
         url: `/cuisine/delete-cuisine/${id}`,
@@ -76,4 +92,4 @@ export const cuisineApi = apiSlice.injectEndpoints({
 });
 
 
-export const { useGetCusinesQuery, useDeleteCuisineMutation } = cuisineApi;
+export const { useGetCusinesQuery, useCreateCuisineMutation, useDeleteCuisineMutation } = cuisineApi;
