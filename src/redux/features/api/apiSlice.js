@@ -1,5 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {getToken} from "../../../helper/SessionHelper.js";
+import { ErrorToast } from "../../../helper/ValidationHelper.js";
+import TagTypes from "../../../constant/tagType.constant.js";
 
 const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:9090/api/v1",
@@ -22,7 +24,7 @@ export const apiSlice = createApi({
         }
         return result;
     },
-    tagTypes: ["Cuisines"], //TagS WhiteLists
+    tagTypes: [TagTypes.cuisine], //TagS WhiteLists
     endpoints: (builder) => ({}),
 })
 

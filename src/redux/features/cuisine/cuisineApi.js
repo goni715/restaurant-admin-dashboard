@@ -1,5 +1,6 @@
 import {apiSlice} from "../api/apiSlice.js";
 import {ErrorToast, SuccessToast} from "../../../helper/ValidationHelper.js";
+import TagTypes from "../../../constant/tagType.constant.js";
 
 export const cuisineApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -21,8 +22,8 @@ export const cuisineApi = apiSlice.injectEndpoints({
         };
       },
       keepUnusedDataFor: 600,
-      providesTags: ["Cuisines"],
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      providesTags: [TagTypes.cuisine],
+      async onQueryStarted(arg, { queryFulfilled}) {
         try {
           await queryFulfilled;
         } catch (err) {
@@ -38,13 +39,25 @@ export const cuisineApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Cuisines"],
+      //invalidatesTags: [TagTypes.cuisine],
+      invalidatesTags: (result, error, arg) =>{
+        if(result?.success){
+          return [TagTypes.cuisine]
+        }
+        return []
+      },
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
-          const res = await queryFulfilled;
-            SuccessToast("Cuisine Create Success");
+          await queryFulfilled;
+          SuccessToast("Cuisine Create Success");
         } catch (err) {
           console.log(err)
+          const status = err?.error?.status;
+          if (status === 409) {
+            ErrorToast(err?.error?.data?.message);
+          } else {
+            ErrorToast("Something Went Wrong!");
+          }
         }
       },
     }),
@@ -53,7 +66,13 @@ export const cuisineApi = apiSlice.injectEndpoints({
         url: `/cuisine/delete-cuisine/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Cuisines"],
+      // invalidatesTags: [TagTypes.cuisine],
+      invalidatesTags: (result, error, arg) =>{
+        if(result?.success){
+          return [TagTypes.cuisine]
+        }
+        return []
+      },
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
