@@ -5,7 +5,7 @@ import { useCreateCuisineMutation } from "../../../redux/features/cuisine/cuisin
 import { CgSpinnerTwo } from "react-icons/cg";
 import { AiOutlineClose } from "react-icons/ai";
 
-const AddCuisineModal = () => {
+const AddDiningModal = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [file, setFile] = useState(null);
   const [createCuisine, { isLoading, isSuccess }] = useCreateCuisineMutation();
@@ -30,17 +30,10 @@ const AddCuisineModal = () => {
       formData.append("file", file);
     }
 
-    // const formObject = Object.fromEntries(formData.entries());
-    // console.log(formObject);
     createCuisine(formData);
   };
 
-  const handleClear = () => {
-    setFile(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = null;
-    }
-  };
+
 
   return (
     <>
@@ -49,10 +42,10 @@ const AddCuisineModal = () => {
         icon={<PlusOutlined />}
         onClick={() => setModalOpen(true)}
       >
-        Add Cusine
+        Add Dining
       </Button>
       <Modal
-        title={<span className="font-bold">Add New Cuisine</span>}
+        title={<span className="font-bold">Add New Dining</span>}
         open={modalOpen}
         onCancel={() => setModalOpen(false)}
         maskClosable={false}
@@ -66,37 +59,6 @@ const AddCuisineModal = () => {
           >
             <Input placeholder="Type here" />
           </Form.Item>
-          <div class="mb-4">
-            <label
-              htmlFor="image"
-              className="block text-sm font-semibold text-gray-700 mb-1"
-            >
-              <span>Image (Optional) </span>
-            </label>
-
-            <div className="relative w-full">
-              <input
-                type="file"
-                ref={fileInputRef}
-                id="image"
-                onChange={(e) => {
-                  const selectedFile = e.target.files[0];
-                  setFile(selectedFile);
-                }}
-                accept="image/*"
-                className="w-full px-4 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {file && (
-                <button
-                  type="button"
-                  onClick={handleClear}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-red-500"
-                >
-                  <AiOutlineClose size={18} />
-                </button>
-              )}
-            </div>
-          </div>
           <button
             type="submit"
             disabled={isLoading}
@@ -117,4 +79,4 @@ const AddCuisineModal = () => {
   );
 };
 
-export default AddCuisineModal;
+export default AddDiningModal;

@@ -16,6 +16,7 @@ import VerificationPage from "./components/verificationComponents/VerificationPa
 import ResetPassword from "./pages/auth/resetPassword";
 import RestaurantDetails from "./pages/restaurantDetails/RestaurantDetails";
 import Cusine from "./pages/cusine";
+import Dining from "./pages/dining";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
 
@@ -34,6 +35,7 @@ function App() {
             {/* <Route path="/restaurant/:id" element={<RestaurantView/>}></Route> */}
             <Route path="/administrator" element={<Administrator/>}></Route>
             <Route path="/cuisine" element={<Cusine/>}></Route>
+            <Route path="/dining" element={<Dining/>}></Route>
             <Route path="/settings" element={<SettingPage/>}></Route>
             <Route path="/about" element={<AboutUs/>}></Route>
             <Route path="/terms-conditions" element={<TermsConditions/>}></Route>

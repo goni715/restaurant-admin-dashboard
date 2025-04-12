@@ -1,15 +1,16 @@
 /* eslint-disable no-unused-vars */
 import CuisineList from "../../components/cuisine/CuisineList";
+import DiningList from "../../components/dining/DiningList";
 
 
-const Cusine = () => {
+const Dining = () => {
   return (
     <>
     <div className="p-4 bg-[#f6f6f6]">
-      <CuisineList/>
+      <DiningList/>
     </div>
     </>
   );
 };
 
-export default Cusine;
+export default Dining;

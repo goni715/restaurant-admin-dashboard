@@ -7,7 +7,7 @@ import { Pencil } from "lucide-react";
 import placeholder_img from "../../../assets/images/placeholder.jpeg";
 
 
-const EditCuisineModal = ({cuisine}) => {
+const EditDiningModal = ({cuisine}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [file, setFile] = useState(null);
   const [updateCuisine, { isLoading, isSuccess }] = useUpdateCuisineMutation();
@@ -122,4 +122,4 @@ const EditCuisineModal = ({cuisine}) => {
   );
 };
 
-export default EditCuisineModal;
+export default EditDiningModal;

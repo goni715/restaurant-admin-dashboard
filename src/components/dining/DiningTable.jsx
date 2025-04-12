@@ -2,7 +2,7 @@ import EditCuisineModal from '../modal/cuisine/EditCuisineModal';
 import DeleteCuisineModal from "../modal/cuisine/DeleteCuisineModal";
 import { Pagination , Table } from 'antd';
 import placeholder_img from "../../assets/images/placeholder.jpeg";
-const CuisineTable = ({cuisines, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
+const DiningTable = ({cuisines, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
 
     const dataSource = cuisines?.map((cuisine, index)=> ({
         key: index,
@@ -72,4 +72,4 @@ const CuisineTable = ({cuisines, meta, currentPage, setCurrentPage, pageSize, se
   )
 }
 
-export default CuisineTable
+export default DiningTable;

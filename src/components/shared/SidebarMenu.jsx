@@ -31,8 +31,11 @@ const SidebarMenu = () => {
       setActiveKey("3");
     } else if (path === "/cusine") {
       setActiveKey("4");
+    }
+    else if (path === "/dining") {
+    setActiveKey("5");
     } else if (path === "/administrator") {
-      setActiveKey("5");
+      setActiveKey("6");
     } else if (path === "/settings") {
       setActiveKey("settings");
     } else if (path === "/terms") {
@@ -94,8 +97,17 @@ const SidebarMenu = () => {
         </Menu.Item>
         <Menu.Item
           key="5"
-          icon={<RiAdminFill size={25} />}
+          icon={<GrRestaurant size={25} />}
           className={activeKey === "5" ? "!bg-red-500 !text-white" : ""} // Tailwind active style
+        >
+          <Link to="/dining" className="text-[18px]">
+            Dining
+          </Link>
+        </Menu.Item>
+        <Menu.Item
+          key="6"
+          icon={<RiAdminFill size={25} />}
+          className={activeKey === "6" ? "!bg-red-500 !text-white" : ""} // Tailwind active style
         >
           <Link to="/administrator" className="text-[18px]">
             Administrator
