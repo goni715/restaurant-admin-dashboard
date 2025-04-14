@@ -1,15 +1,14 @@
 import { Pagination , Table } from 'antd';
 import placeholder_img from "../../assets/images/placeholder.jpeg";
-import DeleteAdministratorModal from '../modal/administrator/DeleteAdministratorModal';
-import EditAdministratorModal from '../modal/administrator/EditAdministratorModal';
 import { FaEye } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import EditRestaurantModal from '../modal/restaurant/EditRestaurantModal';
+import EditRestaurantStatusModal from '../modal/restaurant/EditRestaurantStatusModal';
+import EditApprovalStatusModal from '../modal/restaurant/EditApprovalStatusModal';
 
 
 const colorMap = {
     pending: "bg-yellow-100 text-yellow-800",
-    approved: "bg-green-100 text-green-800",
+    accepted: "bg-green-100 text-green-800",
     cancelled: "bg-red-100 text-red-800",
 };
 
@@ -75,15 +74,22 @@ const RestaurantTable = ({restaurants, meta, currentPage, setCurrentPage, pageSi
           title: "Status",
           dataIndex: "status",
           key: "status",
-          render: (val) => {
-            const bgColor = val === "active" ? "bg-green-500" : "bg-rose-500";
+          render: (val, record) => {
+            const statusStyles = {
+              active: "bg-green-100 text-green-700 border border-green-300",
+              deactive: "bg-gray-100 text-gray-700 border border-gray-300",
+            };
+            const bgColor = val === "active" ? statusStyles.active : statusStyles.deactive;
+        
             return (
-              <button
-                className={`${bgColor} px-2 py-0.5 text-white rounded-md shadow cursor-default capitalize`}
-              >
-                {" "}
-                {val}{" "}
-              </button>
+              <div className="flex items-center gap-2">
+                <span
+                  className={`${bgColor} px-3 py-0.5 text-sm font-medium rounded-full capitalize`}
+                >
+                  {val}
+                </span>
+                <EditRestaurantStatusModal status={val} restaurantId={record._id}/>
+              </div>
             );
           },
         },
@@ -91,15 +97,18 @@ const RestaurantTable = ({restaurants, meta, currentPage, setCurrentPage, pageSi
           title: "Approval Status",
           dataIndex: "approved",
           key: "approved",
-          render: (val) => {
-            const bgColor = colorMap[val];
+          render: (val, record) => {
+            const bgColor = colorMap[val]; 
+        
             return (
-              <button
-                className={`${bgColor} px-2 py-0.5 text-white rounded-md shadow cursor-default capitalize`}
-              >
-                {" "}
-                {val}{" "}
-              </button>
+              <div className="flex items-center gap-2">
+                <span
+                  className={`${bgColor} px-2 py-0.5 text-white rounded-md shadow cursor-default capitalize`}
+                >
+                  {val}
+                </span>
+                <EditApprovalStatusModal approved={val==="pending" ? "" : val} restaurantId={record._id}/>
+              </div>
             );
           },
         },
@@ -108,7 +117,6 @@ const RestaurantTable = ({restaurants, meta, currentPage, setCurrentPage, pageSi
           key: "action",
           render: (_, record) => (
             <div className="flex items-center gap-x-2">
-              <EditRestaurantModal administrator={record} />
               <button onClick={()=>navigate(`/restaurant-details/${record._id}`)} className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded">
                 <FaEye />
               </button>

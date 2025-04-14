@@ -25,25 +25,28 @@ export const restaurantApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.restaurants],
     }),
-    createAdministrator: builder.mutation({
-      query: (data) => ({
-        url: `/administrator/create-administrator`,
-        method: "POST",
+    changeRestaurantStatus: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/restaurant/change-restaurant-status/${id}`,
+        method: "PATCH",
         body: data,
       }),
       invalidatesTags: (result, error, arg) =>{
         if(result?.success){
-          return [TagTypes.administrator]
+          return [TagTypes.restaurants]
         }
         return []
       },
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast("Administrator is created successfully");
+            SuccessToast("Status is updated successfully");
         } catch (err) {
           const status = err?.error?.status;
-          if (status === 409) {
+          console.log(err);
+          if (status === 404) {
+            ErrorToast(err?.error?.data?.message);
+          } else if (status === 409) {
             ErrorToast(err?.error?.data?.message);
           } else {
             ErrorToast("Something Went Wrong!");
@@ -51,49 +54,25 @@ export const restaurantApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    deleteAdministrator: builder.mutation({
-      query: (id) => ({
-        url: `/administrator/delete-administrator/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: (result, error, arg) =>{
-        if(result?.success){
-          return [TagTypes.administrator]
-        }
-        return []
-      },
-      async onQueryStarted(arg, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          SuccessToast("Administrator is deleted successfully");
-        } catch (err) {
-          const status = err?.error?.status;
-          if (status === 404) {
-            ErrorToast(err?.error?.data?.message);
-          }else {
-            ErrorToast("Something Went Wrong!");
-          }
-        }
-      },
-    }),
-    updateDining: builder.mutation({
+    changeApprovalStatus: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/dining/update-dining/${id}`,
+        url: `/restaurant/approve-restaurant/${id}`,
         method: "PATCH",
         body: data,
       }),
       invalidatesTags: (result, error, arg) =>{
         if(result?.success){
-          return [TagTypes.dining]
+          return [TagTypes.restaurants]
         }
         return []
       },
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-            SuccessToast("Dining is updated successfully");
+            SuccessToast("Status is updated successfully");
         } catch (err) {
           const status = err?.error?.status;
+          console.log(err);
           if (status === 404) {
             ErrorToast(err?.error?.data?.message);
           } else if (status === 409) {
@@ -108,4 +87,4 @@ export const restaurantApi = apiSlice.injectEndpoints({
 });
 
 
-export const { useGetRestaurantsQuery, useCreateAdministratorMutation, useDeleteAdministratorMutation, useUpdateDiningMutation } = restaurantApi;
+export const { useGetRestaurantsQuery, useChangeRestaurantStatusMutation, useChangeApprovalStatusMutation } = restaurantApi;

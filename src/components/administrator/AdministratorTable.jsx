@@ -2,13 +2,8 @@ import { Pagination , Table } from 'antd';
 import placeholder_img from "../../assets/images/placeholder.jpeg";
 import DeleteAdministratorModal from '../modal/administrator/DeleteAdministratorModal';
 import EditAdministratorModal from '../modal/administrator/EditAdministratorModal';
-
-const colorMap = {
-  dashboard: "bg-yellow-500",
-  user: "bg-purple-500",
-  restaurant: "bg-pink-500",
-  settings: "bg-teal-500",
-};
+import { FiEdit } from 'react-icons/fi';
+import UpdateAccessModal from '../modal/administrator/UpdateAccessModal';
 
 
 const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
@@ -68,18 +63,30 @@ const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, 
           dataIndex: "access",
           key: "access",
           render: (val) => (
-            <div className="flex flex-row flex-wrap gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               {val?.map((item, i) => {
-                const bgColor = colorMap[item] || "bg-gray-400"; // fallback color
+                const badgeColors = {
+                  user: "bg-blue-100 text-blue-700 border border-blue-300",
+                  restaurant:
+                    "bg-amber-100 text-amber-700 border border-amber-300",
+                  dashboard:
+                    "bg-purple-100 text-purple-700 border border-purple-300",
+                  settings: "bg-gray-100 text-gray-700 border border-gray-300",
+                };
+                const bgColor =
+                  badgeColors[item] ||
+                  "bg-slate-100 text-slate-700 border border-slate-300";
+
                 return (
-                  <button
+                  <span
                     key={i}
-                    className={`${bgColor} px-2 py-0.5 text-white rounded-md shadow cursor-default capitalize`}
+                    className={`px-3 py-0.5 text-sm font-medium rounded-full ${bgColor}`}
                   >
                     {item}
-                  </button>
+                  </span>
                 );
               })}
+              <UpdateAccessModal/>
             </div>
           ),
         },

@@ -1,6 +1,7 @@
 import {apiSlice} from "../api/apiSlice.js";
 import {ErrorToast, SuccessToast} from "../../../helper/ValidationHelper.js";
 import {logout, setEmail, setOtp, setToken} from "../../../helper/SessionHelper.js";
+import TagTypes from "../../../constant/tagType.constant.js";
 
 
 export const authApi = apiSlice.injectEndpoints({
@@ -103,8 +104,37 @@ export const authApi = apiSlice.injectEndpoints({
                 }
             }
         }),
+        changeStatus: builder.mutation({
+            query: ({ id, data }) => ({
+              url: `/auth/change-status/${id}`,
+              method: "PATCH",
+              body: data,
+            }),
+            invalidatesTags: (result, error, arg) =>{
+              if(result?.success){
+                return [TagTypes.users]
+              }
+              return []
+            },
+            async onQueryStarted(arg, { queryFulfilled }) {
+              try {
+                await queryFulfilled;
+                  SuccessToast("Status is updated successfully");
+              } catch (err) {
+                const status = err?.error?.status;
+                console.log(err);
+                if (status === 404) {
+                  ErrorToast(err?.error?.data?.message);
+                } else if (status === 409) {
+                  ErrorToast(err?.error?.data?.message);
+                } else {
+                  ErrorToast("Something Went Wrong!");
+                }
+              }
+            },
+          }),
     }),
 })
 
 
-export const { useLoginMutation, useForgotPassSendOtpMutation, useForgotPassVerifyOtpMutation, useForgotPassCreateNewPassMutation } = authApi;
+export const { useLoginMutation, useForgotPassSendOtpMutation, useForgotPassVerifyOtpMutation, useForgotPassCreateNewPassMutation, useChangeStatusMutation } = authApi;

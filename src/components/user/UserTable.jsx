@@ -2,6 +2,7 @@ import { Pagination , Table } from 'antd';
 import placeholder_img from "../../assets/images/placeholder.jpeg";
 import DeleteAdministratorModal from '../modal/administrator/DeleteAdministratorModal';
 import EditAdministratorModal from '../modal/administrator/EditAdministratorModal';
+import ChangeStatusModal from '../modal/auth/ChangeStatusModal';
 
 
 const UserTable = ({users, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
@@ -58,35 +59,49 @@ const UserTable = ({users, meta, currentPage, setCurrentPage, pageSize, setPageS
           key: "phone",
         },
         {
-            title: "Status",
-            dataIndex: "status",
-            key: "status",
-            render: (val)=> {
-                const bgColor = val==="blocked" ? "bg-pink-500" : "bg-green-500"
-                return (
-                    <button className={`${bgColor} px-2 py-0.5 text-white rounded-md shadow cursor-default capitalize`}> {val} </button>
-                )
-            }
+          title: "Status",
+          dataIndex: "status",
+          key: "status",
+          render: (val, record) => {
+            const statusStyles = {
+              blocked: "bg-red-100 text-red-700 border border-red-300",
+              unblocked: "bg-green-100 text-green-700 border border-green-300",
+            };
+            const bgColor =
+              val === "blocked" ? statusStyles.blocked : statusStyles.unblocked;
+        
+            return (
+              <div className="flex items-center gap-2">
+                <span
+                  className={`${bgColor} px-3 py-0.5 text-sm font-medium rounded-full`}
+                >
+                  {val}
+                </span>
+                <ChangeStatusModal userId={record._id} status={val}/>
+              </div>
+            );
+          }
         },
         {
           title: "Role",
           dataIndex: "role",
           key: "role",
-        //   render: (val) => (
-        //     <div className="flex flex-row flex-wrap gap-2">
-        //       {val?.map((item, i) => {
-        //         const bgColor = colorMap[item] || "bg-gray-400"; // fallback color
-        //         return (
-        //           <button
-        //             key={i}
-        //             className={`${bgColor} px-2 py-0.5 text-white rounded-md shadow cursor-default capitalize`}
-        //           >
-        //             {item}
-        //           </button>
-        //         );
-        //       })}
-        //     </div>
-        //   ),
+          render: (val) => {
+            const roleStyles = {
+              user: "bg-blue-100 text-blue-700 border border-blue-300",
+              owner: "bg-purple-100 text-purple-700 border border-purple-300",
+            };
+            const bgColor =
+              val === "user" ? roleStyles.user : roleStyles.owner;
+        
+            return (
+                <span
+                  className={`${bgColor} px-3 py-0.5 text-sm font-medium rounded-full`}
+                >
+                  {val}
+                </span>  
+            );
+          }
         },
         {
           title: "Action",
