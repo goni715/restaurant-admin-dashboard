@@ -3,26 +3,20 @@ import placeholder_img from "../../assets/images/placeholder.jpeg";
 import DeleteAdministratorModal from '../modal/administrator/DeleteAdministratorModal';
 import EditAdministratorModal from '../modal/administrator/EditAdministratorModal';
 
-const colorMap = {
-  dashboard: "bg-yellow-500",
-  user: "bg-purple-500",
-  restaurant: "bg-pink-500",
-  settings: "bg-teal-500",
-};
 
+const UserTable = ({users, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
 
-const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
-
-    const dataSource = administrators?.map((administrator, index)=> ({
+    const dataSource = users?.map((user, index)=> ({
         key: index,
         serial: Number(index+1) + ((currentPage-1)*pageSize),
-        _id: administrator?._id,
-        userId:  administrator?.userId,
-        access:  administrator?.access,
-        name: administrator?.name,
-        email: administrator?.email,
-        phone: administrator?.phone,
-        profileImg: administrator?.profileImg,
+        _id: user?._id,
+        userId:  user?.userId,
+        role:  user?.role,
+        name: user?.fullName,
+        email: user?.email,
+        phone: user?.phone,
+        profileImg: user?.profileImg,
+        status: user?.status
     }))
 
  
@@ -64,24 +58,35 @@ const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, 
           key: "phone",
         },
         {
-          title: "Access",
-          dataIndex: "access",
-          key: "access",
-          render: (val) => (
-            <div className="flex flex-row flex-wrap gap-2">
-              {val?.map((item, i) => {
-                const bgColor = colorMap[item] || "bg-gray-400"; // fallback color
+            title: "Status",
+            dataIndex: "status",
+            key: "status",
+            render: (val)=> {
+                const bgColor = val==="blocked" ? "bg-pink-500" : "bg-green-500"
                 return (
-                  <button
-                    key={i}
-                    className={`${bgColor} px-2 py-0.5 text-white rounded-md shadow cursor-default capitalize`}
-                  >
-                    {item}
-                  </button>
-                );
-              })}
-            </div>
-          ),
+                    <button className={`${bgColor} px-2 py-0.5 text-white rounded-md shadow cursor-default capitalize`}> {val} </button>
+                )
+            }
+        },
+        {
+          title: "Role",
+          dataIndex: "role",
+          key: "role",
+        //   render: (val) => (
+        //     <div className="flex flex-row flex-wrap gap-2">
+        //       {val?.map((item, i) => {
+        //         const bgColor = colorMap[item] || "bg-gray-400"; // fallback color
+        //         return (
+        //           <button
+        //             key={i}
+        //             className={`${bgColor} px-2 py-0.5 text-white rounded-md shadow cursor-default capitalize`}
+        //           >
+        //             {item}
+        //           </button>
+        //         );
+        //       })}
+        //     </div>
+        //   ),
         },
         {
           title: "Action",
@@ -113,4 +118,4 @@ const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, 
   )
 }
 
-export default AdministratorTable;
+export default UserTable;

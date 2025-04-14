@@ -1,120 +1,78 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import {
-  RiPieChart2Fill,
-  RiRestaurant2Fill,
-  RiAdminFill,
   RiSettingsFill,
   RiLogoutBoxRLine,
 } from "react-icons/ri";
-import { FaRegCircleUser } from "react-icons/fa6";
-import { GrRestaurant } from "react-icons/gr";
 import { logout } from "../../helper/SessionHelper";
-import { MdDining } from "react-icons/md";
+import { menuItems } from "../../data/data";
 
 const SidebarMenu = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [activeKey, setActiveKey] = useState("1");
   const location = useLocation();
+  const path = location.pathname;
+
 
   const toggleSettings = () => {
     setSettingsOpen(!settingsOpen);
   };
 
-  useEffect(() => {
-    const path = location.pathname;
-    if (path === "/") {
-      setActiveKey("1");
-    } else if (path === "/users") {
-      setActiveKey("2");
-    } else if (path === "/restaurant") {
-      setActiveKey("3");
-    } else if (path === "/cusine") {
-      setActiveKey("4");
-    }
-    else if (path === "/dining") {
-      setActiveKey("5");
-    } else if (path === "/administrators") {
-      setActiveKey("6");
-    } else if (path === "/settings") {
-      setActiveKey("settings");
-    } else if (path === "/terms") {
-      setActiveKey("terms");
-    } else if (path === "/about") {
-      setActiveKey("about");
-    } else if (path === "/faqs") {
-      setActiveKey("faqs");
-    } else if (path === "/privacy") {
-      setActiveKey("privacy");
-    } else if (path === "/signout") {
-      setActiveKey("signout");
-    }
-  }, [location]);
+  // useEffect(() => {
+  //   const path = location.pathname;
+  //   if (path === "/") {
+  //     setActiveKey("1");
+  //   } else if (path === "/users") {
+  //     setActiveKey("2");
+  //   } else if (path === "/restaurant") {
+  //     setActiveKey("3");
+  //   } else if (path === "/cusine") {
+  //     setActiveKey("4");
+  //   }
+  //   else if (path === "/dining") {
+  //     setActiveKey("5");
+  //   } else if (path === "/administrators") {
+  //     setActiveKey("6");
+  //   } else if (path === "/settings") {
+  //     setActiveKey("settings");
+  //   } else if (path === "/terms") {
+  //     setActiveKey("terms");
+  //   } else if (path === "/about") {
+  //     setActiveKey("about");
+  //   } else if (path === "/faqs") {
+  //     setActiveKey("faqs");
+  //   } else if (path === "/privacy") {
+  //     setActiveKey("privacy");
+  //   } else if (path === "/signout") {
+  //     setActiveKey("signout");
+  //   }
+  // }, [location]);
 
   return (
     <div className="py-0">
       <Menu
         style={{ background: "#F6F6F6" }}
         mode="inline"
-        selectedKeys={[activeKey]}
+        selectedKeys={[path]}
         onSelect={({ key }) => setActiveKey(key)}
       >
-        <Menu.Item
-          key="1"
-          icon={<RiPieChart2Fill size={25} />}
-          className={activeKey === "1" ? "!bg-red-500 !text-white" : ""}
-        >
-          <Link to="/" className="text-[18px]">
-            Dashboard
-          </Link>
-        </Menu.Item>
-        <Menu.Item
-          key="2"
-          icon={<FaRegCircleUser size={25} />}
-          className={activeKey === "2" ? "!bg-red-500 !text-white" : ""} // Tailwind active style
-        >
-          <Link to="/users" className="text-[18px]">
-            Users Management
-          </Link>
-        </Menu.Item>
-        <Menu.Item
-          key="3"
-          icon={<RiRestaurant2Fill size={25} />}
-          className={activeKey === "3" ? "!bg-red-500 !text-white" : ""} // Tailwind active style
-        >
-          <Link to="/restaurants" className="text-[18px]">
-            Restaurants
-          </Link>
-        </Menu.Item>
-        <Menu.Item
-          key="4"
-          icon={<GrRestaurant size={25} />}
-          className={activeKey === "4" ? "!bg-red-500 !text-white" : ""} // Tailwind active style
-        >
-          <Link to="/cuisine" className="text-[18px]">
-            Cusine
-          </Link>
-        </Menu.Item>
-        <Menu.Item
-          key="5"
-          icon={<MdDining size={25} />}
-          className={activeKey === "5" ? "!bg-red-500 !text-white" : ""} // Tailwind active style
-        >
-          <Link to="/dining" className="text-[18px]">
-            Dining
-          </Link>
-        </Menu.Item>
-        <Menu.Item
-          key="6"
-          icon={<RiAdminFill size={25} />}
-          className={activeKey === "6" ? "!bg-red-500 !text-white" : ""} // Tailwind active style
-        >
-          <Link to="/administrators" className="text-[18px]">
-            Administrators
-          </Link>
-        </Menu.Item>
 
+        {menuItems?.map((item) => (
+            <Menu.Item
+              key={item.path}
+              icon={<item.icon size={25} />}
+              className={
+                item.path === path ? "!bg-red-500 !text-white" : ""
+              } 
+            >
+              <Link to={item.path} className={`${item.path === path ? "text-white" : "text-black"} text-[18px]`}>
+                {item.title}
+              </Link>
+            </Menu.Item>
+          ))}
+
+        {/* Sub Menu Part */}
         <Menu.SubMenu
           className={activeKey === "settings" ? "!bg-red-500 !text-white" : ""}
           key="settings"
@@ -174,7 +132,7 @@ const SidebarMenu = () => {
           icon={<RiLogoutBoxRLine size={25} />}
           className={activeKey === "signout" ? "bg-red-500 text-white" : ""} // Tailwind active style
         >
-          <button onClick={()=> logout()} className="text-[18px]">
+          <button onClick={() => logout()} className="text-[18px]">
             Sign Out
           </button>
         </Menu.Item>
