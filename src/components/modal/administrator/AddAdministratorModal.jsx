@@ -1,19 +1,18 @@
 import { Input, Modal, Form, Button, Checkbox} from "antd";
 import { useEffect, useRef, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { useCreateCuisineMutation } from "../../../redux/features/cuisine/cuisineApi";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { AiOutlineClose } from "react-icons/ai";
-import { Divider } from 'antd';
+import { useCreateAdministratorMutation } from "../../../redux/features/administrator/administratorApi";
 const CheckboxGroup = Checkbox.Group;
-const plainOptions = ['Apple', 'Pear', 'Orange'];
-//const defaultCheckedList = ['Apple', 'Orange'];
+const plainOptions = ['dashboard', 'user', 'restaurant', 'settings'];
 
 
 const AddAdministratorModal = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [file, setFile] = useState(null);
-  const [createCuisine, { isLoading, isSuccess }] = useCreateCuisineMutation();
+  const [createAdministrator, { isLoading, isSuccess }] = useCreateAdministratorMutation();
+  const [checkedList, setCheckedList] = useState([]);
   const fileInputRef = useRef(null);
   const [form] = Form.useForm();
 
@@ -25,22 +24,10 @@ const AddAdministratorModal = () => {
         fileInputRef.current.value = null;
       }
       form.resetFields();
+      setCheckedList([])
     }
   }, [isSuccess, form]);
 
-  const onFinish = (values) => {
-    let formData = new FormData();
-    formData.append("name", values.name);
-    if (file !== null) {
-      formData.append("file", file);
-    }
-
-    // const formObject = Object.fromEntries(formData.entries());
-    // console.log(formObject);
-    //createCuisine(formData);
-
-    console.log(values);
-  };
 
   const handleClear = () => {
     setFile(null);
@@ -50,17 +37,42 @@ const AddAdministratorModal = () => {
   };
 
 
- // const [checkedList, setCheckedList] = useState(defaultCheckedList);
-  const [checkedList, setCheckedList] = useState([]);
-
   const checkAll = plainOptions.length === checkedList.length;
-  const indeterminate = checkedList.length > 0 && checkedList.length < plainOptions.length;
-  const onChange = list => {
-    setCheckedList(list);
-  };
+
   const onCheckAllChange = e => {
-    setCheckedList(e.target.checked ? plainOptions : []);
+    const allChecked = e.target.checked ? plainOptions : [];
+    setCheckedList(allChecked);
+    form.setFieldsValue({ access: allChecked }); // ✅ Important!
+    form.validateFields(["access"]);
   };
+
+  const onFinish = (values) => {
+    let formData = new FormData();
+    if (file !== null) {
+      formData.append("file", file);
+    }
+
+    const data = {
+      administratorData: {
+        fullName: values.fullName,
+        email: values.email,
+        phone: values.phone,
+        password: values.password,
+      },
+      access: checkedList
+    }
+
+    const jsonData = JSON.stringify(data);
+    formData.append("data", jsonData);
+
+    // const formObject = Object.fromEntries(formData.entries());
+    // console.log(formObject);
+    
+    createAdministrator(formData);
+
+  };
+
+
 
 
   return (
@@ -81,14 +93,14 @@ const AddAdministratorModal = () => {
       >
         <Form form={form} name="add" layout="vertical" onFinish={onFinish}>
           <Form.Item
-            name="name"
+            name="fullName"
             label={
               <span className="font-semibold">
                 <span className="text-red-500 mr-1">*</span>
-                Name
+                Full Name
               </span>
             }
-            rules={[{ required: true, message: "Name is required" }]}
+            rules={[{ required: true, message: "Full Name is required" }]}
           >
             <Input placeholder="Type here" />
           </Form.Item>
@@ -120,38 +132,48 @@ const AddAdministratorModal = () => {
             <Input placeholder="Type here" />
           </Form.Item>
           <Form.Item
+            name="password"
+            label={<span className="font-semibold">Password(Optional)</span>}
+            rules={[
+              {
+                min: 6,
+                message: "Password must be at least 6 characters long!",
+              },
+            ]}
+          >
+            <Input type="password" placeholder="Type here" />
+          </Form.Item>
+          <Form.Item
             label={
               <span className="font-semibold">
-                <span className="text-red-500 mr-1">*</span>
-                Give Access To
+                Give Access To (Optional)
               </span>
             }
-            initialValue={checkedList}
-          
+            name="access"
           >
-            {/* <Checkbox.Group
-             value={checkedList}
-              onChange={onChange}
-              style={{ display: "flex", flexDirection: "column" }}
-            >
-              <Checkbox value={allValue} checked={isAllChecked}>All</Checkbox>
-              <Checkbox value="dashboard">Dashboard</Checkbox>
-              <Checkbox value="user_management">User Management</Checkbox>
-              <Checkbox value="restaurant_management">
-                Restaurant Management
+            <div className="flex flex-col gap-2">
+              <Checkbox onChange={onCheckAllChange} checked={checkAll}>
+                All
               </Checkbox>
-              <Checkbox value="settings">Settings</Checkbox>
-            </Checkbox.Group> */}
-
-
-        
+              <CheckboxGroup
+                options={plainOptions}
+                value={checkedList}
+                onChange={(list) => {
+                  setCheckedList(list);
+                  form.setFieldsValue({ access: list }); // Sync with form state
+                   // ✅ Trigger validation
+                  form.validateFields(["access"]);
+                }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "small",
+                  textTransform: "capitalize"
+                }}
+              />
+            </div>
           </Form.Item>
-
-          <Checkbox onChange={onCheckAllChange} checked={checkAll}>
-        Check all
-      </Checkbox>
-      <Divider />
-      <CheckboxGroup options={plainOptions} value={checkedList} onChange={onChange} style={{ display: "flex", flexDirection: "column" }}/>
+         
 
           <div class="mb-4">
             <label

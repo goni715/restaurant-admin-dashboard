@@ -1,10 +1,11 @@
+
 import {apiSlice} from "../api/apiSlice.js";
 import {ErrorToast, SuccessToast} from "../../../helper/ValidationHelper.js";
 import TagTypes from "../../../constant/tagType.constant.js";
 
-export const administratorApi = apiSlice.injectEndpoints({
+export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAdministrators: builder.query({
+    getUsers: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
 
@@ -16,13 +17,13 @@ export const administratorApi = apiSlice.injectEndpoints({
           });
         }
         return {
-          url: "/administrator/get-administrators",
+          url: "/user/get-users",
           method: "GET",
           params: params
         };
       },
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.administrator],
+      providesTags: [TagTypes.users],
     }),
     createAdministrator: builder.mutation({
       query: (data) => ({
@@ -107,4 +108,4 @@ export const administratorApi = apiSlice.injectEndpoints({
 });
 
 
-export const { useGetAdministratorsQuery, useCreateAdministratorMutation, useDeleteAdministratorMutation, useUpdateDiningMutation } = administratorApi;
+export const { useGetUsersQuery, useCreateAdministratorMutation, useDeleteAdministratorMutation, useUpdateDiningMutation } = userApi;

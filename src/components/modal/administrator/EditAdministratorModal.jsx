@@ -65,7 +65,7 @@ const EditAdministratorModal = ({cuisine}) => {
         <EditOutlined />
       </button>
       <Modal
-        title={<span className="font-bold">Update Cuisine</span>}
+        title={<span className="font-bold">Update Administrator</span>}
         open={modalOpen}
         onCancel={() => setModalOpen(false)}
         maskClosable={false}

@@ -1,7 +1,8 @@
 import EditCuisineModal from '../modal/cuisine/EditCuisineModal';
-import DeleteCuisineModal from "../modal/cuisine/DeleteCuisineModal";
 import { Pagination , Table } from 'antd';
 import placeholder_img from "../../assets/images/placeholder.jpeg";
+import DeleteAdministratorModal from '../modal/administrator/DeleteAdministratorModal';
+import EditAdministratorModal from '../modal/administrator/EditAdministratorModal';
 
 const colorMap = {
   dashboard: "bg-yellow-500",
@@ -49,7 +50,7 @@ const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, 
                 e.currentTarget.onerror = null; // Prevent infinite loop
                 e.currentTarget.src = placeholder_img;
               }}
-              className="h-8 rounded-md mr-2"
+              className="h-[45px] w-[45px] rounded-md mr-2"
             />
           ),
         },
@@ -88,8 +89,8 @@ const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, 
           key: "action",
           render: (_, record) => (
             <div className="flex items-center gap-x-2">
-              <EditCuisineModal cuisine={record} />
-              <DeleteCuisineModal cuisineId={record._id} />
+              <EditAdministratorModal administrator={record} />
+              <DeleteAdministratorModal administratorId={record._id} />
             </div>
           ),
         },
