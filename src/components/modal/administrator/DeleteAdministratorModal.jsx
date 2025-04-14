@@ -2,13 +2,15 @@ import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { DeleteOutlined } from "@ant-design/icons";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { useDeleteDiningMutation } from "../../../redux/features/dining/diningApi";
+import { useDeleteCuisineMutation } from "../../../redux/features/cuisine/cuisineApi";
 
 
 
-const DeleteDiningModal = ({ diningId }) => {
+
+
+const DeleteAdministratorModal = ({ cuisineId }) => {
     const [ modalOpen, setModalOpen ] = useState(false);
-    const [ deleteDining, { isLoading, isSuccess, isError }] = useDeleteDiningMutation();
+    const [ deleteCuisine, { isLoading, isSuccess, isError }] = useDeleteCuisineMutation();
 
     useEffect(()=> {
         if(isSuccess || isError){
@@ -17,7 +19,7 @@ const DeleteDiningModal = ({ diningId }) => {
     },[isSuccess, isError])
    
     const handleDelete = () => {
-      deleteDining(diningId);
+      deleteCuisine(cuisineId);
     }
 
   return (
@@ -51,4 +53,4 @@ const DeleteDiningModal = ({ diningId }) => {
   );
 }
 
-export default DeleteDiningModal;
+export default DeleteAdministratorModal

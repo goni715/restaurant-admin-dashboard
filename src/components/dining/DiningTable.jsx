@@ -1,15 +1,15 @@
-import EditCuisineModal from '../modal/cuisine/EditCuisineModal';
-import DeleteCuisineModal from "../modal/cuisine/DeleteCuisineModal";
 import { Pagination , Table } from 'antd';
-import placeholder_img from "../../assets/images/placeholder.jpeg";
-const DiningTable = ({cuisines, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
+import DeleteDiningModal from '../modal/dining/DeleteDiningModal';
+import EditDiningModal from '../modal/dining/EditDiningModal';
 
-    const dataSource = cuisines?.map((cuisine, index)=> ({
+
+const DiningTable = ({diningList, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
+
+    const dataSource = diningList?.map((dining, index)=> ({
         key: index,
         serial: Number(index+1) + ((currentPage-1)*pageSize),
-        _id: cuisine?._id,
-        name: cuisine?.name,
-        image: cuisine?.image,
+        _id: dining?._id,
+        name: dining?.name,
     }))
 
  
@@ -18,37 +18,19 @@ const DiningTable = ({cuisines, meta, currentPage, setCurrentPage, pageSize, set
           title: "Serial",
           dataIndex: "serial",
           key: "serial",
-          render: (text) => <a>{text}</a>,
         },
         {
           title: "Name",
           dataIndex: "name",
           key: "name",
-          render: (text) => <a>{text}</a>,
-        },
-        {
-          title: "Image",
-          dataIndex: "image",
-          key: "image",
-          render: (val) => (
-            <img
-              src={val || placeholder_img}
-              alt="cuisine_img"
-              onError={(e) => {
-                e.currentTarget.onerror = null; // Prevent infinite loop
-                e.currentTarget.src = placeholder_img;
-              }}
-              className="h-8 rounded-md mr-2"
-            />
-          ),
         },
         {
           title: "Action",
           key: "action",
           render: (_, record) => (
             <div className="flex items-center gap-x-2">
-              <EditCuisineModal cuisine={record} />
-              <DeleteCuisineModal cuisineId={record._id} />
+              <EditDiningModal dining={record} />
+              <DeleteDiningModal diningId={record._id} />
             </div>
           ),
         },

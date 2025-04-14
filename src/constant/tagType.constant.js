@@ -1,6 +1,8 @@
 
 const TagTypes = {
-    cuisine: "Cuisines"
+    cuisine: "Cuisines",
+    dining: "DiningList",
+    administrator: "Administrators"
 }
 
 export default TagTypes;

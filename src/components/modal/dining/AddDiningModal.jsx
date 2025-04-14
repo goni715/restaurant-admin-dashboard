@@ -1,36 +1,23 @@
 import { Input, Modal, Form, Button} from "antd";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { useCreateCuisineMutation } from "../../../redux/features/cuisine/cuisineApi";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { AiOutlineClose } from "react-icons/ai";
+import { useCreateDiningMutation } from "../../../redux/features/dining/diningApi";
 
 const AddDiningModal = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [file, setFile] = useState(null);
-  const [createCuisine, { isLoading, isSuccess }] = useCreateCuisineMutation();
-  const fileInputRef = useRef(null);
+  const [createDining, { isLoading, isSuccess }] = useCreateDiningMutation();
   const [form] = Form.useForm();
 
   useEffect(() => {
     if (isSuccess) {
       setModalOpen(false);
-      setFile(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = null;
-      }
       form.resetFields();
     }
   }, [isSuccess, form]);
 
   const onFinish = (values) => {
-    let formData = new FormData();
-    formData.append("name", values.name);
-    if (file !== null) {
-      formData.append("file", file);
-    }
-
-    createCuisine(formData);
+    createDining(values)    
   };
 
 

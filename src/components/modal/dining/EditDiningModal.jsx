@@ -1,58 +1,29 @@
 import { Input, Modal, Form} from "antd";
-import { useEffect, useRef, useState } from "react";
-import { useUpdateCuisineMutation } from "../../../redux/features/cuisine/cuisineApi";
+import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { EditOutlined } from "@ant-design/icons";
-import { Pencil } from "lucide-react";
-import placeholder_img from "../../../assets/images/placeholder.jpeg";
+import { useUpdateDiningMutation } from "../../../redux/features/dining/diningApi";
 
 
-const EditDiningModal = ({cuisine}) => {
+const EditDiningModal = ({ dining }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [file, setFile] = useState(null);
-  const [updateCuisine, { isLoading, isSuccess }] = useUpdateCuisineMutation();
-  const fileInputRef = useRef(null);
+  const [updateDining, { isLoading, isSuccess }] = useUpdateDiningMutation();
   const [form] = Form.useForm();
-  const [imageSrc, setImageSrc] = useState(cuisine?.image || placeholder_img); // Default image
-  const fallback = placeholder_img;
 
 
   useEffect(() => {
     if (isSuccess) {
       setModalOpen(false);
-      setFile(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = null;
-      }
       form.resetFields();
     }
   }, [isSuccess, form]);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setImageSrc(reader.result);
-      reader.readAsDataURL(file);
-      setFile(file);
-    }
-  };
-
-  const triggerFileInput = () => fileInputRef.current?.click();
-
-
-  //update the cuisine
+ 
+  //update the dining
   const onFinish = (values) => {
-    let formData = new FormData();
-    formData.append("name", values.name);
-    if (file !== null) {
-      formData.append("file", file);
-    }
-    //  const formObject = Object.fromEntries(formData.entries());
-    //  console.log(formObject);
-    updateCuisine({
-      id: cuisine._id,
-      data: formData
+    updateDining({
+      id: dining._id,
+      data: values
     })
   };
 
@@ -65,13 +36,13 @@ const EditDiningModal = ({cuisine}) => {
         <EditOutlined />
       </button>
       <Modal
-        title={<span className="font-bold">Update Cuisine</span>}
+        title={<span className="font-bold">Update Dining</span>}
         open={modalOpen}
         onCancel={() => setModalOpen(false)}
         maskClosable={false}
         footer={false}
       >
-        <Form form={form} name="edit" layout="vertical" onFinish={onFinish} initialValues={{ name: cuisine?.name }}>
+        <Form form={form} name="edit" layout="vertical" onFinish={onFinish} initialValues={{ name: dining?.name }}>
           <Form.Item
             name="name"
             label={<span className="font-semibold">Name</span>}
@@ -79,29 +50,6 @@ const EditDiningModal = ({cuisine}) => {
           >
             <Input key={Date.now()} placeholder="Type here"/>
           </Form.Item>
-          <div className="relative w-32 h-32 rounded-2xl overflow-hidden shadow-md mt-4">
-            <img
-              src={imageSrc}
-              alt="Preview"
-              onError={() => setImageSrc(fallback)}
-              className="object-cover w-full h-full transition-opacity duration-200"
-            />
-
-            {/* Edit Icon Top Right */}
-            <div
-              className="absolute top-0 right-0 rounded-bl-md bg-black p-3 cursor-pointer z-10"
-              onClick={triggerFileInput}
-            >
-              <Pencil className="text-white w-5 h-5" />
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                className="absolute inset-0 opacity-0 cursor-pointer"
-                onChange={handleFileChange}
-              />
-            </div>
-          </div>
           <button
             type="submit"
             disabled={isLoading}

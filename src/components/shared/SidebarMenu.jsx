@@ -11,6 +11,7 @@ import {
 import { FaRegCircleUser } from "react-icons/fa6";
 import { GrRestaurant } from "react-icons/gr";
 import { logout } from "../../helper/SessionHelper";
+import { MdDining } from "react-icons/md";
 
 const SidebarMenu = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -33,8 +34,8 @@ const SidebarMenu = () => {
       setActiveKey("4");
     }
     else if (path === "/dining") {
-    setActiveKey("5");
-    } else if (path === "/administrator") {
+      setActiveKey("5");
+    } else if (path === "/administrators") {
       setActiveKey("6");
     } else if (path === "/settings") {
       setActiveKey("settings");
@@ -97,7 +98,7 @@ const SidebarMenu = () => {
         </Menu.Item>
         <Menu.Item
           key="5"
-          icon={<GrRestaurant size={25} />}
+          icon={<MdDining size={25} />}
           className={activeKey === "5" ? "!bg-red-500 !text-white" : ""} // Tailwind active style
         >
           <Link to="/dining" className="text-[18px]">
@@ -109,8 +110,8 @@ const SidebarMenu = () => {
           icon={<RiAdminFill size={25} />}
           className={activeKey === "6" ? "!bg-red-500 !text-white" : ""} // Tailwind active style
         >
-          <Link to="/administrator" className="text-[18px]">
-            Administrator
+          <Link to="/administrators" className="text-[18px]">
+            Administrators
           </Link>
         </Menu.Item>
 

@@ -2,20 +2,33 @@ import EditCuisineModal from '../modal/cuisine/EditCuisineModal';
 import DeleteCuisineModal from "../modal/cuisine/DeleteCuisineModal";
 import { Pagination , Table } from 'antd';
 import placeholder_img from "../../assets/images/placeholder.jpeg";
-const CuisineTable = ({cuisines, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
 
-    const dataSource = cuisines?.map((cuisine, index)=> ({
+const colorMap = {
+  dashboard: "bg-yellow-500",
+  user: "bg-purple-500",
+  restaurant: "bg-pink-500",
+  settings: "bg-teal-500",
+};
+
+
+const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
+
+    const dataSource = administrators?.map((administrator, index)=> ({
         key: index,
         serial: Number(index+1) + ((currentPage-1)*pageSize),
-        _id: cuisine?._id,
-        name: cuisine?.name,
-        image: cuisine?.image,
+        _id: administrator?._id,
+        userId:  administrator?.userId,
+        access:  administrator?.access,
+        name: administrator?.name,
+        email: administrator?.email,
+        phone: administrator?.phone,
+        profileImg: administrator?.profileImg,
     }))
 
  
       const columns = [
         {
-          title: "Serial",
+          title: "SN",
           dataIndex: "serial",
           key: "serial",
         },
@@ -26,18 +39,48 @@ const CuisineTable = ({cuisines, meta, currentPage, setCurrentPage, pageSize, se
         },
         {
           title: "Image",
-          dataIndex: "image",
-          key: "image",
+          dataIndex: "profileImg",
+          key: "profileImg",
           render: (val) => (
             <img
               src={val || placeholder_img}
-              alt="cuisine_img"
+              alt="administrator_img"
               onError={(e) => {
                 e.currentTarget.onerror = null; // Prevent infinite loop
                 e.currentTarget.src = placeholder_img;
               }}
               className="h-8 rounded-md mr-2"
             />
+          ),
+        },
+        {
+          title: "Email",
+          dataIndex: "email",
+          key: "email",
+        },
+        {
+          title: "Contact Number",
+          dataIndex: "phone",
+          key: "phone",
+        },
+        {
+          title: "Access",
+          dataIndex: "access",
+          key: "access",
+          render: (val) => (
+            <div className="flex flex-row flex-wrap gap-2">
+              {val?.map((item, i) => {
+                const bgColor = colorMap[item] || "bg-gray-400"; // fallback color
+                return (
+                  <button
+                    key={i}
+                    className={`${bgColor} px-2 py-0.5 text-white rounded-md shadow cursor-default capitalize`}
+                  >
+                    {item}
+                  </button>
+                );
+              })}
+            </div>
           ),
         },
         {
@@ -70,4 +113,4 @@ const CuisineTable = ({cuisines, meta, currentPage, setCurrentPage, pageSize, se
   )
 }
 
-export default CuisineTable
+export default AdministratorTable;

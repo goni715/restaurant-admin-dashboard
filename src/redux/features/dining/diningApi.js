@@ -2,9 +2,9 @@ import {apiSlice} from "../api/apiSlice.js";
 import {ErrorToast, SuccessToast} from "../../../helper/ValidationHelper.js";
 import TagTypes from "../../../constant/tagType.constant.js";
 
-export const cuisineApi = apiSlice.injectEndpoints({
+export const diningApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getCusines: builder.query({
+    getDiningList: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
 
@@ -16,40 +16,30 @@ export const cuisineApi = apiSlice.injectEndpoints({
           });
         }
         return {
-          url: "/cuisine/get-cuisines",
+          url: "/dining/get-dining-list",
           method: "GET",
           params: params
         };
       },
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.cuisine],
-      async onQueryStarted(arg, { queryFulfilled}) {
-        try {
-          await queryFulfilled;
-        } catch (err) {
-          //ErrorToast("Something Went Wrong!");
-          //do nothing
-          //console.log(err);
-        }
-      },
+      providesTags: [TagTypes.dining],
     }),
-    createCuisine: builder.mutation({
+    createDining: builder.mutation({
       query: (data) => ({
-        url: `/cuisine/create-cuisine`,
+        url: `/dining/create-dining`,
         method: "POST",
         body: data,
       }),
-      //invalidatesTags: [TagTypes.cuisine],
       invalidatesTags: (result, error, arg) =>{
         if(result?.success){
-          return [TagTypes.cuisine]
+          return [TagTypes.dining]
         }
         return []
       },
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast("Cuisine Create Success");
+          SuccessToast("Dining is created successfully");
         } catch (err) {
           const status = err?.error?.status;
           if (status === 409) {
@@ -60,22 +50,21 @@ export const cuisineApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    deleteCuisine: builder.mutation({
+    deleteDining: builder.mutation({
       query: (id) => ({
-        url: `/cuisine/delete-cuisine/${id}`,
+        url: `/dining/delete-dining/${id}`,
         method: "DELETE",
       }),
-      // invalidatesTags: [TagTypes.cuisine],
       invalidatesTags: (result, error, arg) =>{
         if(result?.success){
-          return [TagTypes.cuisine]
+          return [TagTypes.dining]
         }
         return []
       },
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast("Cuisine is deleted successfully");
+          SuccessToast("Dining is deleted successfully");
         } catch (err) {
           const status = err?.error?.status;
           if (status === 404) {
@@ -88,22 +77,22 @@ export const cuisineApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    updateCuisine: builder.mutation({
+    updateDining: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/cuisine/update-cuisine/${id}`,
+        url: `/dining/update-dining/${id}`,
         method: "PATCH",
         body: data,
       }),
       invalidatesTags: (result, error, arg) =>{
         if(result?.success){
-          return [TagTypes.cuisine]
+          return [TagTypes.dining]
         }
         return []
       },
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-            SuccessToast("Cuisine is updated successfully");
+            SuccessToast("Dining is updated successfully");
         } catch (err) {
           const status = err?.error?.status;
           if (status === 404) {
@@ -120,4 +109,4 @@ export const cuisineApi = apiSlice.injectEndpoints({
 });
 
 
-export const { useGetCusinesQuery, useCreateCuisineMutation, useDeleteCuisineMutation, useUpdateCuisineMutation } = cuisineApi;
+export const { useGetDiningListQuery, useCreateDiningMutation, useDeleteDiningMutation, useUpdateDiningMutation } = diningApi;

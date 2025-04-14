@@ -2,17 +2,17 @@
 import { Input } from "antd";
 import { useEffect, useState } from "react";
 import ListLoading from "../Loader/ListLoading";
-import AddDiningModal from "../modal/dining/AddDiningModal";
-import { useGetDiningListQuery } from "../../redux/features/dining/diningApi";
-import DiningTable from "./DiningTable";
+import AddAdministratorModal from "../modal/administrator/AddAdministratorModal";
+import { useGetAdministratorsQuery } from "../../redux/features/administrator/administratorApi";
+import AdministratorTable from "./AdministratorTable";
 
 const { Search } = Input;
 
-const DiningList = () => {
+const AdministratorList = () => {
   const [searchQuery, setSearchQuery ] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [ currentPage, setCurrentPage ] = useState(1);
-  const [ pageSize, setPageSize ] = useState(5);
+  const [ pageSize, setPageSize ] = useState(10);
 
   //debounced handle
   useEffect(() => {
@@ -23,12 +23,12 @@ const DiningList = () => {
         }, 600);    
   }, [searchQuery]);
 
-  const { data, isLoading } = useGetDiningListQuery([
+  const { data, isLoading } = useGetAdministratorsQuery([
     { name: "searchTerm", value: searchTerm },
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize }
   ]);
-  const diningList = data?.data || []
+  const administrators = data?.data || []
   const meta = data?.meta;
     
    
@@ -41,7 +41,7 @@ const DiningList = () => {
   return (
     <>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold">Dining</h2>
+        <h2 className="text-2xl font-semibold">Administrator</h2>
         <div className="w-[348px]">
           <Search
             placeholder="Search here..."
@@ -51,16 +51,16 @@ const DiningList = () => {
           />
         </div>
       </div>
-      <AddDiningModal />
+      <AddAdministratorModal />
       {
         isLoading ? (
           <ListLoading/>
         ): (
-          <DiningTable diningList={diningList} meta={meta} currentPage={currentPage} setCurrentPage={setCurrentPage} pageSize={pageSize} setPageSize={setPageSize}/>
+          <AdministratorTable administrators={administrators} meta={meta} currentPage={currentPage} setCurrentPage={setCurrentPage} pageSize={pageSize} setPageSize={setPageSize}/>
         )
       }
     </>
   );
 }
 
-export default DiningList;
+export default AdministratorList
