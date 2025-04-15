@@ -1,7 +1,6 @@
 import { Pagination , Table } from 'antd';
 import placeholder_img from "../../assets/images/placeholder.jpeg";
 import DeleteAdministratorModal from '../modal/administrator/DeleteAdministratorModal';
-import EditAdministratorModal from '../modal/administrator/EditAdministratorModal';
 import ChangeStatusModal from '../modal/auth/ChangeStatusModal';
 
 
@@ -108,7 +107,6 @@ const UserTable = ({users, meta, currentPage, setCurrentPage, pageSize, setPageS
           key: "action",
           render: (_, record) => (
             <div className="flex items-center gap-x-2">
-              <EditAdministratorModal administrator={record} />
               <DeleteAdministratorModal administratorId={record._id} />
             </div>
           ),

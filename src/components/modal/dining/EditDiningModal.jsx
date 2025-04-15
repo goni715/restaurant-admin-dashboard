@@ -38,7 +38,12 @@ const EditDiningModal = ({ dining }) => {
       <Modal
         title={<span className="font-bold">Update Dining</span>}
         open={modalOpen}
-        onCancel={() => setModalOpen(false)}
+        onCancel={() => {
+          setModalOpen(false);
+          form.setFieldsValue({ 
+            name: dining?.name
+          });
+        }}
         maskClosable={false}
         footer={false}
       >

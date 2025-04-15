@@ -62,7 +62,7 @@ const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, 
           title: "Access",
           dataIndex: "access",
           key: "access",
-          render: (val) => (
+          render: (val, record) => (
             <div className="flex flex-wrap items-center gap-2">
               {val?.map((item, i) => {
                 const badgeColors = {
@@ -86,7 +86,7 @@ const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, 
                   </span>
                 );
               })}
-              <UpdateAccessModal/>
+              <UpdateAccessModal administratorId={record?._id} access={val}/>
             </div>
           ),
         },

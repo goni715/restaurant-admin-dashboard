@@ -103,7 +103,7 @@ const RestaurantTable = ({restaurants, meta, currentPage, setCurrentPage, pageSi
             return (
               <div className="flex items-center gap-2">
                 <span
-                  className={`${bgColor} px-2 py-0.5 text-white rounded-md shadow cursor-default capitalize`}
+                  className={`${bgColor} px-2 py-0.5 rounded-md shadow cursor-default capitalize`}
                 >
                   {val}
                 </span>

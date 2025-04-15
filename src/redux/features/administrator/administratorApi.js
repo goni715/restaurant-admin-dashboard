@@ -75,15 +75,43 @@ export const administratorApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    updateDining: builder.mutation({
+    updateAccess: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/dining/update-dining/${id}`,
+        url: `/administrator/update-administrator-access/${id}`,
         method: "PATCH",
         body: data,
       }),
       invalidatesTags: (result, error, arg) =>{
         if(result?.success){
-          return [TagTypes.dining]
+          return [TagTypes.administrator]
+        }
+        return []
+      },
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+            SuccessToast("Dining is updated successfully");
+        } catch (err) {
+          const status = err?.error?.status;
+          if (status === 404) {
+            ErrorToast(err?.error?.data?.message);
+          } else if (status === 409) {
+            ErrorToast(err?.error?.data?.message);
+          } else {
+            ErrorToast("Something Went Wrong!");
+          }
+        }
+      },
+    }),
+    updateAdministrator: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/administrator/update-administrator/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (result, error, arg) =>{
+        if(result?.success){
+          return [TagTypes.administrator]
         }
         return []
       },
@@ -107,4 +135,4 @@ export const administratorApi = apiSlice.injectEndpoints({
 });
 
 
-export const { useGetAdministratorsQuery, useCreateAdministratorMutation, useDeleteAdministratorMutation, useUpdateDiningMutation } = administratorApi;
+export const { useGetAdministratorsQuery, useCreateAdministratorMutation, useDeleteAdministratorMutation, useUpdateAccessMutation, useUpdateAdministratorMutation } = administratorApi;

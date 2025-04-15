@@ -67,7 +67,13 @@ const EditCuisineModal = ({cuisine}) => {
       <Modal
         title={<span className="font-bold">Update Cuisine</span>}
         open={modalOpen}
-        onCancel={() => setModalOpen(false)}
+        onCancel={() => {
+          setModalOpen(false);
+          form.setFieldsValue({ 
+            name: cuisine?.name
+          });
+          setImageSrc(cuisine?.image)
+        }}
         maskClosable={false}
         footer={false}
       >

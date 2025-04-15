@@ -1,40 +1,23 @@
-import { Input, Modal, Form, Button, Checkbox} from "antd";
-import { useEffect, useRef, useState } from "react";
+import { Modal, Form, Checkbox} from "antd";
+import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { AiOutlineClose } from "react-icons/ai";
-import { useCreateAdministratorMutation } from "../../../redux/features/administrator/administratorApi";
+import { useUpdateAccessMutation } from "../../../redux/features/administrator/administratorApi";
 import { FiEdit } from "react-icons/fi";
 const CheckboxGroup = Checkbox.Group;
 const plainOptions = ['dashboard', 'user', 'restaurant', 'settings'];
 
 
-const UpdateAccessModal = () => {
+const UpdateAccessModal = ({access, administratorId}) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [file, setFile] = useState(null);
-  const [createAdministrator, { isLoading, isSuccess }] = useCreateAdministratorMutation();
-  const [checkedList, setCheckedList] = useState([]);
-  const fileInputRef = useRef(null);
+  const [updateAccess, { isLoading, isSuccess }] = useUpdateAccessMutation();
+  const [checkedList, setCheckedList] = useState([...access]);
   const [form] = Form.useForm();
 
   useEffect(() => {
     if (isSuccess) {
       setModalOpen(false);
-      setFile(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = null;
-      }
-      form.resetFields();
-      setCheckedList([])
     }
-  }, [isSuccess, form]);
-
-
-  const handleClear = () => {
-    setFile(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = null;
-    }
-  };
+  }, [isSuccess]);
 
 
   const checkAll = plainOptions.length === checkedList.length;
@@ -46,30 +29,14 @@ const UpdateAccessModal = () => {
     form.validateFields(["access"]);
   };
 
-  const onFinish = (values) => {
-    let formData = new FormData();
-    if (file !== null) {
-      formData.append("file", file);
-    }
 
-    const data = {
-      administratorData: {
-        fullName: values.fullName,
-        email: values.email,
-        phone: values.phone,
-        password: values.password,
-      },
-      access: checkedList
-    }
-
-    const jsonData = JSON.stringify(data);
-    formData.append("data", jsonData);
-
-    // const formObject = Object.fromEntries(formData.entries());
-    // console.log(formObject);
-    
-    createAdministrator(formData);
-
+  const onFinish = () => {
+    updateAccess({
+      id: administratorId,
+      data: {
+        access: checkedList
+      }
+    })
   };
 
 
@@ -82,12 +49,16 @@ const UpdateAccessModal = () => {
       <Modal
         title={<span className="font-bold text-xl">Update Access Role</span>}
         open={modalOpen}
-        onCancel={() => setModalOpen(false)}
+        onCancel={() => {
+          setModalOpen(false);
+          setCheckedList(access)
+        }}
         maskClosable={false}
         footer={false}
       >
         <Form form={form} name="add" layout="vertical" onFinish={onFinish}>
           <Form.Item
+           key={Date.now()}
             label={
               <span className="font-semibold">
                 Give Access To
