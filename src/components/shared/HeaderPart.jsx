@@ -1,7 +1,7 @@
 import React from 'react';
 import {Typography } from 'antd';
 import 'antd/dist/reset.css'; // Import Ant Design styles
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useGetMeQuery } from '../../redux/features/user/userApi';
 import placeholder_img from "../../assets/images/placeholder.jpeg";
 import placeholder_profile from "../../assets/images/profile_placeholder.jpg";
@@ -12,6 +12,7 @@ const HeaderPart = () => {
   const fallback = placeholder_img;
   const {data, isLoading } = useGetMeQuery(undefined);
   const myData = data?.data || {};
+  const navigate = useNavigate()
   
 
 
@@ -38,11 +39,12 @@ const HeaderPart = () => {
             <img
               src={myData?.profileImg || placeholder_profile}
               alt="User"
+              onClick={()=> navigate('/profile')}
               onError={(e) => {
                 e.target.onerror = null; // Prevent infinite loop if fallback also fails
                 e.target.src = fallback;
               }}
-              className="mr-2 w-16 h-16 rounded-full shadow-md"
+              className="mr-2 w-16 h-16 rounded-full shadow-md cursor-pointer"
             />
             <div>
               <Text className="text-black text-lg">{myData?.fullName}</Text>

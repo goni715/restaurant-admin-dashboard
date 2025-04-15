@@ -78,8 +78,7 @@ const SidebarMenu = () => {
           key="settings"
           icon={<RiSettingsFill size={25} />}
           title={
-            <Link
-              to="/settings"
+            <button
               className="flex items-center justify-between w-full"
             >
               <span className="text-[18px]">Settings</span>
@@ -88,7 +87,7 @@ const SidebarMenu = () => {
                                   settingsOpen ? 'transform rotate-180' : ''
                               }`}
                           /> */}
-            </Link>
+            </button>
           }
           onTitleClick={toggleSettings}
           popupClassName="bg-white"

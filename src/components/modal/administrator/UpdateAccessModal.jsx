@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { useUpdateAccessMutation } from "../../../redux/features/administrator/administratorApi";
 import { FiEdit } from "react-icons/fi";
+import { useSelector } from "react-redux";
+import { ErrorToast } from "../../../helper/ValidationHelper";
 const CheckboxGroup = Checkbox.Group;
 const plainOptions = ['dashboard', 'user', 'restaurant', 'settings'];
 
@@ -12,6 +14,8 @@ const UpdateAccessModal = ({access, administratorId}) => {
   const [updateAccess, { isLoading, isSuccess }] = useUpdateAccessMutation();
   const [checkedList, setCheckedList] = useState([...access]);
   const [form] = Form.useForm();
+  const { role } = useSelector((state)=>state.user);
+
 
   useEffect(() => {
     if (isSuccess) {
@@ -44,26 +48,31 @@ const UpdateAccessModal = ({access, administratorId}) => {
 
   return (
     <>
-    <FiEdit onClick={() => setModalOpen(true)} className="text-gray-500 hover:text-black cursor-pointer ml-1" />
+      <FiEdit
+        onClick={() => {
+          if (role === "super_admin") {
+            setModalOpen(true);
+          } else {
+            ErrorToast("You have no access");
+          }
+        }}
+        className="text-gray-500 hover:text-black cursor-pointer ml-1"
+      />
 
       <Modal
         title={<span className="font-bold text-xl">Update Access Role</span>}
         open={modalOpen}
         onCancel={() => {
           setModalOpen(false);
-          setCheckedList(access)
+          setCheckedList(access);
         }}
         maskClosable={false}
         footer={false}
       >
         <Form form={form} name="add" layout="vertical" onFinish={onFinish}>
           <Form.Item
-           key={Date.now()}
-            label={
-              <span className="font-semibold">
-                Give Access To
-              </span>
-            }
+            key={Date.now()}
+            label={<span className="font-semibold">Give Access To</span>}
             name="access"
           >
             <div className="flex flex-col gap-2">
@@ -76,14 +85,14 @@ const UpdateAccessModal = ({access, administratorId}) => {
                 onChange={(list) => {
                   setCheckedList(list);
                   form.setFieldsValue({ access: list }); // Sync with form state
-                   // ✅ Trigger validation
+                  // ✅ Trigger validation
                   form.validateFields(["access"]);
                 }}
                 style={{
                   display: "flex",
                   flexDirection: "column",
                   gap: "small",
-                  textTransform: "capitalize"
+                  textTransform: "capitalize",
                 }}
               />
             </div>

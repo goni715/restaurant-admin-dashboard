@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
 import { useChangeApprovalStatusMutation } from "../../../redux/features/restaurant/restaurantApi";
+import { useSelector } from "react-redux";
+import { ErrorToast } from "../../../helper/ValidationHelper";
 
 
 const EditApprovalStatusModal = ({ restaurantId, approved }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [changeApprovalStatus, { isLoading, isSuccess }] = useChangeApprovalStatusMutation();
   const [form] = Form.useForm();
+  const { access } = useSelector((state)=>state.user);
+  
   const initialValues = approved !== "" ? {
     approved
   }: {};
@@ -37,7 +41,13 @@ const EditApprovalStatusModal = ({ restaurantId, approved }) => {
     <>
       <button
         className="p-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full"
-        onClick={() => setModalOpen(true)}
+        onClick={() => {
+          if (access?.includes("restaurant")) {
+            setModalOpen(true);
+          } else {
+            ErrorToast("You have no access");
+          }
+        }}
       >
         <FiEdit size={14} />
       </button>
@@ -71,7 +81,7 @@ const EditApprovalStatusModal = ({ restaurantId, approved }) => {
               allowClear
               options={[
                 { value: "cancelled", label: "Cancelled" },
-                { value: "accepted", label: "Accepted" }
+                { value: "accepted", label: "Accepted" },
               ]}
             />
           </Form.Item>

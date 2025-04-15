@@ -1,26 +1,28 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Tabs } from "antd";
-import ProfilePage from "../../components/settingsComponents/ProfilePage";
-import EditProfile from "../../components/settingsComponents/EditProfile";
-import ChangePassword from "../../components/settingsComponents/ChangePassword";
-
-
-
+import Profile from "../../components/profile/Profile";
+import EditProfile from "../../components/profile/EditProfile";
+import ChangePassword from "../../components/profile/ChangePassword";
+import { useGetMeQuery } from "../../redux/features/user/userApi";
 
 
 const SettingPage = () => {
     const [currentTab, setCurrentTab] = useState('profile');
+    const {data, isLoading } = useGetMeQuery(undefined);
+    const myData = data?.data || {};
+
+
   return (
     <div className="p-6">
       <Tabs activeKey={currentTab} onChange={setCurrentTab}>
         <Tabs.TabPane tab="Profile" key="profile">
-          <ProfilePage onEdit={setCurrentTab}  />
+          <Profile onEdit={setCurrentTab} isLoading={isLoading} user={myData}/>
         </Tabs.TabPane>
         <Tabs.TabPane tab="Edit Profile" key="editProfile">
-          <EditProfile onBack={() => setCurrentTab('profile')} />
+          <EditProfile isLoading={isLoading} user={myData}/>
         </Tabs.TabPane>
         <Tabs.TabPane tab="Change Password" key="changePassword">
-          <ChangePassword onBack={() => setCurrentTab('profile')} />
+          <ChangePassword />
         </Tabs.TabPane>
       </Tabs>
     </div>

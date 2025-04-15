@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
 import { useChangeRestaurantStatusMutation } from "../../../redux/features/restaurant/restaurantApi";
+import { useSelector } from "react-redux";
+import { ErrorToast } from "../../../helper/ValidationHelper";
 
 
 const EditRestaurantStatusModal = ({ restaurantId, status }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [ changeRestaurantStatus, { isLoading, isSuccess }] = useChangeRestaurantStatusMutation();
   const [form] = Form.useForm();
+  const { access } = useSelector((state)=>state.user);
+
 
 
   useEffect(() => {
@@ -31,12 +35,20 @@ const EditRestaurantStatusModal = ({ restaurantId, status }) => {
     <>
       <button
         className="p-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full"
-        onClick={() => setModalOpen(true)}
+        onClick={() => {
+          if (access?.includes("restaurant")) {
+            setModalOpen(true);
+          } else {
+            ErrorToast("You have no access");
+          }
+        }}
       >
         <FiEdit size={14} />
       </button>
       <Modal
-        title={<span className="font-bold text-xl">Update Restaurant Status</span>}
+        title={
+          <span className="font-bold text-xl">Update Restaurant Status</span>
+        }
         open={modalOpen}
         onCancel={() => setModalOpen(false)}
         maskClosable={false}
@@ -62,7 +74,7 @@ const EditRestaurantStatusModal = ({ restaurantId, status }) => {
               style={{ width: "100%" }}
               options={[
                 { value: "active", label: "Active" },
-                { value: "deactive", label: "Deactive" }
+                { value: "deactive", label: "Deactive" },
               ]}
             />
           </Form.Item>

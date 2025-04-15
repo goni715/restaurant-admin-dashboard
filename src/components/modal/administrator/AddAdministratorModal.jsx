@@ -4,6 +4,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { AiOutlineClose } from "react-icons/ai";
 import { useCreateAdministratorMutation } from "../../../redux/features/administrator/administratorApi";
+import { useSelector } from "react-redux";
+import { ErrorToast } from "../../../helper/ValidationHelper";
 const CheckboxGroup = Checkbox.Group;
 const plainOptions = ['dashboard', 'user', 'restaurant', 'settings'];
 
@@ -15,6 +17,8 @@ const AddAdministratorModal = () => {
   const [checkedList, setCheckedList] = useState([]);
   const fileInputRef = useRef(null);
   const [form] = Form.useForm();
+  const { role } = useSelector((state)=>state.user);
+ 
 
   useEffect(() => {
     if (isSuccess) {
@@ -80,7 +84,14 @@ const AddAdministratorModal = () => {
       <Button
         className="mb-4 !bg-red-500 !text-white  hover:bg-red-700"
         icon={<PlusOutlined />}
-        onClick={() => setModalOpen(true)}
+        onClick={() => {
+          if(role ==="super_admin"){
+            setModalOpen(true)
+          }
+          else{
+            ErrorToast("You have no access");
+          }
+        }}
       >
         Add Administrator
       </Button>

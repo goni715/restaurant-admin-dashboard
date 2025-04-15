@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { useUpdateAdministratorMutation } from "../../../redux/features/administrator/administratorApi";
+import { useSelector } from "react-redux";
+import { ErrorToast } from "../../../helper/ValidationHelper";
 
 
 const EditAdministratorModal = ({administrator}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [updateAdministrator, { isLoading, isSuccess }] = useUpdateAdministratorMutation();
   const [form] = Form.useForm();
+  const { role } = useSelector((state)=>state.user);
+
 
   useEffect(() => {
     if (isSuccess) {
@@ -29,9 +33,15 @@ const EditAdministratorModal = ({administrator}) => {
 
   return (
     <>
-       <button
+      <button
         className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded"
-        onClick={() => setModalOpen(true)}
+        onClick={() => {
+          if (role === "super_admin") {
+            setModalOpen(true);
+          } else {
+            ErrorToast("You have no access");
+          }
+        }}
       >
         <EditOutlined />
       </button>
@@ -40,19 +50,23 @@ const EditAdministratorModal = ({administrator}) => {
         open={modalOpen}
         onCancel={() => {
           setModalOpen(false);
-          form.setFieldsValue({ 
+          form.setFieldsValue({
             fullName: administrator?.name,
-            phone: administrator?.phone
+            phone: administrator?.phone,
           });
         }}
         maskClosable={false}
         footer={false}
       >
-        <Form form={form} name="add" layout="vertical" onFinish={onFinish}
-        initialValues={{
-          fullName: administrator?.name,
-          phone: administrator?.phone
-        }}
+        <Form
+          form={form}
+          name="add"
+          layout="vertical"
+          onFinish={onFinish}
+          initialValues={{
+            fullName: administrator?.name,
+            phone: administrator?.phone,
+          }}
         >
           <Form.Item
             name="fullName"
@@ -64,7 +78,7 @@ const EditAdministratorModal = ({administrator}) => {
             }
             rules={[{ required: true, message: "Full Name is required" }]}
           >
-            <Input placeholder="Type here"  key={Date.now()}/>
+            <Input placeholder="Type here" key={Date.now()} />
           </Form.Item>
           <Form.Item
             name="phone"

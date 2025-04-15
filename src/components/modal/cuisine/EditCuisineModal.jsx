@@ -72,7 +72,7 @@ const EditCuisineModal = ({cuisine}) => {
           form.setFieldsValue({ 
             name: cuisine?.name
           });
-          setImageSrc(cuisine?.image)
+          setImageSrc(cuisine?.image || placeholder_img)
         }}
         maskClosable={false}
         footer={false}

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { DeleteOutlined } from "@ant-design/icons";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { useDeleteAdministratorMutation } from "../../../redux/features/administrator/administratorApi";
+import { useSelector } from "react-redux";
+import { ErrorToast } from "../../../helper/ValidationHelper";
 
 
 
@@ -11,6 +13,8 @@ import { useDeleteAdministratorMutation } from "../../../redux/features/administ
 const DeleteAdministratorModal = ({ administratorId }) => {
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ deleteAdministrator, { isLoading, isSuccess, isError }] = useDeleteAdministratorMutation();
+    const { role } = useSelector((state)=>state.user);
+
 
     useEffect(()=> {
         if(isSuccess || isError){
@@ -24,7 +28,16 @@ const DeleteAdministratorModal = ({ administratorId }) => {
 
   return (
     <>
-      <button  onClick={()=>setModalOpen(true)} className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded">
+      <button
+        onClick={() => {
+          if (role === "super_admin") {
+            setModalOpen(true);
+          } else {
+            ErrorToast("You have no access");
+          }
+        }}
+        className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded"
+      >
         <DeleteOutlined />
       </button>
       <Modal
@@ -34,19 +47,26 @@ const DeleteAdministratorModal = ({ administratorId }) => {
         maskClosable={false}
         footer={false}
       >
-       
-      
         <div className="flex justify-end px-4 gap-x-3">
-           <button onClick={()=>setModalOpen(false)} className="bg-black text-white px-4 py-1 rounded-md">No</button>
-           <button onClick={handleDelete} disabled={isLoading} className="bg-red-500 hover:bg-red-600 duration-500 text-white px-4 py-1 rounded-md disabled:cursor-not-allowed">
-           {isLoading ? (
+          <button
+            onClick={() => setModalOpen(false)}
+            className="bg-black text-white px-4 py-1 rounded-md"
+          >
+            No
+          </button>
+          <button
+            onClick={handleDelete}
+            disabled={isLoading}
+            className="bg-red-500 hover:bg-red-600 duration-500 text-white px-4 py-1 rounded-md disabled:cursor-not-allowed"
+          >
+            {isLoading ? (
               <>
                 <CgSpinnerTwo className="animate-spin" fontSize={16} />
               </>
             ) : (
               "Yes"
             )}
-           </button>
+          </button>
         </div>
       </Modal>
     </>

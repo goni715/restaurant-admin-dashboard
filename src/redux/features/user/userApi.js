@@ -2,6 +2,7 @@
 import {apiSlice} from "../api/apiSlice.js";
 import {ErrorToast, SuccessToast} from "../../../helper/ValidationHelper.js";
 import TagTypes from "../../../constant/tagType.constant.js";
+import { SetAccess } from "./userSlice.js";
 
 export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,7 +12,7 @@ export const userApi = apiSlice.injectEndpoints({
 
         if (args !== undefined && args.length > 0) {
           args.forEach((item) => {
-            if(item.value){
+            if (item.value) {
               params.append(item.name, item.value);
             }
           });
@@ -19,7 +20,7 @@ export const userApi = apiSlice.injectEndpoints({
         return {
           url: "/user/get-users",
           method: "GET",
-          params: params
+          params: params,
         };
       },
       keepUnusedDataFor: 600,
@@ -27,53 +28,41 @@ export const userApi = apiSlice.injectEndpoints({
     }),
     getMe: builder.query({
       query: () => ({
-          url: "/user/get-me-for-super-admin",
-          method: "GET",
+        url: "/user/get-me-for-super-admin",
+        method: "GET",
       }),
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.me],
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const res = await queryFulfilled;
+          const data = res?.data?.data;
+          dispatch(SetAccess({
+             access: data?.access,
+             role: data?.role
+          }))
+        // eslint-disable-next-line no-unused-vars
+        } catch (err) {
+          //console.log(err);
+        }
+      },
     }),
-    createAdministrator: builder.mutation({
+    updateProfile: builder.mutation({
       query: (data) => ({
-        url: `/administrator/create-administrator`,
-        method: "POST",
+        url: `/user/edit-my-profile`,
+        method: "PATCH",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) =>{
-        if(result?.success){
-          return [TagTypes.administrator]
+      invalidatesTags: (result, error, arg) => {
+        if (result?.success) {
+          return [TagTypes.me];
         }
-        return []
+        return [];
       },
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast("Administrator is created successfully");
-        } catch (err) {
-          const status = err?.error?.status;
-          if (status === 409) {
-            ErrorToast(err?.error?.data?.message);
-          } else {
-            ErrorToast("Something Went Wrong!");
-          }
-        }
-      },
-    }),
-    deleteAdministrator: builder.mutation({
-      query: (id) => ({
-        url: `/administrator/delete-administrator/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: (result, error, arg) =>{
-        if(result?.success){
-          return [TagTypes.administrator]
-        }
-        return []
-      },
-      async onQueryStarted(arg, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          SuccessToast("Administrator is deleted successfully");
+          SuccessToast("Profile is updated successfully");
         } catch (err) {
           const status = err?.error?.status;
           if (status === 404) {
@@ -84,36 +73,8 @@ export const userApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    updateDining: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/dining/update-dining/${id}`,
-        method: "PATCH",
-        body: data,
-      }),
-      invalidatesTags: (result, error, arg) =>{
-        if(result?.success){
-          return [TagTypes.dining]
-        }
-        return []
-      },
-      async onQueryStarted(arg, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-            SuccessToast("Dining is updated successfully");
-        } catch (err) {
-          const status = err?.error?.status;
-          if (status === 404) {
-            ErrorToast(err?.error?.data?.message);
-          } else if (status === 409) {
-            ErrorToast(err?.error?.data?.message);
-          } else {
-            ErrorToast("Something Went Wrong!");
-          }
-        }
-      },
-    }),
   }),
 });
 
 
-export const { useGetUsersQuery, useGetMeQuery, useCreateAdministratorMutation, useDeleteAdministratorMutation, useUpdateDiningMutation } = userApi;
+export const { useGetUsersQuery, useGetMeQuery, useUpdateProfileMutation } = userApi;

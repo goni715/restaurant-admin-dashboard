@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
 import { useChangeStatusMutation } from "../../../redux/features/auth/authApi";
+import { useSelector } from "react-redux";
+import { ErrorToast } from "../../../helper/ValidationHelper";
 
 
 const ChangeStatusModal = ({ userId, status }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [ changeStatus, { isLoading, isSuccess }] = useChangeStatusMutation();
   const [form] = Form.useForm();
+  const { access } = useSelector((state)=>state.user);
+
 
 
   useEffect(() => {
@@ -31,14 +35,27 @@ const ChangeStatusModal = ({ userId, status }) => {
     <>
       <button
         className="p-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full"
-        onClick={() => setModalOpen(true)}
+        onClick={() => {
+          if (access?.includes("user")) {
+            setModalOpen(true);
+          } else {
+            ErrorToast("You have no access");
+          }
+        }}
       >
         <FiEdit size={14} />
       </button>
       <Modal
-        title={<span className="font-bold text-xl">Update Restaurant Status</span>}
+        title={
+          <span className="font-bold text-xl">Update Restaurant Status</span>
+        }
         open={modalOpen}
-        onCancel={() => setModalOpen(false)}
+        onCancel={() => {
+          setModalOpen(false);
+          form.setFieldsValue({ 
+            status
+          });
+        }}
         maskClosable={false}
         footer={false}
       >
@@ -62,7 +79,7 @@ const ChangeStatusModal = ({ userId, status }) => {
               style={{ width: "100%" }}
               options={[
                 { value: "blocked", label: "Blocked" },
-                { value: "unblocked", label: "Unblocked" }
+                { value: "unblocked", label: "Unblocked" },
               ]}
             />
           </Form.Item>

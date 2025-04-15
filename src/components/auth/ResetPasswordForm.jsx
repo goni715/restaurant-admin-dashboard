@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Form, Input } from "antd";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useForgotPassCreateNewPassMutation } from "../../redux/features/auth/authApi";
 import { getEmail, getOtp } from "../../helper/SessionHelper";
@@ -43,7 +43,7 @@ const ResetPasswordForm = () => {
 
         <Form.Item
           label={
-            <span className="text-black font-semibold text-lg">Confirm Password</span>
+            <span className="text-black font-semibold text-lg">Confirm New Password</span>
           }
           name="confirmPassword"
           dependencies={['password']}
