@@ -4,6 +4,7 @@ const TagTypes = {
     dining: "DiningList",
     administrator: "Administrators",
     users: "Users",
+    me: "me",
     restaurants: "Restaurants"
 }
 

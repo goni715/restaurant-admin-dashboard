@@ -25,6 +25,14 @@ export const userApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.users],
     }),
+    getMe: builder.query({
+      query: () => ({
+          url: "/user/get-me-for-super-admin",
+          method: "GET",
+      }),
+      keepUnusedDataFor: 600,
+      providesTags: [TagTypes.me],
+    }),
     createAdministrator: builder.mutation({
       query: (data) => ({
         url: `/administrator/create-administrator`,
@@ -108,4 +116,4 @@ export const userApi = apiSlice.injectEndpoints({
 });
 
 
-export const { useGetUsersQuery, useCreateAdministratorMutation, useDeleteAdministratorMutation, useUpdateDiningMutation } = userApi;
+export const { useGetUsersQuery, useGetMeQuery, useCreateAdministratorMutation, useDeleteAdministratorMutation, useUpdateDiningMutation } = userApi;
