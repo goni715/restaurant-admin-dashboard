@@ -36,3 +36,23 @@ export const menuItems = [
         icon: RiAdminFill
     }
 ]
+
+
+export const subMenuItems = [
+  {
+    title: "Terms & Conditions",
+    path: "/terms-conditions",
+  },
+  {
+    title: "About Us",
+    path: "/about",
+  },
+  {
+    title: "FAQS",
+    path: "/faqs",
+  },
+  {
+    title: "Privacy Policy",
+    path: "/privacy-policy",
+  },
+];

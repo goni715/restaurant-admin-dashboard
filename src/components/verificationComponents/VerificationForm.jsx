@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Button} from "antd";
+import { useEffect, useState } from "react";
 import logo from "../../../public/elhagz.png";
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";

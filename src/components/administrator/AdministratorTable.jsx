@@ -112,7 +112,7 @@ const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, 
   return (
     <>
       <div className="rounded-lg shadow p-4">
-        <Table columns={columns} dataSource={dataSource} scroll={{ x: true, y:320 }} pagination={false} />
+        <Table columns={columns} dataSource={dataSource} scroll={{ x: true, y: "60vh" }} pagination={false} />
         <br />
         <Pagination onChange={handlePagination} align="end" current={currentPage} pageSize={pageSize} total={meta?.total} />
       </div>

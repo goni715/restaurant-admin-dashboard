@@ -1,4 +1,3 @@
-import React from 'react';
 import VerificationForm from './VerificationForm';
 import Verify from  '../../../public/verification.png'
 

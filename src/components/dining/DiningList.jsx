@@ -12,7 +12,7 @@ const DiningList = () => {
   const [searchQuery, setSearchQuery ] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [ currentPage, setCurrentPage ] = useState(1);
-  const [ pageSize, setPageSize ] = useState(5);
+  const [ pageSize, setPageSize ] = useState(10);
 
   //debounced handle
   useEffect(() => {
@@ -41,7 +41,7 @@ const DiningList = () => {
   return (
     <>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold">Dining</h2>
+      <AddDiningModal />
         <div className="w-[348px]">
           <Search
             placeholder="Search here..."
@@ -51,7 +51,6 @@ const DiningList = () => {
           />
         </div>
       </div>
-      <AddDiningModal />
       {
         isLoading ? (
           <ListLoading/>

@@ -12,7 +12,7 @@ const CuisineList = () => {
   const [searchQuery, setSearchQuery ] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [ currentPage, setCurrentPage ] = useState(1);
-  const [ pageSize, setPageSize ] = useState(5);
+  const [ pageSize, setPageSize ] = useState(10);
 
   //debounced handle
   useEffect(() => {
@@ -40,8 +40,8 @@ const CuisineList = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold">Cusine</h2>
+      <div className="flex justify-between items-center mb-2">
+        <AddCuisineModal />
         <div className="w-[348px]">
           <Search
             placeholder="Search here..."
@@ -51,14 +51,19 @@ const CuisineList = () => {
           />
         </div>
       </div>
-      <AddCuisineModal />
-      {
-        isLoading ? (
-          <ListLoading/>
-        ): (
-          <CuisineTable cuisines={cuisines} meta={meta} currentPage={currentPage} setCurrentPage={setCurrentPage} pageSize={pageSize} setPageSize={setPageSize}/>
-        )
-      }
+
+      {isLoading ? (
+        <ListLoading />
+      ) : (
+        <CuisineTable
+          cuisines={cuisines}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+        />
+      )}
     </>
   );
 }

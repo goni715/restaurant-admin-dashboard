@@ -39,8 +39,7 @@ const RestaurantList = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold">Restaurants</h2>
+      <div className="flex justify-end items-center mb-4">
         <div className="w-[348px]">
           <Search
             placeholder="Search here..."

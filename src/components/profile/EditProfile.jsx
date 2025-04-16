@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Form, Input } from "antd";
 import { IoCameraOutline } from "react-icons/io5";
 import EditProfileLoading from "../Loader/EditProfileLoading";
@@ -12,7 +12,6 @@ const EditProfile = ({ isLoading, user }) => {
 
   const [updateProfile, { isLoading: updateLoading, isSuccess }] =
     useUpdateProfileMutation();
-  const fileInputRef = useRef(null);
   const [form] = Form.useForm();
   const [imageSrc, setImageSrc] = useState(placeholder_img); // Default image
   const fallback = placeholder_img;

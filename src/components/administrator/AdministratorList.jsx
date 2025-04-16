@@ -41,7 +41,7 @@ const AdministratorList = () => {
   return (
     <>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold">Administrator</h2>
+      <AddAdministratorModal />
         <div className="w-[348px]">
           <Search
             placeholder="Search here..."
@@ -51,7 +51,6 @@ const AdministratorList = () => {
           />
         </div>
       </div>
-      <AddAdministratorModal />
       {
         isLoading ? (
           <ListLoading/>
