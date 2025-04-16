@@ -20,10 +20,6 @@ const EditProfile = ({ isLoading, user }) => {
   useEffect(() => {
     if (isSuccess) {
       setFile(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = null;
-      }
-      form.resetFields();
     }
   }, [isSuccess, form]);
 
@@ -37,17 +33,18 @@ const EditProfile = ({ isLoading, user }) => {
     }
   };
 
-  const triggerFileInput = () => fileInputRef.current?.click();
-
-  //update the cuisine
+  //update profile
   const onFinish = (values) => {
     let formData = new FormData();
-    formData.append("name", values.name);
+    formData.append("fullName", values.fullName);
+    formData.append("phone", values.phone)
+
     if (file !== null) {
       formData.append("file", file);
     }
     //  const formObject = Object.fromEntries(formData.entries());
     //  console.log(formObject);
+    updateProfile(formData);
   };
 
   if (isLoading) {
@@ -81,7 +78,7 @@ const EditProfile = ({ isLoading, user }) => {
           <h2 className="text-xl font-bold mt-2">Edit Profile</h2>
 
           <Form
-            layout="vertical"
+           form={form} name="edit" layout="vertical" onFinish={onFinish}
             initialValues={{
               fullName: user?.fullName,
               email: user?.email,
@@ -95,11 +92,7 @@ const EditProfile = ({ isLoading, user }) => {
               }
               name="fullName"
               rules={[
-                { required: true, message: "Please enter your password!" },
-                {
-                  min: 6,
-                  message: "Password must be at least 6 characters long!",
-                },
+                { required: true, message: "Please enter your Full Name" },
               ]}
             >
               <Input
@@ -108,15 +101,8 @@ const EditProfile = ({ isLoading, user }) => {
               />
             </Form.Item>
             <Form.Item
-              label={<span className="text-black font-semibold">Email</span>}
               name="email"
-              rules={[
-                { required: true, message: "Please enter your password!" },
-                {
-                  min: 6,
-                  message: "Password must be at least 6 characters long!",
-                },
-              ]}
+              label={<span className="text-black font-semibold">Email</span>}
             >
               <Input
                 placeholder="Enter Password"
@@ -141,10 +127,10 @@ const EditProfile = ({ isLoading, user }) => {
             <Form.Item>
               <button
                 type="submit"
-                disabled={isLoading}
+                disabled={updateLoading}
                 className="w-full bg-red-500 hover:bg-red-600 duration-200 p-2 border-0 rounded-md text-white flex justify-center items-center gap-x-2 disabled:cursor-not-allowed"
               >
-                {isLoading ? (
+                {updateLoading ? (
                   <>
                     <CgSpinnerTwo className="animate-spin" fontSize={16} />
                     Processing...

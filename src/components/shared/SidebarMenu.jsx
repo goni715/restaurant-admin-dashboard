@@ -19,36 +19,6 @@ const SidebarMenu = () => {
     setSettingsOpen(!settingsOpen);
   };
 
-  // useEffect(() => {
-  //   const path = location.pathname;
-  //   if (path === "/") {
-  //     setActiveKey("1");
-  //   } else if (path === "/users") {
-  //     setActiveKey("2");
-  //   } else if (path === "/restaurant") {
-  //     setActiveKey("3");
-  //   } else if (path === "/cusine") {
-  //     setActiveKey("4");
-  //   }
-  //   else if (path === "/dining") {
-  //     setActiveKey("5");
-  //   } else if (path === "/administrators") {
-  //     setActiveKey("6");
-  //   } else if (path === "/settings") {
-  //     setActiveKey("settings");
-  //   } else if (path === "/terms") {
-  //     setActiveKey("terms");
-  //   } else if (path === "/about") {
-  //     setActiveKey("about");
-  //   } else if (path === "/faqs") {
-  //     setActiveKey("faqs");
-  //   } else if (path === "/privacy") {
-  //     setActiveKey("privacy");
-  //   } else if (path === "/signout") {
-  //     setActiveKey("signout");
-  //   }
-  // }, [location]);
-
   return (
     <div className="py-0">
       <Menu
@@ -82,11 +52,6 @@ const SidebarMenu = () => {
               className="flex items-center justify-between w-full"
             >
               <span className="text-[18px]">Settings</span>
-              {/* <RiArrowDownSFill
-                              className={`transition-transform duration-300 ${
-                                  settingsOpen ? 'transform rotate-180' : ''
-                              }`}
-                          /> */}
             </button>
           }
           onTitleClick={toggleSettings}
