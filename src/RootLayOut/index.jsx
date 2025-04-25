@@ -11,7 +11,7 @@ const RootLayOut = () => {
     <Layout className="flex justify-center  bg-gray-100">
       <div className="w-full mx-auto">
         <HeaderPart />
-        <Layout className="flex">
+        <Layout className="flex" hasSider>
           <Sider width={256} className="!bg-[#F6F6F6] ">
             <SidebarMenu />
           </Sider>

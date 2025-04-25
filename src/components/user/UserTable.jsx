@@ -71,11 +71,11 @@ const UserTable = ({users, meta, currentPage, setCurrentPage, pageSize, setPageS
         
             return (
               <div className="flex items-center gap-2">
-                <span
-                  className={`${bgColor} px-3 py-0.5 text-sm font-medium rounded-full`}
+                <button
+                  className={`${bgColor} w-24 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
                 >
                   {val}
-                </span>
+                </button>
                 <ChangeStatusModal userId={record._id} status={val}/>
               </div>
             );
@@ -102,15 +102,15 @@ const UserTable = ({users, meta, currentPage, setCurrentPage, pageSize, setPageS
             );
           }
         },
-        {
-          title: "Action",
-          key: "action",
-          render: (_, record) => (
-            <div className="flex items-center gap-x-2">
-              <DeleteAdministratorModal administratorId={record._id} />
-            </div>
-          ),
-        },
+        // {
+        //   title: "Action",
+        //   key: "action",
+        //   render: (_, record) => (
+        //     <div className="flex items-center gap-x-2">
+        //       <DeleteAdministratorModal administratorId={record._id} />
+        //     </div>
+        //   ),
+        // },
       ];
 
 

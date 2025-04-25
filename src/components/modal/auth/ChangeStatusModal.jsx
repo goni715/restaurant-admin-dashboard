@@ -22,14 +22,14 @@ const ChangeStatusModal = ({ userId, status }) => {
   }, [isSuccess, form]);
 
 
-  const onFinish = (values) => {
+ const handleClick = () => {
     changeStatus({
       id: userId,
       data: {
-        status: values.status,
+        status: status==="blocked" ? "unblocked" : "blocked"
       }
-    });
-  };
+    })
+ }
 
   return (
     <>
@@ -46,58 +46,26 @@ const ChangeStatusModal = ({ userId, status }) => {
         <FiEdit size={14} />
       </button>
       <Modal
-        title={
-          <span className="font-bold text-xl">Update Restaurant Status</span>
-        }
+        title={`Are you sure, you want to ${status==="blocked" ? "unblock" : "block"}?`}
         open={modalOpen}
-        onCancel={() => {
-          setModalOpen(false);
-          form.setFieldsValue({ 
-            status
-          });
-        }}
+        onCancel={() => setModalOpen(false)}
         maskClosable={false}
         footer={false}
       >
-        <Form
-          form={form}
-          name="edit"
-          layout="vertical"
-          onFinish={onFinish}
-          initialValues={{ status: status }}
-        >
-          <Form.Item
-            name="status"
-            label={
-              <span className="font-semibold">
-                <span className="text-red-500 mr-1">*</span>
-                Status
-              </span>
-            }
-          >
-            <Select
-              style={{ width: "100%" }}
-              options={[
-                { value: "blocked", label: "Blocked" },
-                { value: "unblocked", label: "Unblocked" },
-              ]}
-            />
-          </Form.Item>
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full mt-4 bg-red-500 hover:bg-red-600 duration-200 p-2 border-0 rounded-md text-white flex justify-center items-center gap-x-2 disabled:cursor-not-allowed"
-          >
-            {isLoading ? (
+       
+      
+        <div className="flex justify-end px-4 gap-x-3">
+           <button onClick={()=>setModalOpen(false)} className="bg-black text-white px-4 py-1 rounded-md">No</button>
+           <button onClick={handleClick} disabled={isLoading} className="bg-red-500 hover:bg-red-600 duration-500 text-white px-4 py-1 rounded-md disabled:cursor-not-allowed">
+           {isLoading ? (
               <>
                 <CgSpinnerTwo className="animate-spin" fontSize={16} />
-                Processing...
               </>
             ) : (
-              "Save Change"
+              "Yes"
             )}
-          </button>
-        </Form>
+           </button>
+        </div>
       </Modal>
     </>
   );

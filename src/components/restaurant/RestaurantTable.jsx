@@ -83,11 +83,11 @@ const RestaurantTable = ({restaurants, meta, currentPage, setCurrentPage, pageSi
         
             return (
               <div className="flex items-center gap-2">
-                <span
-                  className={`${bgColor} px-3 py-0.5 text-sm font-medium rounded-full capitalize`}
+                <button
+                  className={`${bgColor} w-20 cursor-default px-3 py-0.5 text-sm font-medium rounded-full capitalize`}
                 >
                   {val}
-                </span>
+                </button>
                 <EditRestaurantStatusModal status={val} restaurantId={record._id}/>
               </div>
             );
@@ -102,11 +102,11 @@ const RestaurantTable = ({restaurants, meta, currentPage, setCurrentPage, pageSi
         
             return (
               <div className="flex items-center gap-2">
-                <span
-                  className={`${bgColor} px-2 py-0.5 rounded-md shadow cursor-default capitalize`}
+                <button
+                  className={`${bgColor} w-20 px-2 py-0.5 rounded-md shadow cursor-default capitalize`}
                 >
                   {val}
-                </span>
+                </button>
                 <EditApprovalStatusModal approved={val==="pending" ? "" : val} restaurantId={record._id}/>
               </div>
             );
