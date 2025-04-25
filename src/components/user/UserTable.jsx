@@ -1,6 +1,5 @@
 import { Pagination , Table } from 'antd';
 import placeholder_img from "../../assets/images/placeholder.jpeg";
-import DeleteAdministratorModal from '../modal/administrator/DeleteAdministratorModal';
 import ChangeStatusModal from '../modal/auth/ChangeStatusModal';
 
 
