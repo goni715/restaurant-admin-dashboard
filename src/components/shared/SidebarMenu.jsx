@@ -4,14 +4,17 @@ import { Link, useLocation } from "react-router-dom";
 import {
   RiSettingsFill,
   RiLogoutBoxRLine,
+  RiAdminFill,
 } from "react-icons/ri";
-import { logout } from "../../helper/SessionHelper";
+import { getRole, logout } from "../../helper/SessionHelper";
 import { menuItems, subMenuItems } from "../../data/data";
 
 const SidebarMenu = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const location = useLocation();
   const path = location.pathname;
+  const role = getRole();
+  console.log(role);
 
 
   const toggleSettings = () => {
@@ -41,6 +44,25 @@ const SidebarMenu = () => {
             </Link>
           </Menu.Item>
         ))}
+
+         {
+          role=== "super_admin" && (
+            <Menu.Item
+            key={"/administrators"}
+            icon={<RiAdminFill size={25} />}
+            className={"/administrators" === path ? "!bg-red-500 !text-white" : ""}
+          >
+            <Link
+              to={"/administrators"}
+              className={`${
+                "/administrators" === path ? "text-white" : "text-black"
+              } text-[18px]`}
+            >
+              Administrators
+            </Link>
+          </Menu.Item>
+          )
+         }
 
         {/* Sub Menu Part */}
         <Menu.SubMenu

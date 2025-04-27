@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Input, Button, Typography } from 'antd';
 import 'antd/dist/reset.css'; 
-import logo from '../../../../public/elhagz.png';
-import forgot from '../../../../public/forgot.png';
+import logo from '../../../assets/images/elhagz.png';
+import forgot from '../../../assets/images/forgot.png';
 import { Link } from 'react-router-dom';
 import { MdEmail, MdKeyboardArrowLeft } from 'react-icons/md';
 import ForgotPassForm from '../../../components/auth/ForgotPassForm';

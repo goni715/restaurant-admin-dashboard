@@ -5,6 +5,8 @@ import { useGetMeQuery } from '../../redux/features/user/userApi';
 import placeholder_img from "../../assets/images/placeholder.jpeg";
 import placeholder_profile from "../../assets/images/profile_placeholder.jpg";
 import capitalizeWords from '../../utils/capitalizeWords';
+import logo from "../../assets/images/elhagz.png";
+
 
 const { Text } = Typography;
 
@@ -23,7 +25,7 @@ const HeaderPart = () => {
     <div className="bg-[#F6F6F6] p-4 flex items-center justify-between ">
       {/* Logo Section */}
       <div to={"/"} className="w-[256px] flex justify-center items-center">
-        <img src="elhagz.png" alt="Logo" className="h-[60px] w-[60px] rounded-md mr-4" />
+        <img src={logo} alt="Logo" className="h-[60px] w-[60px] rounded-md mr-4" />
       </div>
       {/* User Section */}
       <div className="flex-1 flex justify-between items-center px-6">

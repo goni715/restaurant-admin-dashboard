@@ -1,10 +1,8 @@
 import React from 'react';
-import { Form, Input, Button, Typography } from 'antd';
+import { Typography } from 'antd';
 import 'antd/dist/reset.css'; 
-import logo from '../../../../public/elhagz.png';
-import ResetPass from '../../../../public/ResetPassword.png';
-
-import { RiLockPasswordFill } from 'react-icons/ri';
+import logo from '../../../assets/images/elhagz.png';
+import ResetPass from '../../../assets/images/ResetPassword.png';
 import { Link } from 'react-router-dom';
 import ResetPasswordForm from '../../../components/auth/ResetPasswordForm';
 

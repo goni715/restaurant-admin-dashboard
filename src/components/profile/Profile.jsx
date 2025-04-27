@@ -1,6 +1,7 @@
 import { Button } from "antd";
-import profile from "../../../public/profile.png";
 import ProfileLoading from "../Loader/ProfileLoading";
+import profile from "../../assets/images/profile.png";
+
 
 const Profile = ({ onEdit, isLoading, user }) => {
   if (isLoading) {

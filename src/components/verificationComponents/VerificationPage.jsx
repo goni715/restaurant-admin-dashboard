@@ -1,5 +1,6 @@
 import VerificationForm from './VerificationForm';
-import Verify from  '../../../public/verification.png'
+import Verify from  '../../assets/images/verification.png';
+
 
 const VerificationPage = () => {
   return (

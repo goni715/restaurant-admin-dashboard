@@ -5,14 +5,14 @@ import { RiAdminFill, RiPieChart2Fill, RiRestaurant2Fill } from "react-icons/ri"
 
 
 export const menuItems = [
-    {
-        title: "Dashboard",
-        path: '/',
-        icon: RiPieChart2Fill
-    },
+    // {
+    //     title: "Dashboard",
+    //     path: '/',
+    //     icon: RiPieChart2Fill
+    // },
     {
         title: "User Management",
-        path: '/users',
+        path: '/',
         icon: FaRegCircleUser
     },
     {
@@ -30,11 +30,11 @@ export const menuItems = [
         path: '/dining',
         icon: MdDining
     },
-    {
-        title: "Administrators",
-        path: '/administrators',
-        icon: RiAdminFill
-    }
+    // {
+    //     title: "Administrators",
+    //     path: '/administrators',
+    //     icon: RiAdminFill
+    // }
 ]
 
 
