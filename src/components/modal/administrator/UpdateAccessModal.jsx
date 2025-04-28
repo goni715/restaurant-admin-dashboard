@@ -6,7 +6,7 @@ import { FiEdit } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { ErrorToast } from "../../../helper/ValidationHelper";
 const CheckboxGroup = Checkbox.Group;
-const plainOptions = ['dashboard', 'user', 'restaurant', 'settings'];
+const plainOptions = ['user', 'owner', 'restaurant', 'settings'];
 
 
 const UpdateAccessModal = ({access, administratorId}) => {

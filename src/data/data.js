@@ -1,4 +1,5 @@
 import { FaRegCircleUser } from "react-icons/fa6";
+import { GiFrogPrince } from "react-icons/gi";
 import { GrRestaurant } from "react-icons/gr";
 import { MdDining } from "react-icons/md";
 import { RiAdminFill, RiPieChart2Fill, RiRestaurant2Fill } from "react-icons/ri";
@@ -12,8 +13,13 @@ export const menuItems = [
     // },
     {
         title: "User Management",
-        path: '/',
+        path: '/users',
         icon: FaRegCircleUser
+    },
+    {
+      title: "Owners",
+      path: '/owners',
+      icon: GiFrogPrince
     },
     {
         title: "Restaurants",

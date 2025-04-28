@@ -30,7 +30,7 @@ export const administratorApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) =>{
+      invalidatesTags: (result) =>{
         if(result?.success){
           return [TagTypes.administrator]
         }
@@ -81,7 +81,7 @@ export const administratorApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) =>{
+      invalidatesTags: (result) =>{
         if(result?.success){
           return [TagTypes.administrator]
         }
@@ -90,7 +90,7 @@ export const administratorApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-            SuccessToast("Dining is updated successfully");
+            SuccessToast("Administrator's access is updated successfully");
         } catch (err) {
           const status = err?.error?.status;
           if (status === 404) {
@@ -109,7 +109,7 @@ export const administratorApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) =>{
+      invalidatesTags: (result) =>{
         if(result?.success){
           return [TagTypes.administrator]
         }
@@ -118,7 +118,7 @@ export const administratorApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-            SuccessToast("Dining is updated successfully");
+            SuccessToast("Administrator is updated successfully");
         } catch (err) {
           const status = err?.error?.status;
           if (status === 404) {

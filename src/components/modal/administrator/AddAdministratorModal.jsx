@@ -7,7 +7,7 @@ import { useCreateAdministratorMutation } from "../../../redux/features/administ
 import { useSelector } from "react-redux";
 import { ErrorToast } from "../../../helper/ValidationHelper";
 const CheckboxGroup = Checkbox.Group;
-const plainOptions = ['dashboard', 'user', 'restaurant', 'settings'];
+const plainOptions = ['user', 'owner', 'restaurant', 'settings'];
 
 
 const AddAdministratorModal = () => {

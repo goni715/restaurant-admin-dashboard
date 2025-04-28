@@ -1,6 +1,5 @@
 
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import Dashboard from "./pages/dashboard";
+import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from "react-router-dom";
 import RootLayOut from "./RootLayOut";
 import UserManagement from "./pages/userManagement";
 import Restaurant from "./pages/restaurant";
@@ -14,11 +13,12 @@ import SettingPage from "./pages/settings";
 import ForgotPassword from "./pages/auth/forgotPassword";
 import VerificationPage from "./components/verificationComponents/VerificationPage";
 import ResetPassword from "./pages/auth/resetPassword";
-import RestaurantDetails from "./pages/restaurantDetails/RestaurantDetails";
 import Cusine from "./pages/cusine";
 import Dining from "./pages/dining";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
+import OwnersPage from "./pages/owners/OwnersPage";
+import RestaurantDetailsPage from "./pages/restaurantDetails/RestaurantDetailsPage";
 
 
 function App() {
@@ -28,9 +28,11 @@ function App() {
       <Route>       
           <Route element={<PrivateRoute><RootLayOut/></PrivateRoute>}>
             {/* <Route path="/" element={<Dashboard/>}></Route> */}
-            <Route path="/" element={<UserManagement/>}></Route>
+            <Route path="/" element={<Navigate to="/users"/>}></Route>
+            <Route path="/users" element={<UserManagement/>}></Route>
+            <Route path="/owners" element={<OwnersPage/>}></Route>
             <Route path="/restaurants" element={<Restaurant/>}></Route>
-            <Route path="/restaurant-details/:id" element={<RestaurantDetails/>}></Route>
+            <Route path="/restaurant-details/:id" element={<RestaurantDetailsPage/>}></Route>
             <Route path="/administrators" element={<Administrator/>}></Route>
             <Route path="/cuisine" element={<Cusine/>}></Route>
             <Route path="/dining" element={<Dining/>}></Route>

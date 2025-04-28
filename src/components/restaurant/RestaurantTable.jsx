@@ -21,7 +21,7 @@ const RestaurantTable = ({restaurants, meta, currentPage, setCurrentPage, pageSi
         serial: Number(index+1) + ((currentPage-1)*pageSize),
         _id: restaurant?._id,
         name: restaurant?.name,
-        location: restaurant?.location,
+        address: restaurant?.address,
         ratings: restaurant?.ratings,
         restaurantImg: restaurant?.restaurantImg,
         status: restaurant?.status,
@@ -67,8 +67,8 @@ const RestaurantTable = ({restaurants, meta, currentPage, setCurrentPage, pageSi
         },
         {
           title: "Address",
-          dataIndex: "location",
-          key: "location",
+          dataIndex: "address",
+          key: "address",
         },
         {
           title: "Status",

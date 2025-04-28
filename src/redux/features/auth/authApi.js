@@ -132,9 +132,38 @@ export const authApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) => {
+      invalidatesTags: (result) => {
         if (result?.success) {
           return [TagTypes.users];
+        }
+        return [];
+      },
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          SuccessToast("Status is updated successfully");
+        } catch (err) {
+          const status = err?.error?.status;
+          console.log(err);
+          if (status === 404) {
+            ErrorToast(err?.error?.data?.message);
+          } else if (status === 409) {
+            ErrorToast(err?.error?.data?.message);
+          } else {
+            ErrorToast("Something Went Wrong!");
+          }
+        }
+      },
+    }),
+    changeOwnerStatus: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/auth/change-owner-status/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (result) => {
+        if (result?.success) {
+          return [TagTypes.owners];
         }
         return [];
       },
@@ -159,4 +188,4 @@ export const authApi = apiSlice.injectEndpoints({
 });
 
 
-export const { useLoginMutation, useForgotPassSendOtpMutation, useForgotPassVerifyOtpMutation, useForgotPassCreateNewPassMutation, useChangeStatusMutation, useChangePasswordMutation } = authApi;
+export const { useLoginMutation, useForgotPassSendOtpMutation, useForgotPassVerifyOtpMutation, useForgotPassCreateNewPassMutation, useChangeStatusMutation, useChangeOwnerStatusMutation, useChangePasswordMutation } = authApi;

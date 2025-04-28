@@ -25,13 +25,20 @@ export const restaurantApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.restaurants],
     }),
+    getSingleRestaurant: builder.query({
+      query: (id) => ({
+        url: `/restaurant/get-single-restaurant/${id}`,
+        method: "GET",
+      }),
+      providesTags: (result, error, arg) => [ {type: TagTypes.restaurant, id:arg}]
+    }),
     changeRestaurantStatus: builder.mutation({
       query: ({ id, data }) => ({
         url: `/restaurant/change-restaurant-status/${id}`,
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) =>{
+      invalidatesTags: (result) =>{
         if(result?.success){
           return [TagTypes.restaurants]
         }
@@ -87,4 +94,4 @@ export const restaurantApi = apiSlice.injectEndpoints({
 });
 
 
-export const { useGetRestaurantsQuery, useChangeRestaurantStatusMutation, useChangeApprovalStatusMutation } = restaurantApi;
+export const { useGetRestaurantsQuery, useGetSingleRestaurantQuery, useChangeRestaurantStatusMutation, useChangeApprovalStatusMutation } = restaurantApi;
