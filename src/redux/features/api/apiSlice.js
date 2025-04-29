@@ -24,7 +24,7 @@ export const apiSlice = createApi({
         }
         return result;
     },
-    tagTypes: [TagTypes.cuisine], //TagS WhiteLists
+    tagTypes: [TagTypes.users, TagTypes.owners,TagTypes.me, TagTypes.restaurants, TagTypes.restaurant, TagTypes.dining, TagTypes.cuisine, TagTypes.administrator], //TagS WhiteLists
     endpoints: (builder) => ({}),
 })
 

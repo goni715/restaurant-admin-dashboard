@@ -1,11 +1,13 @@
 
 const TagTypes = {
+    users: "Users",
+    owners: "Owners",
+    me: "me",
+    restaurants: "Restaurants",
+    restaurant: "Restaurant",
     cuisine: "Cuisines",
     dining: "DiningList",
     administrator: "Administrators",
-    users: "Users",
-    me: "me",
-    restaurants: "Restaurants"
 }
 
 export default TagTypes;

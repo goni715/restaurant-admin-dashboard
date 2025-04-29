@@ -2,7 +2,6 @@ import { Pagination , Table } from 'antd';
 import placeholder_img from "../../assets/images/placeholder.jpeg";
 import DeleteAdministratorModal from '../modal/administrator/DeleteAdministratorModal';
 import EditAdministratorModal from '../modal/administrator/EditAdministratorModal';
-import { FiEdit } from 'react-icons/fi';
 import UpdateAccessModal from '../modal/administrator/UpdateAccessModal';
 
 

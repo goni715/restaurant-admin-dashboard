@@ -1,6 +1,9 @@
 
 import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from "react-router-dom";
+<<<<<<< HEAD
 import Dashboard from "./pages/dashboard";
+=======
+>>>>>>> 173cb03d45d61bce1fed8d3d53d302862521529e
 import RootLayOut from "./RootLayOut";
 import UserManagement from "./pages/userManagement";
 import Restaurant from "./pages/restaurant";
@@ -14,11 +17,12 @@ import SettingPage from "./pages/settings";
 import ForgotPassword from "./pages/auth/forgotPassword";
 import VerificationPage from "./components/verificationComponents/VerificationPage";
 import ResetPassword from "./pages/auth/resetPassword";
-import RestaurantDetails from "./pages/restaurantDetails/RestaurantDetails";
 import Cusine from "./pages/cusine";
 import Dining from "./pages/dining";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
+import OwnersPage from "./pages/owners/OwnersPage";
+import RestaurantDetailsPage from "./pages/restaurantDetails/RestaurantDetailsPage";
 
 
 function App() {
@@ -27,12 +31,19 @@ function App() {
     createRoutesFromElements(
       <Route>       
           <Route element={<PrivateRoute><RootLayOut/></PrivateRoute>}>
+<<<<<<< HEAD
             <Route path="/" element={<Navigate to="/users"/>}></Route> 
             {/* <Route path="/" element={<Dashboard/>}></Route>  */}
             <Route path="/users" element={<UserManagement/>}></Route>
             <Route path="/owners" element={<UserManagement/>}></Route>
+=======
+            {/* <Route path="/" element={<Dashboard/>}></Route> */}
+            <Route path="/" element={<Navigate to="/users"/>}></Route>
+            <Route path="/users" element={<UserManagement/>}></Route>
+            <Route path="/owners" element={<OwnersPage/>}></Route>
+>>>>>>> 173cb03d45d61bce1fed8d3d53d302862521529e
             <Route path="/restaurants" element={<Restaurant/>}></Route>
-            <Route path="/restaurant-details/:id" element={<RestaurantDetails/>}></Route>
+            <Route path="/restaurant-details/:id" element={<RestaurantDetailsPage/>}></Route>
             <Route path="/administrators" element={<Administrator/>}></Route>
             <Route path="/cuisine" element={<Cusine/>}></Route>
             <Route path="/dining" element={<Dining/>}></Route>
