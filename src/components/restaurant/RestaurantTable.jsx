@@ -21,7 +21,7 @@ const RestaurantTable = ({restaurants, meta, currentPage, setCurrentPage, pageSi
         serial: Number(index+1) + ((currentPage-1)*pageSize),
         _id: restaurant?._id,
         name: restaurant?.name,
-        location: restaurant?.location,
+        address: restaurant?.address,
         ratings: restaurant?.ratings,
         restaurantImg: restaurant?.restaurantImg,
         status: restaurant?.status,
@@ -67,8 +67,8 @@ const RestaurantTable = ({restaurants, meta, currentPage, setCurrentPage, pageSi
         },
         {
           title: "Address",
-          dataIndex: "location",
-          key: "location",
+          dataIndex: "address",
+          key: "address",
         },
         {
           title: "Status",
@@ -135,7 +135,7 @@ const RestaurantTable = ({restaurants, meta, currentPage, setCurrentPage, pageSi
   return (
     <>
       <div className="rounded-lg shadow p-4">
-        <Table columns={columns} dataSource={dataSource} scroll={{ x: true, y:'60vh' }} pagination={false} />
+        <Table size="small" columns={columns} dataSource={dataSource} scroll={{ x: true, y:'60vh' }} pagination={false} />
         <br />
         <Pagination onChange={handlePagination} align="end" current={currentPage} pageSize={pageSize} total={meta?.total} />
       </div>

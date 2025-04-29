@@ -1,5 +1,5 @@
 
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import RootLayOut from "./RootLayOut";
 import UserManagement from "./pages/userManagement";
@@ -27,8 +27,10 @@ function App() {
     createRoutesFromElements(
       <Route>       
           <Route element={<PrivateRoute><RootLayOut/></PrivateRoute>}>
-            {/* <Route path="/" element={<Dashboard/>}></Route> */}
-            <Route path="/" element={<UserManagement/>}></Route>
+            <Route path="/" element={<Navigate to="/users"/>}></Route> 
+            {/* <Route path="/" element={<Dashboard/>}></Route>  */}
+            <Route path="/users" element={<UserManagement/>}></Route>
+            <Route path="/owners" element={<UserManagement/>}></Route>
             <Route path="/restaurants" element={<Restaurant/>}></Route>
             <Route path="/restaurant-details/:id" element={<RestaurantDetails/>}></Route>
             <Route path="/administrators" element={<Administrator/>}></Route>

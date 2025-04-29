@@ -18,7 +18,7 @@ export const authApi = apiSlice.injectEndpoints({
           SuccessToast("Login Success");
           setToken(res?.data?.data?.accessToken);
           setTimeout(() => {
-            window.location.href = "/";
+            window.location.href = "/users";
           }, 400);
         } catch (err) {
           const status = err?.error?.status;
