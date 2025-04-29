@@ -1,9 +1,5 @@
 
 import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from "react-router-dom";
-<<<<<<< HEAD
-import Dashboard from "./pages/dashboard";
-=======
->>>>>>> 173cb03d45d61bce1fed8d3d53d302862521529e
 import RootLayOut from "./RootLayOut";
 import UserManagement from "./pages/userManagement";
 import Restaurant from "./pages/restaurant";
@@ -31,17 +27,10 @@ function App() {
     createRoutesFromElements(
       <Route>       
           <Route element={<PrivateRoute><RootLayOut/></PrivateRoute>}>
-<<<<<<< HEAD
-            <Route path="/" element={<Navigate to="/users"/>}></Route> 
-            {/* <Route path="/" element={<Dashboard/>}></Route>  */}
-            <Route path="/users" element={<UserManagement/>}></Route>
-            <Route path="/owners" element={<UserManagement/>}></Route>
-=======
             {/* <Route path="/" element={<Dashboard/>}></Route> */}
             <Route path="/" element={<Navigate to="/users"/>}></Route>
             <Route path="/users" element={<UserManagement/>}></Route>
             <Route path="/owners" element={<OwnersPage/>}></Route>
->>>>>>> 173cb03d45d61bce1fed8d3d53d302862521529e
             <Route path="/restaurants" element={<Restaurant/>}></Route>
             <Route path="/restaurant-details/:id" element={<RestaurantDetailsPage/>}></Route>
             <Route path="/administrators" element={<Administrator/>}></Route>
