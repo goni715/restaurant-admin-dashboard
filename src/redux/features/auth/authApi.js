@@ -12,7 +12,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(arg, { queryFulfilled}) {
         try {
           const res = await queryFulfilled;
           SuccessToast("Login Success");
@@ -24,6 +24,8 @@ export const authApi = apiSlice.injectEndpoints({
           const status = err?.error?.status;
           if (status === 404) {
             ErrorToast("Could not Find this Email!");
+          }else if (status === 403) {
+            ErrorToast(err?.error?.data?.message);
           } else if (status === 400) {
             ErrorToast(err?.error?.data?.message);
           } else {
@@ -38,7 +40,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
           SuccessToast("Please cheack your email inbox");
@@ -47,6 +49,8 @@ export const authApi = apiSlice.injectEndpoints({
           const status = err?.error?.status;
           if (status === 404) {
             ErrorToast("Could not Find this Email!");
+          }else if (status === 403) {
+            ErrorToast(err?.error?.data?.message);
           } else {
             ErrorToast("Something Went Wrong!");
           }
@@ -82,7 +86,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
           SuccessToast("Password is reset successfully");
@@ -134,7 +138,7 @@ export const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.users];
+          return [TagTypes.users, TagTypes.administrator];
         }
         return [];
       },

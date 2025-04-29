@@ -1,6 +1,8 @@
 import { Pagination , Table } from 'antd';
 import placeholder_img from "../../assets/images/placeholder.jpeg";
 import ChangeOwnerStatusModal from '../modal/auth/ChangeOwnerStatusModal';
+import UpdateOwnerModal from '../modal/owner/UpdateOwnerModal';
+import DeleteOwnerModal from '../modal/owner/DeleteOwnerModal';
 
 
 const OwnerTable = ({users, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
@@ -81,25 +83,14 @@ const OwnerTable = ({users, meta, currentPage, setCurrentPage, pageSize, setPage
           }
         },
         {
-          title: "Role",
-          dataIndex: "role",
-          key: "role",
-          render: (val) => {
-            const roleStyles = {
-              user: "bg-blue-100 text-blue-700 border border-blue-300",
-              owner: "bg-purple-100 text-purple-700 border border-purple-300",
-            };
-            const bgColor =
-              val === "user" ? roleStyles.user : roleStyles.owner;
-        
-            return (
-                <span
-                  className={`${bgColor} px-3 py-0.5 text-sm font-medium rounded-full`}
-                >
-                  {val}
-                </span>  
-            );
-          }
+          title: "Action",
+          key: "action",
+          render: (_, record) => (
+            <div className="flex items-center gap-x-2">
+              <UpdateOwnerModal owner={record} />
+              <DeleteOwnerModal ownerId={record._id} />
+            </div>
+          ),
         },
       ];
 
@@ -113,7 +104,7 @@ const OwnerTable = ({users, meta, currentPage, setCurrentPage, pageSize, setPage
   return (
     <>
       <div className="rounded-lg shadow p-4">
-        <Table columns={columns} dataSource={dataSource} scroll={{ x: true, y:"60vh" }} pagination={false} />
+        <Table size="small" columns={columns} dataSource={dataSource} scroll={{ x: true, y:"60vh" }} pagination={false} />
         <br />
         <Pagination onChange={handlePagination} align="end" current={currentPage} pageSize={pageSize} total={meta?.total} />
       </div>

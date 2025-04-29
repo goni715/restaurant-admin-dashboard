@@ -3,6 +3,7 @@ import placeholder_img from "../../assets/images/placeholder.jpeg";
 import DeleteAdministratorModal from '../modal/administrator/DeleteAdministratorModal';
 import EditAdministratorModal from '../modal/administrator/EditAdministratorModal';
 import UpdateAccessModal from '../modal/administrator/UpdateAccessModal';
+import ChangeStatusModal from '../modal/auth/ChangeStatusModal';
 
 
 const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, pageSize, setPageSize}) => {
@@ -17,6 +18,7 @@ const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, 
         email: administrator?.email,
         phone: administrator?.phone,
         profileImg: administrator?.profileImg,
+        status: administrator?.status
     }))
 
  
@@ -90,6 +92,30 @@ const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, 
           ),
         },
         {
+          title: "Status",
+          dataIndex: "status",
+          key: "status",
+          render: (val, record) => {
+            const statusStyles = {
+              blocked: "bg-red-100 text-red-700 border border-red-300",
+              unblocked: "bg-green-100 text-green-700 border border-green-300",
+            };
+            const bgColor =
+              val === "blocked" ? statusStyles.blocked : statusStyles.unblocked;
+        
+            return (
+              <div className="flex items-center gap-2">
+                <button
+                  className={`${bgColor} w-24 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
+                >
+                  {val}
+                </button>
+                <ChangeStatusModal userId={record?.userId} status={val}/>
+              </div>
+            );
+          }
+        },
+        {
           title: "Action",
           key: "action",
           render: (_, record) => (
@@ -111,7 +137,7 @@ const AdministratorTable = ({administrators, meta, currentPage, setCurrentPage, 
   return (
     <>
       <div className="rounded-lg shadow p-4">
-        <Table columns={columns} dataSource={dataSource} scroll={{ x: true, y: "60vh" }} pagination={false} />
+        <Table size="small" columns={columns} dataSource={dataSource} scroll={{ x: true, y: "60vh" }} pagination={false} />
         <br />
         <Pagination onChange={handlePagination} align="end" current={currentPage} pageSize={pageSize} total={meta?.total} />
       </div>

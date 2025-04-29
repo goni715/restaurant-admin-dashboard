@@ -20,13 +20,8 @@ export const menuItems = [
       title: "Owners",
       path: '/owners',
       icon: GiFrogPrince
-<<<<<<< HEAD
    },
-   {
-=======
-    },
     {
->>>>>>> 173cb03d45d61bce1fed8d3d53d302862521529e
         title: "Restaurants",
         path: '/restaurants',
         icon: RiRestaurant2Fill
@@ -41,11 +36,6 @@ export const menuItems = [
         path: '/dining',
         icon: MdDining
     },
-    // {
-    //     title: "Administrators",
-    //     path: '/administrators',
-    //     icon: RiAdminFill
-    // }
 ]
 
 
