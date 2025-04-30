@@ -16,7 +16,6 @@ const UpdateOwnerModal = ({owner}) => {
  
   useEffect(() => {
     if (isSuccess) {
-      form.resetFields();
       setModalOpen(false);
     }
   }, [isSuccess, form]);

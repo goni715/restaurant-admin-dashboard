@@ -14,18 +14,28 @@ const baseQuery = fetchBaseQuery({
 });
 
 export const apiSlice = createApi({
-    reducerPath: "api",
-    baseQuery: async (args, api, extraOptions) => {
-        let result = await baseQuery(args, api, extraOptions);
-        if (result?.error?.status === 401) {
-            localStorage.clear();
-            ErrorToast("Authorization Expired");
-            window.location.href="/login";
-        }
-        return result;
-    },
-    tagTypes: [TagTypes.users, TagTypes.owners,TagTypes.me, TagTypes.restaurants, TagTypes.restaurant, TagTypes.dining, TagTypes.cuisine, TagTypes.administrator], //TagS WhiteLists
-    endpoints: (builder) => ({}),
-})
+  reducerPath: "api",
+  baseQuery: async (args, api, extraOptions) => {
+    let result = await baseQuery(args, api, extraOptions);
+    if (result?.error?.status === 401) {
+      localStorage.clear();
+      ErrorToast("Authorization Expired");
+      window.location.href = "/login";
+    }
+    return result;
+  },
+  tagTypes: [
+    TagTypes.users,
+    TagTypes.owners,
+    TagTypes.me,
+    TagTypes.restaurants,
+    TagTypes.restaurant,
+    TagTypes.dining,
+    TagTypes.cuisine,
+    TagTypes.administrator,
+    TagTypes.faqs,
+  ], //TagS WhiteLists
+  endpoints: (builder) => ({}),
+});
 
 
