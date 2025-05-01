@@ -1,8 +1,7 @@
 import { FaRegCircleUser } from "react-icons/fa6";
 import { GiFrogPrince } from "react-icons/gi";
 import { GrRestaurant } from "react-icons/gr";
-import { MdDining } from "react-icons/md";
-import { RiAdminFill, RiPieChart2Fill, RiRestaurant2Fill } from "react-icons/ri";
+import { RiRestaurant2Fill } from "react-icons/ri";
 
 
 export const menuItems = [
@@ -30,11 +29,6 @@ export const menuItems = [
         title: "Cuisine",
         path: '/cuisine',
         icon: GrRestaurant
-    },
-    {
-        title: "Dining",
-        path: '/dining',
-        icon: MdDining
     },
 ]
 

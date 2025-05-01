@@ -13,12 +13,12 @@ import ForgotPassword from "./pages/auth/forgotPassword";
 import VerificationPage from "./components/verificationComponents/VerificationPage";
 import ResetPassword from "./pages/auth/resetPassword";
 import Cusine from "./pages/cusine";
-import Dining from "./pages/dining";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
 import OwnersPage from "./pages/owners/OwnersPage";
 import RestaurantDetailsPage from "./pages/restaurantDetails/RestaurantDetailsPage";
 import FaqsPage from "./pages/faqs/FaqsPage";
+import NotFoundPage from "./pages/NotFound/NotFoundPage";
 
 
 function App() {
@@ -35,7 +35,6 @@ function App() {
             <Route path="/restaurant-details/:id" element={<RestaurantDetailsPage/>}></Route>
             <Route path="/administrators" element={<Administrator/>}></Route>
             <Route path="/cuisine" element={<Cusine/>}></Route>
-            <Route path="/dining" element={<Dining/>}></Route>
             <Route path="/profile" element={<SettingPage/>}></Route>
             <Route path="/about" element={<AboutUs/>}></Route>
             <Route path="/terms-conditions" element={<TermsConditions/>}></Route>
@@ -47,6 +46,8 @@ function App() {
           <Route path="/forgot-password" element={<PublicRoute><ForgotPassword/></PublicRoute>}></Route>
           <Route path="/verify-otp" element={<PublicRoute><VerificationPage/></PublicRoute>}></Route>
           <Route path="/reset-password" element={<PublicRoute><ResetPassword/></PublicRoute>}></Route>
+          <Route path="*" element={<NotFoundPage/>}/>
+
       </Route>
     )
   );

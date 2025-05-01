@@ -1,4 +1,4 @@
-import { Modal, Form, Select} from "antd";
+import { Modal, Form} from "antd";
 import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
