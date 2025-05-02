@@ -1,33 +1,24 @@
-import { Typography, Button, Card } from "antd";
-import HTMLReactParser from "html-react-parser/lib/index";
-import JoditEditor from "jodit-react";
-import { useRef, useState } from "react";
+import EditorLoading from "../../components/Loader/EditorLoading";
+import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi";
+import UpdateTermsCondition from "../../components/policy/UpdateTermsCondition";
+import CreateTermsCondition from "../../components/policy/CreateTermsCondition";
 
-const TermsConditions = () => {
-  const [content, setContent] = useState("");
-  const editor = useRef(null);
 
-  return (
-    <div className="bg-[#F6F6F6]">
-      <JoditEditor
-        ref={editor}
-        value={content}
-        onChange={(newContent) => setContent(newContent)}
-      />
+const TermsConditionPage = () => {
+ const { data, isLoading, isSuccess, error} = useGetPolicyByTypeQuery("terms-condition");
+ const terms = data?.data;
 
-      <h1>{HTMLReactParser(content)}</h1>
-
-      <div className="flex py-5  justify-center">
-        <Button
-          type="primary"
-          size="large"
-          className="!bg-red-500 hover:bg-red-600 border-0 rounded-md"
-        >
-          Save
-        </Button>
-      </div>
-    </div>
-  );
+ if(isLoading){
+  return <EditorLoading/>
+ }
+ if(!isLoading && error && error?.data?.message === "Policy Not Found"){
+  return <CreateTermsCondition/>
+ }
+ 
+ if(!isLoading && isSuccess && terms?._id){
+   return <UpdateTermsCondition content={terms?.content}/>
+ }
+ 
 };
 
-export default TermsConditions;
+export default TermsConditionPage;

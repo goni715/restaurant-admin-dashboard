@@ -1,27 +1,24 @@
-import { Button } from 'antd';
-import HTMLReactParser from 'html-react-parser/lib/index';
-import JoditEditor from 'jodit-react';
-import { useRef, useState } from 'react';
+import EditorLoading from "../../components/Loader/EditorLoading";
+import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi";
+import CreateAboutUs from "../../components/policy/CreateAboutUs";
+import UpdateAboutUs from "../../components/policy/UpdateAboutUs";
 
 
-const AboutUs = () => {
-  const [content, setContent]= useState('')
-  const editor = useRef(null)
-  return (
-    <div className='bg-[#F6F6F6]'>
+const AboutUsPage = () => {
+ const { data, isLoading, isSuccess, error} = useGetPolicyByTypeQuery("about-us");
+ const about = data?.data;
 
-      <JoditEditor ref={editor} value={content} onChange={newContent=>setContent(newContent)} />
-       
-       <h1>{HTMLReactParser(content)}</h1>
-
-
-  <div className="flex py-5  justify-center">
-        <Button type="primary" size="large" className="!bg-red-500 hover:bg-red-600 border-0 rounded-md">
-          Save
-        </Button>
-      </div>
-    </div>
-  )
+ if(isLoading){
+  return <EditorLoading/>
+ }
+ if(!isLoading && error && error?.data?.message === "Policy Not Found"){
+  return <CreateAboutUs/>
+ }
+ 
+ if(!isLoading && isSuccess && about?._id){
+   return <UpdateAboutUs content={about?.content}/>
+ }
+ 
 };
 
-export default AboutUs
+export default AboutUsPage;

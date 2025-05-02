@@ -1,37 +1,24 @@
-import { Button } from "antd";
-import JoditEditor from "jodit-react";
-import { useRef, useState } from "react";
-
-const PrivacyPolicy = () => {
-  const [content, setContent] = useState("");
-  const editor = useRef(null);
-
-  const handleSubmit = async () => {
-    console.log(content);
-  }
+import EditorLoading from "../../components/Loader/EditorLoading";
+import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi";
+import UpdatePrivacyPolicy from "../../components/policy/UpdatePrivacyPolicy";
+import CreatePrivacyPolicy from "../../components/policy/CreatePrivacyPolicy";
 
 
-  
-  return (
-    <div className="bg-[#F6F6F6]">
-      <JoditEditor
-        ref={editor}
-        value={content}
-        onChange={(newContent) => setContent(newContent)}
-      />
+const PrivacyPolicyPage = () => {
+  const { data, isLoading, isSuccess, error} = useGetPolicyByTypeQuery("privacy-policy");
+  const privacy = data?.data;
 
-      <div className="flex py-5  justify-center">
-        <button
-          onClick={handleSubmit}
-          type="primary"
-          size="large"
-          className="px-6 py-2 bg-red-500 hover:bg-red-600 rounded-md text-lg text-white"
-        >
-          Save
-        </button>
-      </div>
-    </div>
-  );
+ if(isLoading){
+  return <EditorLoading/>
+ }
+ if(!isLoading && error && error?.data?.message === "Policy Not Found"){
+  return <CreatePrivacyPolicy/>
+ }
+ 
+ if(!isLoading && isSuccess && privacy?._id){
+   return <UpdatePrivacyPolicy content={privacy?.content}/>
+ }
+ 
 };
 
-export default PrivacyPolicy;
+export default PrivacyPolicyPage;

@@ -9,7 +9,7 @@ const TagTypes = {
     dining: "DiningList",
     administrator: "Administrators",
     faqs: "Faqs",
-    policy: "Policy"
+    policy: "Policy",
 }
 
 export default TagTypes;
