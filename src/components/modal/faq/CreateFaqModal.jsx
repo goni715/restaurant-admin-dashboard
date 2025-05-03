@@ -5,11 +5,15 @@ const { TextArea } = Input;
 import { useEffect, useState } from "react";
 import { useCreateFaqMutation } from "../../../redux/features/faq/faqApi";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { ErrorToast } from "../../../helper/ValidationHelper";
+import { useSelector } from "react-redux";
 
 const CreateFaqModal = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [form] = Form.useForm();
   const [createFaq, { isLoading, isSuccess }] = useCreateFaqMutation();
+  const { access } = useSelector((state)=>state.user);
+
 
   useEffect(() => {
     if (isSuccess) {
@@ -25,7 +29,13 @@ const CreateFaqModal = () => {
   return (
     <>
       <button
-        onClick={() => setModalOpen(true)}
+        onClick={() => {
+          if (access?.includes("settings")) {
+            setModalOpen(true);
+          } else {
+            ErrorToast("You have no access");
+          }
+        }}
         className=" bg-red-500 hover:bg-red-600 duration-200 px-4 py-2 border-0 rounded-md text-white flex justify-center items-center gap-x-2 disabled:cursor-not-allowed"
       >
         + Add FAQ

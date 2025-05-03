@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { useUpdateFaqMutation } from "../../../redux/features/faq/faqApi";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { useSelector } from "react-redux";
+import { ErrorToast } from "../../../helper/ValidationHelper";
 const { Title } = Typography;
 const { TextArea } = Input;
 
@@ -10,6 +12,8 @@ const EditFaqModal = ({ faq }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [form] = Form.useForm();
   const [updateFaq, { isLoading, isSuccess}] = useUpdateFaqMutation();
+  const { access } = useSelector((state)=>state.user);
+
 
     useEffect(() => {
       if (isSuccess) {
@@ -27,7 +31,13 @@ const EditFaqModal = ({ faq }) => {
   return (
     <>
       <button
-        onClick={() => setModalOpen(true)}
+        onClick={() => {
+          if (access?.includes("settings")) {
+            setModalOpen(true);
+          } else {
+            ErrorToast("You have no access");
+          }
+        }}
         className="bg-white p-1.5 rounded-full shadow hover:bg-gray-100 transition"
       >
         <FiEdit className="text-blue-600" size={20} />

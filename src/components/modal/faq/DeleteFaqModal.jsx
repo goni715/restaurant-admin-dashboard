@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { FiTrash2 } from "react-icons/fi";
 import { useDeleteFaqMutation } from "../../../redux/features/faq/faqApi";
+import { ErrorToast } from "../../../helper/ValidationHelper";
+import { useSelector } from "react-redux";
 
 
 
 const DeleteFaqModal = ({ faqId }) => {
    const [ modalOpen, setModalOpen ] = useState(false);
    const [ deleteFaq, { isLoading, isSuccess, isError }] = useDeleteFaqMutation();
+   const { access } = useSelector((state)=>state.user);
+
 
     useEffect(() => {
       if (isSuccess || isError) {
@@ -22,7 +26,16 @@ const DeleteFaqModal = ({ faqId }) => {
 
   return (
     <>
-      <button onClick={()=> setModalOpen(true)} className="bg-white p-1.5 rounded-full shadow hover:bg-gray-100 transition">
+      <button
+        onClick={() => {
+          if (access?.includes("settings")) {
+            setModalOpen(true);
+          } else {
+            ErrorToast("You have no access");
+          }
+        }}
+        className="bg-white p-1.5 rounded-full shadow hover:bg-gray-100 transition"
+      >
         <FiTrash2 className="text-red-500" size={20} />
       </button>
       <Modal

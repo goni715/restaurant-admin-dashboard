@@ -34,7 +34,9 @@ export const policyApi = apiSlice.injectEndpoints({
           const status = err?.error?.status;
           if (status === 409) {
             ErrorToast(err?.error?.data?.message);
-          } else {
+          } else if (status === 403) {
+            ErrorToast(err?.error?.data?.message);
+          }else {
             ErrorToast("Something Went Wrong!");
           }
         }
@@ -61,6 +63,8 @@ export const policyApi = apiSlice.injectEndpoints({
           if (status === 404) {
             ErrorToast(err?.error?.data?.message);
           } else if (status === 409) {
+            ErrorToast(err?.error?.data?.message);
+          } else if (status === 403) {
             ErrorToast(err?.error?.data?.message);
           } else {
             ErrorToast("Something Went Wrong!");

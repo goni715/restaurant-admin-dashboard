@@ -35,16 +35,16 @@ export const menuItems = [
 
 export const subMenuItems = [
   {
+    title: "FAQS",
+    path: "/faqs",
+  },
+  {
     title: "Terms & Conditions",
     path: "/terms-conditions",
   },
   {
     title: "About Us",
     path: "/about",
-  },
-  {
-    title: "FAQS",
-    path: "/faqs",
   },
   {
     title: "Privacy Policy",

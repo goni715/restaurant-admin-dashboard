@@ -3,11 +3,14 @@ import { useRef, useState } from "react";
 import { ErrorToast } from "../../helper/ValidationHelper";
 import { useCreatePolicyMutation } from "../../redux/features/policy/policyApi";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { useSelector } from "react-redux";
 
 const CreateTermsCondition = () => {
   const [content, setContent] = useState("");
   const editor = useRef(null);
   const [createPolicy, { isLoading }] = useCreatePolicyMutation();
+  const { access } = useSelector((state)=>state.user);
+
 
   const handleSubmit = async () => {
     if (!content) {
@@ -30,7 +33,13 @@ const CreateTermsCondition = () => {
 
       <div className="flex py-5  justify-center">
         <button
-          onClick={handleSubmit}
+         onClick={() => {
+          if (access?.includes("settings")) {
+            handleSubmit();
+          } else {
+            ErrorToast("You have no access");
+          }
+        }}
           type="primary"
           size="large"
           disabled={isLoading}
