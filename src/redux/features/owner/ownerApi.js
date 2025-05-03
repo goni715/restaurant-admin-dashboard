@@ -17,7 +17,7 @@ export const ownerApi = apiSlice.injectEndpoints({
           });
         }
         return {
-          url: "/user/get-owners",
+          url: "/owner/get-owners",
           method: "GET",
           params: params,
         };
@@ -27,7 +27,7 @@ export const ownerApi = apiSlice.injectEndpoints({
     }),
     createOwner: builder.mutation({
         query: (data) => ({
-          url: `/user/create-owner`,
+          url: `/owner/create-owner`,
           method: "POST",
           body: data,
         }),
@@ -40,7 +40,7 @@ export const ownerApi = apiSlice.injectEndpoints({
         async onQueryStarted(arg, { queryFulfilled }) {
           try {
             await queryFulfilled;
-            SuccessToast("Administrator is created successfully");
+            SuccessToast("Owner is created successfully");
           } catch (err) {
             const status = err?.error?.status;
             if (status === 409) {
@@ -50,9 +50,62 @@ export const ownerApi = apiSlice.injectEndpoints({
             }
           }
         },
+    }),
+    updateOwner: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/owner/update-owner/${id}`,
+        method: "PATCH",
+        body: data,
       }),
+      invalidatesTags: (result) =>{
+        if(result?.success){
+          return [TagTypes.owners]
+        }
+        return []
+      },
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+            SuccessToast("Owner is updated successfully");
+        } catch (err) {
+          const status = err?.error?.status;
+          if (status === 404) {
+            ErrorToast(err?.error?.data?.message);
+          } else {
+            ErrorToast("Something Went Wrong!");
+          }
+        }
+      },
+    }),
+    deleteOwner: builder.mutation({
+      query: (id) => ({
+        url: `/owner/delete-owner/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result) =>{
+        if(result?.success){
+          return [TagTypes.owners]
+        }
+        return []
+      },
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          SuccessToast("Owner is deleted successfully");
+        } catch (err) {
+          const status = err?.error?.status;
+          if (status === 404) {
+            ErrorToast(err?.error?.data?.message);
+          } else if (status === 409) {
+            ErrorToast(err?.error?.data?.message);
+          } else {
+            ErrorToast("Something Went Wrong!");
+          }
+        }
+      },
+    }),
   }),
 });
 
 
-export const { useGetOwnersQuery, useCreateOwnerMutation } = ownerApi;
+export const { useGetOwnersQuery, useCreateOwnerMutation, useUpdateOwnerMutation, useDeleteOwnerMutation } = ownerApi;

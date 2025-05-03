@@ -2,44 +2,32 @@ import {apiSlice} from "../api/apiSlice.js";
 import {ErrorToast, SuccessToast} from "../../../helper/ValidationHelper.js";
 import TagTypes from "../../../constant/tagType.constant.js";
 
-export const diningApi = apiSlice.injectEndpoints({
+export const faqApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getDiningList: builder.query({
-      query: (args) => {
-        const params = new URLSearchParams();
-
-        if (args !== undefined && args.length > 0) {
-          args.forEach((item) => {
-            if(item.value){
-              params.append(item.name, item.value);
-            }
-          });
-        }
-        return {
-          url: "/dining/get-dining-list",
+    getFaqs: builder.query({
+      query: () => ({
+          url: "/faq/get-faqs",
           method: "GET",
-          params: params
-        };
-      },
+      }),
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.dining],
+      providesTags: [TagTypes.faqs],
     }),
-    createDining: builder.mutation({
+    createFaq: builder.mutation({
       query: (data) => ({
-        url: `/dining/create-dining`,
+        url: "/faq/create-faq",
         method: "POST",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) =>{
+      invalidatesTags: (result) =>{
         if(result?.success){
-          return [TagTypes.dining]
+          return [TagTypes.faqs]
         }
         return []
       },
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast("Dining is created successfully");
+          SuccessToast("Faq is created successfully");
         } catch (err) {
           const status = err?.error?.status;
           if (status === 409) {
@@ -50,26 +38,24 @@ export const diningApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    deleteDining: builder.mutation({
+    deleteFaq: builder.mutation({
       query: (id) => ({
-        url: `/dining/delete-dining/${id}`,
+        url: `/faq/delete-faq/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (result, error, arg) =>{
+      invalidatesTags: (result) =>{
         if(result?.success){
-          return [TagTypes.dining]
+          return [TagTypes.faqs]
         }
         return []
       },
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast("Dining is deleted successfully");
+          SuccessToast("Faq is deleted successfully");
         } catch (err) {
           const status = err?.error?.status;
           if (status === 404) {
-            ErrorToast(err?.error?.data?.message);
-          } else if (status === 409) {
             ErrorToast(err?.error?.data?.message);
           } else {
             ErrorToast("Something Went Wrong!");
@@ -77,22 +63,22 @@ export const diningApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    updateDining: builder.mutation({
+    updateFaq: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/dining/update-dining/${id}`,
+        url: `/faq/update-faq/${id}`,
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) =>{
+      invalidatesTags: (result) =>{
         if(result?.success){
-          return [TagTypes.dining]
+          return [TagTypes.faqs]
         }
         return []
       },
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-            SuccessToast("Dining is updated successfully");
+            SuccessToast("Faq is updated successfully");
         } catch (err) {
           const status = err?.error?.status;
           if (status === 404) {
@@ -109,4 +95,4 @@ export const diningApi = apiSlice.injectEndpoints({
 });
 
 
-export const { useGetDiningListQuery, useCreateDiningMutation, useDeleteDiningMutation, useUpdateDiningMutation } = diningApi;
+export const { useGetFaqsQuery, useCreateFaqMutation, useDeleteFaqMutation, useUpdateFaqMutation } = faqApi;

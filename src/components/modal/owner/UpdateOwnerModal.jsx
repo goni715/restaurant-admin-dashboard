@@ -1,31 +1,31 @@
-import { Input, Modal, Form} from "antd";
+import { Input, Modal, Form } from "antd";
 import { useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { useUpdateAdministratorMutation } from "../../../redux/features/administrator/administratorApi";
 import { useSelector } from "react-redux";
 import { ErrorToast } from "../../../helper/ValidationHelper";
+import { useUpdateOwnerMutation } from "../../../redux/features/owner/ownerApi";
 
 
-const EditAdministratorModal = ({administrator}) => {
+const UpdateOwnerModal = ({owner}) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [updateAdministrator, { isLoading, isSuccess }] = useUpdateAdministratorMutation();
+  const [updateOwner, { isLoading, isSuccess }] = useUpdateOwnerMutation();
   const [form] = Form.useForm();
-  const { role } = useSelector((state)=>state.user);
+  const { access } = useSelector((state)=>state.user);
 
-
+ 
   useEffect(() => {
     if (isSuccess) {
       setModalOpen(false);
     }
-  }, [isSuccess]);
+  }, [isSuccess, form]);
 
 
   const onFinish = (values) => {
-    updateAdministrator({
-      id: administrator?.userId,
-      data: values
-    })
+    updateOwner({
+        id: owner?._id,
+        data: values
+    });
   };
 
 
@@ -36,7 +36,7 @@ const EditAdministratorModal = ({administrator}) => {
       <button
         className="bg-red-500 hover:bg-red-700 !text-white font-bold py-2 px-4 rounded"
         onClick={() => {
-          if (role === "super_admin") {
+          if (access?.includes("owner")) {
             setModalOpen(true);
           } else {
             ErrorToast("You have no access");
@@ -46,28 +46,22 @@ const EditAdministratorModal = ({administrator}) => {
         <EditOutlined />
       </button>
       <Modal
-        title={<span className="font-bold">Update Administrator</span>}
+        title={<span className="font-bold">Update Owner</span>}
         open={modalOpen}
         onCancel={() => {
-          form.setFieldsValue({
-            fullName: administrator?.name,
-            phone: administrator?.phone,
-          });
-          setModalOpen(false);
-        }}
+            form.setFieldsValue({
+              fullName: owner?.name,
+              phone: owner?.phone,
+            });
+            setModalOpen(false);
+          }}
         maskClosable={false}
         footer={false}
       >
-        <Form
-          form={form}
-          name="add"
-          layout="vertical"
-          onFinish={onFinish}
-          initialValues={{
-            fullName: administrator?.name,
-            phone: administrator?.phone,
-          }}
-        >
+        <Form form={form} name="add" layout="vertical"  initialValues={{
+            fullName: owner?.name,
+            phone: owner?.phone,
+          }} onFinish={onFinish}>
           <Form.Item
             name="fullName"
             label={
@@ -78,7 +72,7 @@ const EditAdministratorModal = ({administrator}) => {
             }
             rules={[{ required: true, message: "Full Name is required" }]}
           >
-            <Input placeholder="Type here" key={Date.now()} />
+            <Input placeholder="Type here" />
           </Form.Item>
           <Form.Item
             name="phone"
@@ -112,4 +106,4 @@ const EditAdministratorModal = ({administrator}) => {
   );
 };
 
-export default EditAdministratorModal;
+export default UpdateOwnerModal;

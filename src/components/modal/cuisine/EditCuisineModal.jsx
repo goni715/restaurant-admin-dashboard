@@ -24,7 +24,6 @@ const EditCuisineModal = ({cuisine}) => {
       if (fileInputRef.current) {
         fileInputRef.current.value = null;
       }
-      form.resetFields();
     }
   }, [isSuccess, form]);
 

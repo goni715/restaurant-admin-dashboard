@@ -14,7 +14,6 @@ const SidebarMenu = () => {
   const location = useLocation();
   const path = location.pathname;
   const role = getRole();
-  console.log(role);
 
 
   const toggleSettings = () => {

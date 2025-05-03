@@ -28,14 +28,5 @@ input::placeholder {
     outline: none !important; /* Remove focus outline */
     box-shadow: none !important; /* Remove default focus box-shadow */
   }
-  /* .ant-menu-light .ant-menu-item-selected {
-    background-color: red !important;
-    color: white !important;
-  }
-  
-  .ant-menu-submenu .ant-menu-submenu-inline {
-    background-color: red !important;
-    color: white !important;
-  }
-   */
+ 
   
