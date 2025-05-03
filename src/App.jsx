@@ -30,7 +30,6 @@ function App() {
             <Route path="/" element={<Navigate to="/users"/>}></Route> 
             {/* <Route path="/" element={<Dashboard/>}></Route>  */}
             <Route path="/users" element={<UserManagement/>}></Route>
-            <Route path="/owners" element={<UserManagement/>}></Route>
             {/* <Route path="/" element={<Dashboard/>}></Route> */}
             <Route path="/" element={<Navigate to="/users"/>}></Route>
             <Route path="/users" element={<UserManagement/>}></Route>
