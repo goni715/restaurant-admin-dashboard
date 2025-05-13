@@ -46,8 +46,8 @@ const RestaurantTable = ({restaurants, meta, currentPage, setCurrentPage, pageSi
         },
         {
           title: "Image",
-          dataIndex: "profileImg",
-          key: "profileImg",
+          dataIndex: "restaurantImg",
+          key: "restaurantImg",
           render: (val) => (
             <img
               src={val || placeholder_img}
