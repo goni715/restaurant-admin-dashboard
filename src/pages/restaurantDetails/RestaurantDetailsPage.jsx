@@ -34,7 +34,9 @@ const RestaurantDetailsPage = () => {
     return (
       <>
        <GoBackPart/>
-       <RestaurantDetails restaurant={restaurant}/>
+       <div className="h-full overflow-y-scroll">
+        <RestaurantDetails restaurant={restaurant}/>
+       </div>
       </>
     )
   }
@@ -49,7 +51,7 @@ const GoBackPart = ()=> {
     navigate(-1);
   };
   return (
-    <div className="text-left mb-6 text-lg font-semibold flex items-center gap-2">
+    <div className="text-left mb-6 text-lg font-semibold flex items-center gap-2 sticky">
         <FaArrowLeft
           onClick={handleGoBack}
           size={20}

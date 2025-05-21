@@ -5,12 +5,11 @@ import { ErrorToast } from "../../../helper/ValidationHelper.js";
 import TagTypes from "../../../constant/tagType.constant.js";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "http://13.51.51.176:9090/api/v1",
-    //baseUrl: "http://localhost:9090/api/v1",
+    //baseUrl: "http://13.51.51.176:9090/api/v1",
+    baseUrl: "http://localhost:9090/api/v1",
     prepareHeaders: async (headers, {getState, endpoint}) =>{
         if(getToken()){
             headers.set("Authorization", getToken());
-            console.log();
         }
         return headers;
     }

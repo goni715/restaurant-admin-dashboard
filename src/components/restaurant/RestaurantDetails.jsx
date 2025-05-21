@@ -1,95 +1,153 @@
 
-import { IoIosStar } from "react-icons/io";
+import { Check, DollarSign, Eye, MapPin, SquarePen, Star, X } from "lucide-react";
 import restaurant_img from "../../assets/images/restaurant.jpg";
-import placeholder_img from "../../assets/images/placeholder.jpeg"
+import { useNavigate } from "react-router-dom";
 
 
 
 const RestaurantDetails = ({restaurant}) => {
+  const navigate = useNavigate();
   
 
 
   return (
     <>
-      <div className="max-w-5xl mx-auto p-6 bg-[#f6f6f6] shadow-md rounded-lg">
+     <div className="max-w-7xl mx-auto p-4 md:p-6 bg-white">
+      {/* Restaurant Name */}
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-3xl md:text-4xl font-bold">{restaurant.name}</h1>
+      </div>
+
+      {/* Restaurant Image */}
+      <div className="mb-6 rounded-lg overflow-hidden shadow-md relative group">
         <img
-          src={restaurant?.restaurantImg || restaurant_img}
-          alt={restaurant.name}
+          src={restaurant.restaurantImg || restaurant_img}
+          alt="restaurant_img"
           onError={(e) => {
             e.currentTarget.onerror = null; // Prevent infinite loop
-            e.currentTarget.src = placeholder_img;
+            e.currentTarget.src = restaurant_img; // placeholder_img;
           }}
-          className="w-full h-[250px] rounded-md mb-4"
+          className="w-full h-[350px] object-cover"
         />
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <div className="mb-4">
-              <p className="font-semibold">Restaurant Name</p>
-              <p className="pl-3">{restaurant?.name}</p>
-            </div>
-            <div className="mb-4">
-              <p className="font-semibold">Owner</p>
-              <p className="pl-3">{restaurant?.ownerName}</p>
-            </div>
-            <div className="mb-4">
-              <p className="font-semibold">Address</p>
-              <p className="pl-3">{restaurant?.address}</p>
-            </div>
-            <div className="mb-4">
-              <p className="font-semibold">Website Link</p>
-              <a
-                target="_blank"
-                href=""
-                className="pl-3 text-blue-500 hover:text-blue-600"
-              >
-                {restaurant?.website || "https.example.com"}
-              </a>
-            </div>
-          </div>
-          <div>
-            <div className="mb-4">
-              <p className="font-semibold">Ratings</p>
-              <div className="flex items-center gap-1 text-base text-yellow-500">
-                <IoIosStar />
-                <span className="text-black font-medium">
-                  {restaurant?.ratings || 0}
-                </span>
-                <span className="text-[#949494] text-sm">
-                  ({restaurant?.totalReview || 0})
-                </span>
+      </div>
+
+      {/* Main Info Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {/* Left Column */}
+        <div className="space-y-4">
+          {/* Address */}
+          <div className="bg-gray-50 rounded-md">
+            <div className="flex items-start justify-between group p-3">
+            <div className="flex items-start">
+              <MapPin className="w-5 h-5 text-gray-600 mt-1 mr-2 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold text-gray-800">Address</h3>
+                <p className="text-gray-600">{restaurant.address}</p>
               </div>
             </div>
-            <div className="mb-4">
-              <p className="font-semibold">Cancellation Charged</p>
-              <p className="pl-3">{restaurant.cancellation ? "Yes" : "No"}</p>
+             <button
+                onClick={() => navigate(`/restaurant/view-location/${restaurant?._id}`)}
+                className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors"
+                aria-label="Edit restaurant name"
+              >
+                <Eye  className="w-5 h-5" />
+              </button>
+          </div>
+
+          {/* Coordinates */}
+          <div className="bg-gray-50 p-3 rounded-md relative group">
+            <div className="flex justify-between items-start">
+              <h3 className="font-semibold text-gray-800 mb-1">Location</h3>
+            
             </div>
-            <div className="mb-4">
-              <p className="font-semibold">Status</p>
-              <p className="pl-3 capitalize">{restaurant?.status}</p>
+            <p className="text-sm text-gray-600">
+              Latitude: {restaurant.latitude} | Longitude:{" "}
+              {restaurant.longitude}
+            </p>
+          </div>
+          </div>
+
+          {/* Discount */}
+          <div className="bg-green-50 p-3 rounded-md border-l-4 border-green-500 relative group">
+            <div className="flex justify-between items-start">
+              <h3 className="font-semibold text-green-700">Discount/Offer</h3>
+            </div>
+            <p className="text-green-600">{restaurant.discount}</p>
+          </div>
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-4">
+          {/* Ratings */}
+          <div className="bg-amber-50 p-4 rounded-md relative group">
+            <div className="flex justify-between items-start">
+              <div className="flex items-center">
+                <h3 className="font-semibold text-gray-800 mr-2">Rating</h3>
+                <div className="flex items-center gap-x-1">
+                  <Star className={`w-4 h-4 fill-amber-400 text-amber-400`} />
+                  <span className="text-md font-bold text-amber-500">
+                    {restaurant?.ratings}
+                  </span>
+                  <span>({restaurant?.totalReview} reviews)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Payment Info */}
+          <div className="bg-gray-50 p-4 rounded-md space-y-3 relative">
+            <div className="flex justify-between items-start">
+              <h3 className="font-semibold text-gray-800">
+                Booking Information
+              </h3>
+              {/* <UpdateInformationModal restaurant={restaurant} /> */}
+            </div>
+
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">Payment Required</span>
+              <span className="flex items-center">
+                {restaurant.paymentRequired ? (
+                  <Check className="w-10 h-10 text-green-700 text-lg bg-green-100 border border-green-300 p-2 rounded-full" />
+                ) : (
+                  <X className="w-10 h-10 text-red-700 text-lg bg-red-100 border border-red-300 p-2 rounded-full" />
+                )}
+              </span>
+            </div>
+
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">Cancellation Fee</span>
+              <span className="font-medium">
+                {restaurant?.cancellationPercentage}%
+              </span>
+            </div>
+
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">Booking Fee</span>
+              <span className="flex items-center font-medium">
+                <DollarSign className="w-4 h-4" />
+                {restaurant?.bookingFeePerGuest} per guest
+              </span>
             </div>
           </div>
         </div>
-        {/* <div className="mt-4 flex items-center justify-between">
-        <div>
-        <p className="font-semibold">Business Hours</p>
-        <Checkbox checked={restaurant.businessDay}>Day</Checkbox>
-        </div>
-        <div className="ml-4 flex items-end ">
-        <div>
-        <p className="mr-2 font-semibold">Open Time</p>
-        <Input
-        value={restaurant.openTime}
-        style={{ width: "100px", marginRight: "10px" }}
-        />
-        </div>
-        <p className="m-5">To</p>
-        <div>
-        <p className="mr-2 font-semibold">Close Time</p>
-        <Input value={restaurant.closeTime} style={{ width: "100px" }} />
-        </div>
-        </div>
-        </div> */}
       </div>
+
+      {/* Features */}
+      <div className="border-t pt-6">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="font-semibold text-gray-800 text-lg">Features</h3>
+          {/* <UpdateFeaturesModal restaurant={restaurant} /> */}
+        </div>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {restaurant?.features?.map((feature, index) => (
+            <li key={index} className="flex items-center">
+              <Check className="w-5 h-5 text-green-500 mr-2" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
     </>
   );
 };

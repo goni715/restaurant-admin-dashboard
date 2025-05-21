@@ -45,6 +45,7 @@ const DeleteOwnerModal = ({ ownerId }) => {
         onCancel={() => setModalOpen(false)}
         maskClosable={false}
         footer={false}
+        closable={false}
       >
         <div className="flex justify-end px-4 gap-x-3">
           <button

@@ -19,6 +19,7 @@ import OwnersPage from "./pages/owners/OwnersPage";
 import RestaurantDetailsPage from "./pages/restaurantDetails/RestaurantDetailsPage";
 import FaqsPage from "./pages/faqs/FaqsPage";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
+import ViewLocationPage from "./pages/location/ViewLocationPage";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path="/owners" element={<OwnersPage/>}></Route>
             <Route path="/restaurants" element={<Restaurant/>}></Route>
             <Route path="/restaurant-details/:id" element={<RestaurantDetailsPage/>}></Route>
+             <Route path="/restaurant/view-location/:id" element={<ViewLocationPage/>}></Route>
             <Route path="/administrators" element={<Administrator/>}></Route>
             <Route path="/cuisine" element={<Cusine/>}></Route>
             <Route path="/profile" element={<SettingPage/>}></Route>
