@@ -32,6 +32,7 @@ const DeleteCuisineModal = ({ cuisineId }) => {
         open={modalOpen}
         onCancel={() => setModalOpen(false)}
         maskClosable={false}
+        closable={false}
         footer={false}
       >
        
