@@ -34,7 +34,7 @@ const CreateOwnerModal = () => {
   return (
     <>
       <Button
-        className="mb-4 !bg-red-500 !text-white  hover:bg-red-700"
+        className="!bg-rose-500 !text-white  hover:bg-rose-600"
         icon={<PlusOutlined />}
         onClick={() => {
           if (access?.includes("owner")) {

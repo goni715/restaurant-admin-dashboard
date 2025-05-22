@@ -41,23 +41,33 @@ const OwnerList = () => {
   return (
     <>
       <div className="flex justify-between items-center mb-4">
-      <CreateOwnerModal />
-        <div className="w-[348px]">
-          <Search
-            placeholder="Search here..."
-            onSearch={handleSearch}
-            onChange={(e) => handleSearch(e.target.value)}
-            className="p-2 rounded"
-          />
+        <h1 className="text-lg">
+          Total: <span className="font-bold"> {meta?.total} </span>
+        </h1>
+        <div className="flex items-center justify-end gap-2">
+          <div className="w-[348px]">
+            <Search
+              placeholder="Search here..."
+              onSearch={handleSearch}
+              onChange={(e) => handleSearch(e.target.value)}
+              className="p-2 rounded"
+            />
+          </div>
+          <CreateOwnerModal />
         </div>
       </div>
-      {
-        isLoading ? (
-          <ListLoading/>
-        ): (
-          <OwnerTable users={owners} meta={meta} currentPage={currentPage} setCurrentPage={setCurrentPage} pageSize={pageSize} setPageSize={setPageSize}/>
-        )
-      }
+      {isLoading ? (
+        <ListLoading />
+      ) : (
+        <OwnerTable
+          users={owners}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+        />
+      )}
     </>
   );
 }

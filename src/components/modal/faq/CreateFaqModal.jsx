@@ -80,7 +80,7 @@ const CreateFaqModal = () => {
               name="answer"
               rules={[{ required: true, message: "Please enter an answer." }]}
             >
-              <TextArea rows={2} placeholder="Write answer..." />
+              <TextArea rows={4} placeholder="Write answer..." />
             </Form.Item>
 
             <div className="grid grid-cols-2 gap-3 mt-4">
